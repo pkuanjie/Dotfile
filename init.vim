@@ -19,6 +19,7 @@ syntax on
 if !exists('g:vscode')
 	call plug#begin()
 	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'joshdick/onedark.vim'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'jiangmiao/auto-pairs'
@@ -31,7 +32,7 @@ endif
 " ----------------------------------------
 " airline config
 " ----------------------------------------
-let g:airline_theme='one'
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
 " ----------------------------------------
 
