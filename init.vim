@@ -27,6 +27,10 @@ if !exists('g:vscode')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdcommenter'
 	call plug#end()
+else
+	call plug#begin()
+	Plug 'preservim/nerdcommenter'
+	call plug#end()
 endif
 
 " ----------------------------------------
