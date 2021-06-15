@@ -26,7 +26,6 @@ if !exists('g:vscode')
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdcommenter'
-	Plug 'majutsushi/tagbar'
 	call plug#end()
 else
 	call plug#begin()
@@ -34,7 +33,10 @@ else
 	call plug#end()
 endif
 
-nmap <leader>t :TagbarToggle<CR>
+" ----------------------------------------
+" tagbar config
+" ----------------------------------------
+" nmap <leader>t :TagbarToggle<CR>
 
 " ----------------------------------------
 " colorscheme config
