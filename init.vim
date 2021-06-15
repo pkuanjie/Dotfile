@@ -74,7 +74,7 @@ let g:AutoPairsShortcutFastWrap="<C-y>"
 " ----------------------------------------
 " coc config
 " ----------------------------------------
-let g:coc_global_extensions = ['coc-json', 'coc-css', 'coc-python', 'coc-git', 'coc-html']
+let g:coc_global_extensions = ['coc-json', 'coc-css', 'coc-jedi', 'coc-git', 'coc-html']
 "  
 " TextEdit might fail if hidden is not set.
 set hidden
