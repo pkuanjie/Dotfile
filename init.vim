@@ -10,7 +10,6 @@
 " Date: 2021/6/18
 " --------------------------------------------
 
-
 " ========================================
 " Basic Settings
 " ========================================
@@ -55,6 +54,9 @@ noremap <LEADER>q <C-w>j:q<CR>
 
 " markdown, latex, auto spell
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
+
+" Press space twice to jump to the next '<++>' and edit it
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " ========================================
 
@@ -113,11 +115,13 @@ else
 	call plug#end()
 endif
 
+
 " ----------------------------------------
 "  vim splitjoin config
 " ----------------------------------------
 "  gS for split
 "  gJ for join
+" ----------------------------------------
 
 " ----------------------------------------
 "  vim easymotion config
@@ -195,7 +199,7 @@ nnoremap <leader>vv :Vista<CR>
 " ----------------------------------------
 "  undetree
 " ----------------------------------------
-nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 " ----------------------------------------
 
 " ----------------------------------------
