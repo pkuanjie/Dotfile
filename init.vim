@@ -47,6 +47,15 @@ vnoremap Y "+y
 " Spelling Check with <space>sc
 noremap <leader>sp :set spell!<CR>
 
+" find and replace
+noremap \s :%s//g<left><left>
+
+" Press <SPACE> + q to close the window below the current window
+noremap <LEADER>q <C-w>j:q<CR>
+
+" markdown, latex, auto spell
+autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
+
 " ========================================
 
 " ========================================
@@ -74,6 +83,7 @@ if !exists('g:vscode')
 	Plug 'ron89/thesaurus_query.vim'
 	Plug 'mhinz/vim-startify'
 	Plug 'jbgutierrez/vim-better-comments'
+	Plug 'AndrewRadev/splitjoin.vim'
 
 	" General Highlighter
 	Plug 'RRethy/vim-illuminate'
@@ -86,6 +96,7 @@ if !exists('g:vscode')
 	Plug 'theniceboy/vim-snippets'
 	Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
 	Plug 'junegunn/vim-after-object'
+	Plug 'easymotion/vim-easymotion'
 
 	Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 	Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
@@ -101,6 +112,33 @@ else
 	Plug 'preservim/nerdcommenter'
 	call plug#end()
 endif
+
+" ----------------------------------------
+"  vim splitjoin config
+" ----------------------------------------
+"  gS for split
+"  gJ for join
+
+" ----------------------------------------
+"  vim easymotion config
+" ----------------------------------------
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+" ----------------------------------------
 
 " ----------------------------------------
 "  vim signature config
@@ -338,11 +376,11 @@ nmap ts <Plug>(coc-translator-p)
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"             \ pumvisible() ? "\<C-n>" :
-"             \ <SID>check_back_space() ? "\<TAB>" :
-"             \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "
 " function! s:check_back_space() abort
 "     let col = col('.') - 1
