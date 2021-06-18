@@ -58,6 +58,10 @@ autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
 " Press space twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
+" bind <A-a> to use it for increasing numbers and <A-x> to decrease
+nnoremap <A-a> <C-a>
+nnoremap <A-x> <C-x>
+
 " ========================================
 
 " ========================================
@@ -86,6 +90,7 @@ if !exists('g:vscode')
 	Plug 'mhinz/vim-startify'
 	Plug 'jbgutierrez/vim-better-comments'
 	Plug 'AndrewRadev/splitjoin.vim'
+	Plug 'DougBeney/pickachu'
 
 	" General Highlighter
 	Plug 'RRethy/vim-illuminate'
@@ -99,6 +104,7 @@ if !exists('g:vscode')
 	Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
 	Plug 'junegunn/vim-after-object'
 	Plug 'easymotion/vim-easymotion'
+	Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 	Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 	Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
@@ -115,6 +121,20 @@ else
 	call plug#end()
 endif
 
+
+" ----------------------------------------
+"  vim semshi config
+" ----------------------------------------
+let g:semshi#mark_selected_nodes = 0
+let g:semshi#error_sign = v:false
+" ----------------------------------------
+
+" ----------------------------------------
+"  vim indentline config
+" ----------------------------------------
+let g:indentLine_color_term = 238
+let g:indentLine_color_gui = '#444444'
+" ----------------------------------------
 
 " ----------------------------------------
 "  vim splitjoin config
@@ -273,11 +293,14 @@ let g:instant_markdown_autoscroll = 1
 " ----------------------------------------
 " vim illuminate config
 " ----------------------------------------
+" Don't highlight word under cursor (default: 1)
+let g:Illuminate_highlightUnderCursor = 0
+
 let g:Illuminate_ftblacklist = ['nerdtree']
 let g:Illuminate_delay = 400
 augroup illuminate_augroup
 	autocmd!
-	autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+	autocmd VimEnter * hi illuminatedWord ctermbg=12 guibg='#11515F'
 augroup END
 " ----------------------------------------
 
