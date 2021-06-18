@@ -199,7 +199,7 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 " ----------------------------------------
 " vim template config
 " ----------------------------------------
-let g:templates_directory=["$HOME/.config/nvim/templates", "$HOME/.config/nvim/plugged/vim-template/templates"]
+let g:templates_directory=["$HOME/.config/nvim/templates"]
 let g:username='@pkuanjie'
 let g:email='pkuanjie@gmail.com'
 let g:license='MIT'
