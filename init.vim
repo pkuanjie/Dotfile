@@ -11,7 +11,6 @@
 " --------------------------------------------
 
 
-
 " ========================================
 " Basic Settings
 " ========================================
@@ -92,6 +91,9 @@ if !exists('g:vscode')
 	Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 	Plug 'dkarter/bullets.vim'
 	Plug 'lervag/vimtex'
+
+	" colorschemes
+	Plug 'jacoborus/tender.vim'
 
 	call plug#end()
 else
@@ -246,13 +248,13 @@ nnoremap tt :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-colorscheme onedark
+colorscheme tender 
 " ----------------------------------------
 
 " ----------------------------------------
 " airline config
 " ----------------------------------------
-let g:airline_theme='onedark'
+let g:airline_theme='tender'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
@@ -354,10 +356,10 @@ nmap ts <Plug>(coc-translator-p)
 "     inoremap <silent><expr> <c-@> coc#refresh()
 " endif
 
-" Make <tab> auto-select the first completion item and notify coc.nvim to
+" Make <cr> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm()
-			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `g[` and `g]` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
