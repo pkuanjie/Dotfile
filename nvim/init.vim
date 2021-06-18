@@ -25,12 +25,17 @@ if !exists('g:vscode')
 	set number
 endif
 set showmatch
+set wildmenu
+set splitright
+set splitbelow
+set maxmempattern=10000
 set hlsearch
 set ignorecase smartcase
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
 set foldmethod=indent
 set foldlevel=99
+set scrolloff=5
 set foldenable
 syntax on
 
@@ -43,26 +48,80 @@ nnoremap Y y$
 " Copy to system clipboard
 vnoremap Y "+y
 
-" Spelling Check with <space>sc
-noremap <leader>sp :set spell!<CR>
+" Indentation
+nnoremap < <<
+nnoremap > >>
+
+" Spelling Check with <leader>pc
+noremap <leader>pc :set spell!<CR>
 
 " find and replace
 noremap \s :%s//g<left><left>
 
-" Press <SPACE> + q to close the window below the current window
+" Press <leader> + q to close the window below the current window
 noremap <LEADER>q <C-w>j:q<CR>
 
 " markdown, latex, auto spell
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
 
-" Press space twice to jump to the next '<++>' and edit it
+" Press leader twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " bind <A-a> to use it for increasing numbers and <A-x> to decrease
 nnoremap <A-a> <C-a>
 nnoremap <A-x> <C-x>
 
+" Search
+noremap <LEADER><CR> :nohlsearch<CR>
+noremap n nzz
+noremap N nzz
+
 " ========================================
+
+" ========================================
+" Code Runner
+" ========================================
+" Compile function
+noremap <leader>ll :call CompileRun()<CR>
+func! CompileRun()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		set splitbelow
+		exec "!g++ -std=c++11 % -Wall -o %<"
+		:sp
+		:res -15
+		:term ./%<
+	elseif &filetype == 'java'
+		set splitbelow
+		:sp
+		:res -5
+		term javac % && time java %<
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		set splitbelow
+		:sp
+		:term python3 %
+	elseif &filetype == 'html'
+		silent! exec "!".g:mkdp_browser." % &"
+	elseif &filetype == 'markdown'
+		exec "InstantMarkdownPreview"
+	elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
+	elseif &filetype == 'javascript'
+		set splitbelow
+		:sp
+		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
+	elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term go run .
+	endif
+endfunc
 
 " ========================================
 " Plugins
@@ -74,10 +133,10 @@ if !exists('g:vscode')
 	Plug 'joshdick/onedark.vim'
 	Plug 'morhetz/gruvbox'
 	Plug 'sheerun/vim-polyglot'
-	Plug 'jiangmiao/auto-pairs'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdcommenter'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim',
 	Plug 'gcmt/wildfire.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -91,6 +150,9 @@ if !exists('g:vscode')
 	Plug 'jbgutierrez/vim-better-comments'
 	Plug 'AndrewRadev/splitjoin.vim'
 	Plug 'DougBeney/pickachu'
+	Plug 'svermeulen/vim-yoink'
+	Plug 'aperezdc/vim-template'
+	Plug 'svermeulen/vim-subversive'
 
 	" General Highlighter
 	Plug 'RRethy/vim-illuminate'
@@ -123,6 +185,56 @@ endif
 
 
 " ----------------------------------------
+" vim subversive config
+" ----------------------------------------
+" s for substitute
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
+nmap <leader>s <plug>(SubversiveSubstituteRange)
+xmap <leader>s <plug>(SubversiveSubstituteRange)
+nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+" ----------------------------------------
+
+" ----------------------------------------
+" vim template config
+" ----------------------------------------
+let g:templates_directory=["$HOME/.config/nvim/templates", "$HOME/.config/nvim/plugged/vim-template/templates"]
+let g:username='@pkuanjie'
+let g:email='pkuanjie@gmail.com'
+let g:license='MIT'
+" ----------------------------------------
+
+" ----------------------------------------
+"  fzf config
+" ----------------------------------------
+noremap <silent> <M-f> :Files<CR>
+noremap <silent> <M-b> :Buffers<CR>
+noremap <silent> <M-s> :History<CR>
+noremap <silent> <M-m> :Maps<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+"  vim yoink config
+" ----------------------------------------
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+
+" Also replace the default gp with yoink paste so we can toggle paste in this case too
+nmap gp <plug>(YoinkPaste_gp)
+nmap gP <plug>(YoinkPaste_gP)
+
+" Note that the swap operations above will only affect the current paste and the history order will be unchanged. However - if you do want to permanently cycle through the history, you can do that too:
+nmap [y <plug>(YoinkRotateBack)
+nmap ]y <plug>(YoinkRotateForward)
+
+nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
+" ----------------------------------------
+
+" ----------------------------------------
 "  vim semshi config
 " ----------------------------------------
 let g:semshi#mark_selected_nodes = 0
@@ -150,11 +262,11 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
+nmap <space><space> <Plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
+nmap <space><space> <Plug>(easymotion-overwin-f2)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -165,7 +277,7 @@ map <Leader>k <Plug>(easymotion-k)
 " ----------------------------------------
 
 " ----------------------------------------
-"  vim signature config
+"  Thesaurus_query config
 " ----------------------------------------
 let g:tq_map_keys = 0
 nnoremap <leader>rc :ThesaurusQueryReplaceCurrentWord<CR>
@@ -206,8 +318,9 @@ vnoremap <leader>rc y:ThesaurusQueryReplace <C-r>"<CR>
 " ----------------------------------------
 "  vim autoformat config
 " ----------------------------------------
-noremap <leader>fm :Autoformat<CR>
-let g:formatter_yapf_style = 'pep8'
+noremap <leader>m :AutoformatLine<CR>
+au BufWrite * :Autoformat
+autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
 
 " ----------------------------------------
@@ -313,7 +426,7 @@ nnoremap tt :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-colorscheme tender 
+colorscheme tender
 " ----------------------------------------
 
 " ----------------------------------------
@@ -329,7 +442,11 @@ let g:airline_powerline_fonts = 0
 " ----------------------------------------
 " vim-visual-multi usage
 " ----------------------------------------
-"select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<leader>n'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<leader>n'           " replace visual C-n
+
+" select words with Ctrl-N (replaced with <leader>n) (like Ctrl-d in Sublime Text/VS Code)
 " create cursors vertically with Ctrl-Down/Ctrl-Up
 " select one character at a time with Shift-Arrows
 " press n/N to get next/previous occurrence
@@ -352,21 +469,16 @@ let g:airline_powerline_fonts = 0
 "  ----------------------------------------
 
 " ----------------------------------------
-" auto-pairs config
+" coc-pairs config
 " ----------------------------------------
-" System Shortcuts:
-"   <CR>  : Insert new indented line after return if cursor in blank brackets or quotes.
-"   <BS>  : Delete brackets in pair
-"   <M-p> : Toggle Autopairs (g:AutoPairsShortcutToggle)
-"   <M-e> : Fast Wrap (g:AutoPairsShortcutFastWrap)
-"   <M-n> : Jump to next closed pair (g:AutoPairsShortcutJump)
-"   <M-b> : BackInsert (g:AutoPairsShortcutBackInsert)
+autocmd FileType tex let b:coc_pairs = [["$", "$"]]
+autocmd FileType markdown let b:coc_pairs_disabled = ['`']
 " ----------------------------------------
 
 " ----------------------------------------
 " coc config
 " ----------------------------------------
-let g:coc_global_extensions = ['coc-json', 'coc-css', 'coc-pyright', 'coc-html', 'coc-explorer', 'coc-vimlsp', 'coc-diagnostic', 'coc-prettier', 'coc-snippets', 'coc-stylelint', 'coc-syntax', 'coc-translator', 'coc-tsserver', 'coc-yaml', 'coc-yank']
+let g:coc_global_extensions = ['coc-json', 'coc-css', 'coc-pyright', 'coc-html', 'coc-pairs', 'coc-explorer', 'coc-vimlsp', 'coc-diagnostic', 'coc-snippets', 'coc-stylelint', 'coc-syntax', 'coc-translator', 'coc-tsserver', 'coc-yaml', 'coc-yank', 'coc-word']
 
 let g:coc_disable_transparent_cursor = 1
 
@@ -453,18 +565,6 @@ endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-	autocmd!
-	" Setup formatexpr specified filetype(s).
-	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder.
-	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -589,6 +689,10 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 " ----------------------------------------
-
+"
+" ========================================
+" Ending
+" ========================================
+exec "nohlsearch"
 " ========================================
 "
