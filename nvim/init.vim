@@ -13,8 +13,17 @@
 " ========================================
 " Basic Settings
 " ========================================
-let mapleader=";"
+set nocompatible
+
+" Set <LEADER> as <SPACE>, ; as :
+let mapleader=" "
+noremap ; :
 set encoding=UTF-8
+let &t_ut=''
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
 set cursorline
 if has("termguicolors")
 	" enable true color
@@ -26,11 +35,13 @@ if !exists('g:vscode')
 endif
 set showmatch
 set wildmenu
-set splitright
-set splitbelow
+set autochdir
+set list
+set listchars=tab:\|\ ,trail:▫
 set maxmempattern=10000
 set hlsearch
-set ignorecase smartcase
+set ignorecase
+set smartcase
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
 set foldmethod=indent
@@ -39,8 +50,25 @@ set scrolloff=5
 set foldenable
 syntax on
 
+" fancy settings, let vim save the undo history even after shut down.
+silent !mkdir -p ~/.config/nvim/tmp/backup
+silent !mkdir -p ~/.config/nvim/tmp/undo
+set backupdir=~/.config/nvim/tmp/backup,.
+set directory=~/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+	set undofile
+	set undodir=~/.config/nvim/tmp/undo,.
+endif
+
+" let vim cursor resume to the same position when reopen
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 " Open the vimrc file anytime
-noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
+nnoremap <LEADER>h :e ~/.config/nvim/init.vim<CR>
+
+" Space to Tab
+nnoremap <LEADER>w :%s/    /\t/g
+vnoremap <LEADER>w :s/    /\t/g
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -52,37 +80,158 @@ vnoremap Y "+y
 nnoremap < <<
 nnoremap > >>
 
-" Spelling Check with <leader>pc
-noremap <leader>pc :set spell!<CR>
+" Spelling Check with <leader>sc
+nnoremap <leader>sc :set spell!<CR>
 
 " find and replace
-noremap \s :%s//g<left><left>
-
-" Press <leader> + q to close the window below the current window
-noremap <LEADER>q <C-w>j:q<CR>
+nnoremap 's :%s//g<left><left>
 
 " markdown, latex, auto spell
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
 
+" markdown shortcuts
+" 快捷键	创建的文字
+" ,n	---
+" ,b	粗体文字
+" ,s	被划去的文字
+" ,i	斜体文字
+" ,d	代码块
+" ,c	大的 代码块
+" ,m	- [ ] 清单
+" ,p	图片
+" ,a	链接
+" ,1	# H1
+" ,2	## H2
+" ,3	### H3
+" ,4	#### H4
+" ,l	--------
+autocmd Filetype markdown inoremap <buffer> ,f <Esc>/<++><CR>:nohlsearch<CR>"_c4l
+autocmd Filetype markdown inoremap <buffer> ,w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>
+autocmd Filetype markdown inoremap <buffer> ,n ---<Enter><Enter>
+autocmd Filetype markdown inoremap <buffer> ,b **** <++><Esc>F*hi
+autocmd Filetype markdown inoremap <buffer> ,s ~~~~ <++><Esc>F~hi
+autocmd Filetype markdown inoremap <buffer> ,i ** <++><Esc>F*i
+autocmd Filetype markdown inoremap <buffer> ,d `` <++><Esc>F`i
+autocmd Filetype markdown inoremap <buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
+autocmd Filetype markdown inoremap <buffer> ,m - [ ]
+autocmd Filetype markdown inoremap <buffer> ,p ![](<++>) <++><Esc>F[a
+autocmd Filetype markdown inoremap <buffer> ,a [](<++>) <++><Esc>F[a
+autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> ,2 ##<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> ,3 ###<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> ,l --------<Enter>
+
 " Press leader twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+noremap <leader>l <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " bind <A-a> to use it for increasing numbers and <A-x> to decrease
-nnoremap <A-a> <C-a>
-nnoremap <A-x> <C-x>
+nnoremap <M-a> <C-a>
+nnoremap <M-x> <C-x>
 
 " Search
-noremap <LEADER><CR> :nohlsearch<CR>
-noremap n nzz
-noremap N nzz
+nnoremap <LEADER><CR> :nohlsearch<CR>
+nnoremap n nzz
+nnoremap N Nzz
+
+" Save & quit
+nnoremap Q :q<CR>
+nnoremap S :w<CR>
+
+" k/j keys for 5 times k/j (faster navigation)
+nnoremap <silent> K 5k
+nnoremap <silent> J 5j
+
+" H key: go to the start of the line
+nnoremap <silent> H 0
+vnoremap <silent> H 0
+inoremap <C-a> <ESC>I
+" L key: go to the end of the line
+nnoremap <silent> L $
+vnoremap <silent> L $
+inoremap <C-e> <ESC>A
+
+" Faster in-line navigation
+noremap W 5w
+noremap B 5b
 
 " ========================================
+
+" ========================================
+" window management
+" ========================================
+" Use <space> + new arrow keys for moving the cursor around windows
+noremap <M-w> <C-w>w
+noremap <M-K> <C-w>k
+noremap <M-J> <C-w>j
+noremap <M-H> <C-w>h
+noremap <M-L> <C-w>l
+
+" can be used to close taglist, filetree, and windows at below, so use ctrl
+" prefix
+noremap <leader>q <C-w>o
+
+" split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
+noremap zk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap zj :set splitbelow<CR>:split<CR>
+noremap zh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap zl :set splitright<CR>:vsplit<CR>
+
+" Resize splits with arrow keys
+noremap <up> :res +5<CR>
+noremap <down> :res -5<CR>
+noremap <left> :vertical resize-5<CR>
+noremap <right> :vertical resize+5<CR>
+
+" Place the two screens up and down
+noremap z, <C-w>t<C-w>K
+" Place the two screens side by side
+noremap z. <C-w>t<C-w>H
+
+" Create a new tab with tu
+noremap <tab>g :tabe<CR>
+" Move around tabs with tn and ti
+noremap <tab>h :-tabnext<CR>
+noremap <tab>l :+tabnext<CR>
+" Move tabs with tmn and tmi
+noremap <tab><left> :-tabmove<CR>
+noremap <tab><right> :+tabmove<CR>
+" ========================================
+
+
+" ========================================
+" terminal config
+" ========================================
+" Opening a terminal window
+noremap <leader>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
+
+" Terminal Behaviors
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
+tnoremap <C-n> <C-\><C-n>
+
+" terminal colors
+let g:terminal_color_0  = '#000000'
+let g:terminal_color_1  = '#FF5555'
+let g:terminal_color_2  = '#50FA7B'
+let g:terminal_color_3  = '#F1FA8C'
+let g:terminal_color_4  = '#BD93F9'
+let g:terminal_color_5  = '#FF79C6'
+let g:terminal_color_6  = '#8BE9FD'
+let g:terminal_color_7  = '#BFBFBF'
+let g:terminal_color_8  = '#4D4D4D'
+let g:terminal_color_9  = '#FF6E67'
+let g:terminal_color_10 = '#5AF78E'
+let g:terminal_color_11 = '#F4F99D'
+let g:terminal_color_12 = '#CAA9FA'
+let g:terminal_color_13 = '#FF92D0'
+let g:terminal_color_14 = '#9AEDFE'
 
 " ========================================
 " Code Runner
 " ========================================
 " Compile function
-noremap <leader>ll :call CompileRun()<CR>
+noremap <leader>b :call CompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
@@ -123,74 +272,169 @@ func! CompileRun()
 	endif
 endfunc
 
+vmap <leader>p :!python3<cr>
+
 " ========================================
 " Plugins
 " ========================================
-if !exists('g:vscode')
-	call plug#begin()
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'joshdick/onedark.vim'
-	Plug 'morhetz/gruvbox'
-	Plug 'sheerun/vim-polyglot'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'preservim/nerdcommenter'
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	Plug 'junegunn/fzf.vim',
-	Plug 'gcmt/wildfire.vim'
-	Plug 'tpope/vim-surround'
-	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-	Plug 'mbbill/undotree'
-	Plug 'liuchengxu/vista.vim'
-	Plug 'Chiel92/vim-autoformat'
-	Plug 'junegunn/vim-peekaboo'
-	Plug 'kshenoy/vim-signature'
-	Plug 'ron89/thesaurus_query.vim'
-	Plug 'mhinz/vim-startify'
-	Plug 'jbgutierrez/vim-better-comments'
-	Plug 'AndrewRadev/splitjoin.vim'
-	Plug 'DougBeney/pickachu'
-	Plug 'svermeulen/vim-yoink'
-	Plug 'aperezdc/vim-template'
-	Plug 'svermeulen/vim-subversive'
+call plug#begin()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdcommenter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim',
+Plug 'gcmt/wildfire.vim'
+Plug 'tpope/vim-surround'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mbbill/undotree'
+Plug 'liuchengxu/vista.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'junegunn/vim-peekaboo'
+Plug 'kshenoy/vim-signature'
+Plug 'ron89/thesaurus_query.vim'
+Plug 'mhinz/vim-startify'
+Plug 'jbgutierrez/vim-better-comments'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'DougBeney/pickachu'
+Plug 'aperezdc/vim-template'
+Plug 'svermeulen/vim-subversive'
+Plug 'junegunn/goyo.vim'
+Plug 'kevinhwang91/rnvimr'
+Plug 'airblade/vim-gitgutter'
+Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
+Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
+Plug 'svermeulen/vim-yoink'
+Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
-	" General Highlighter
-	Plug 'RRethy/vim-illuminate'
-	Plug 'ryanoasis/vim-devicons'
+" General Highlighter
+Plug 'RRethy/vim-illuminate'
+Plug 'ryanoasis/vim-devicons'
 
-	Plug 'luochen1990/rainbow'
-	" Find & Replace
-	Plug 'Yggdroot/indentLine'
-	Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
-	Plug 'theniceboy/vim-snippets'
-	Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
-	Plug 'junegunn/vim-after-object'
-	Plug 'easymotion/vim-easymotion'
-	Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'luochen1990/rainbow'
+" Find & Replace
+Plug 'Yggdroot/indentLine'
+Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
+Plug 'theniceboy/vim-snippets'
+Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
+Plug 'junegunn/vim-after-object'
+Plug 'easymotion/vim-easymotion'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'brooth/far.vim'
 
-	Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
-	Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
-	Plug 'dkarter/bullets.vim'
-	Plug 'lervag/vimtex'
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
+Plug 'dkarter/bullets.vim'
+Plug 'lervag/vimtex'
+Plug 'mzlogin/vim-markdown-toc'
 
-	" colorschemes
-	Plug 'jacoborus/tender.vim'
+" colorschemes
+Plug 'jacoborus/tender.vim'
 
-	call plug#end()
-else
-	call plug#begin()
-	Plug 'preservim/nerdcommenter'
-	call plug#end()
-endif
+call plug#end()
 
+
+" ----------------------------------------
+" barbar config
+" ----------------------------------------
+" Magic buffer-picking mode
+nnoremap <silent> <C-s>    :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <leader>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <leader>bl :BufferOrderByLanguage<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" glow config
+" ----------------------------------------
+nmap <leader>gp :Glow<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" fzf-gitignore config
+" ----------------------------------------
+noremap <leader>gi :FzfGitignore<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" vim-gitgutter config
+" ----------------------------------------
+let g:gitgutter_sign_allow_clobber = 0
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_preview_win_floating = 1
+let g:gitgutter_sign_added = '▎'
+let g:gitgutter_sign_modified = '░'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_modified_removed = '▒'
+nnoremap <LEADER>gf :GitGutterFold<CR>
+nnoremap <LEADER>gh :GitGutterPrevHunk<CR>
+nnoremap <LEADER>gl :GitGutterNextHunk<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" far config
+" ----------------------------------------
+nnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
+vnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
+nnoremap <LEADER>fr :Farr
+vnoremap <LEADER>fr :Farr
+" ----------------------------------------
+
+" ----------------------------------------
+" vim markdown toc config
+" ----------------------------------------
+let g:vmt_cycle_list_item_markers = 1
+let g:vmt_fence_text = 'TOC'
+let g:vmt_fence_closing_text = '/TOC'
+" ----------------------------------------
+
+" ----------------------------------------
+" rnvimr config
+" ----------------------------------------
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_pick_enable = 1
+let g:rnvimr_draw_border = 0
+" let g:rnvimr_bw_enable = 1
+highlight link RnvimrNormal CursorLine
+nnoremap <silent> R :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+let g:rnvimr_action = {
+            \ '<C-t>': 'NvimEdit tabedit',
+            \ '<C-x>': 'NvimEdit split',
+            \ '<C-v>': 'NvimEdit vsplit',
+            \ 'gw': 'JumpNvimCwd',
+            \ 'yw': 'EmitRangerCwd'
+            \ }
+let g:rnvimr_layout = {
+            \ 'relative': 'editor',
+            \ 'width': float2nr(round(0.7 * &columns)),
+            \ 'height': float2nr(round(0.7 * &lines)),
+            \ 'col': float2nr(round(0.15 * &columns)),
+            \ 'row': float2nr(round(0.15 * &lines)),
+            \ 'style': 'minimal'
+            \ }
+let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
+" ----------------------------------------
+
+" ----------------------------------------
+" goyo config
+" ----------------------------------------
+map <leader>gy :Goyo<CR>
+" ----------------------------------------
 
 " ----------------------------------------
 " vim subversive config
 " ----------------------------------------
 " s for substitute
 nmap s <plug>(SubversiveSubstitute)
+vmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
-nmap S <plug>(SubversiveSubstituteToEndOfLine)
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
 nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
@@ -208,30 +452,12 @@ let g:license='MIT'
 " ----------------------------------------
 "  fzf config
 " ----------------------------------------
-noremap <silent> <M-f> :Files<CR>
-noremap <silent> <M-b> :Buffers<CR>
-noremap <silent> <M-s> :History<CR>
-noremap <silent> <M-m> :Maps<CR>
-" ----------------------------------------
-
-" ----------------------------------------
-"  vim yoink config
-" ----------------------------------------
-nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
-
-" Also replace the default gp with yoink paste so we can toggle paste in this case too
-nmap gp <plug>(YoinkPaste_gp)
-nmap gP <plug>(YoinkPaste_gP)
-
-" Note that the swap operations above will only affect the current paste and the history order will be unchanged. However - if you do want to permanently cycle through the history, you can do that too:
-nmap [y <plug>(YoinkRotateBack)
-nmap ]y <plug>(YoinkRotateForward)
-
-nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
+nnoremap <silent> 'f :Files<CR>
+nnoremap <silent> 'b :Buffers<CR>
+nnoremap <silent> 'h :History<CR>
+nnoremap <silent> 'm :Maps<CR>
+nnoremap <silent> 't :Tags<CR>
+nnoremap <silent> 'a :Ag<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -249,6 +475,26 @@ let g:indentLine_color_gui = '#444444'
 " ----------------------------------------
 
 " ----------------------------------------
+"  vim yoink config
+" ----------------------------------------
+nmap - <plug>(YoinkPostPasteSwapBack)
+nmap = <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+
+" Also replace the default gp with yoink paste so we can toggle paste in this case too
+nmap gp <plug>(YoinkPaste_gp)
+nmap gP <plug>(YoinkPaste_gP)
+
+" Note that the swap operations above will only affect the current paste and the history order will be unchanged. However - if you do want to permanently cycle through the history, you can do that too:
+nmap y[ <plug>(YoinkRotateBack)
+nmap y] <plug>(YoinkRotateForward)
+
+nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
+" ----------------------------------------
+
+" ----------------------------------------
 "  vim splitjoin config
 " ----------------------------------------
 "  gS for split
@@ -262,11 +508,11 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap <space><space> <Plug>(easymotion-overwin-f)
+nmap <leader><leader> <Plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap <space><space> <Plug>(easymotion-overwin-f2)
+nmap <leader><leader> <Plug>(easymotion-overwin-f2)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -280,8 +526,8 @@ map <Leader>k <Plug>(easymotion-k)
 "  Thesaurus_query config
 " ----------------------------------------
 let g:tq_map_keys = 0
-nnoremap <leader>rc :ThesaurusQueryReplaceCurrentWord<CR>
-vnoremap <leader>rc y:ThesaurusQueryReplace <C-r>"<CR>
+nnoremap <leader>rp :ThesaurusQueryReplaceCurrentWord<CR>
+vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -318,7 +564,7 @@ vnoremap <leader>rc y:ThesaurusQueryReplace <C-r>"<CR>
 " ----------------------------------------
 "  vim autoformat config
 " ----------------------------------------
-noremap <leader>m :AutoformatLine<CR>
+noremap <C-=> :AutoformatLine<CR>
 au BufWrite * :Autoformat
 autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
@@ -326,13 +572,13 @@ autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
 "  vista config
 " ----------------------------------------
-nnoremap <leader>vv :Vista<CR>
+nnoremap <leader>v :Vista<CR>
 " ----------------------------------------
 
 " ----------------------------------------
 "  undetree
 " ----------------------------------------
-nnoremap <leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
+nnoremap 'u :UndotreeToggle<CR>:UndotreeFocus<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -344,6 +590,7 @@ let g:rainbow_active = 1
 " ----------------------------------------
 " vim after object config
 " ----------------------------------------
+autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 " # va=  visual after =
 " # ca=  change after =
 " # da=  delete after =
@@ -355,10 +602,10 @@ let g:rainbow_active = 1
 " vim after object config
 " ----------------------------------------
 if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:\zs<CR>
-	vmap <Leader>a: :Tabularize /:\zs<CR>
+	nmap <Leader>= :Tabularize /=<CR>
+	vmap <Leader>= :Tabularize /=<CR>
+	nmap <Leader>: :Tabularize /:\zs<CR>
+	vmap <Leader>: :Tabularize /:\zs<CR>
 endif
 " ----------------------------------------
 
@@ -388,7 +635,6 @@ inoreabbrev <expr> __
 " ----------------------------------------
 " vim instant markdown config
 " ----------------------------------------
-filetype plugin on
 "Uncomment to override defaults:
 "let g:instant_markdown_slow = 1
 "let g:instant_markdown_autostart = 0
@@ -420,7 +666,7 @@ augroup END
 " ----------------------------------------
 " coc explorer config
 " ----------------------------------------
-nnoremap tt :CocCommand explorer<CR>
+nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -443,10 +689,10 @@ let g:airline_powerline_fonts = 0
 " vim-visual-multi usage
 " ----------------------------------------
 let g:VM_maps = {}
-let g:VM_maps['Find Under']         = '<leader>n'           " replace C-n
-let g:VM_maps['Find Subword Under'] = '<leader>n'           " replace visual C-n
+let g:VM_maps['Find Under']         = '<leader>n'
+let g:VM_maps['Find Subword Under'] = '<leader>n'
 
-" select words with Ctrl-N (replaced with <leader>n) (like Ctrl-d in Sublime Text/VS Code)
+" select words with Ctrl-N (remapped to <leader>n) (like Ctrl-d in Sublime Text/VS Code)
 " create cursors vertically with Ctrl-Down/Ctrl-Up
 " select one character at a time with Shift-Arrows
 " press n/N to get next/previous occurrence
@@ -458,6 +704,27 @@ let g:VM_maps['Find Subword Under'] = '<leader>n'           " replace visual C-n
 " ----------------------------------------
 " vim-surround usage
 " ----------------------------------------
+nmap <leader>[ ysiw[
+nmap <leader>] ysiw]
+
+nmap <leader>{ ysiw{
+nmap <leader>} ysiw}
+
+nmap <leader>( ysiw(
+nmap <leader>) ysiw)
+
+nmap <leader>' ysiw'
+
+nmap <leader>` ysiw`
+
+nmap <leader>" ysiw"
+
+nmap <leader>$ ysiw$
+
+nmap <leader>< ysiw<
+nmap <leader>> ysiw>
+
+nmap <leader>* ysiw*
 "  cs <now surround> <target surround> cs'"
 "  ysiw <surround sign> surround the current word surrounded by space
 "  ysw <surround sign> surround the current word
@@ -478,9 +745,29 @@ autocmd FileType markdown let b:coc_pairs_disabled = ['`']
 " ----------------------------------------
 " coc config
 " ----------------------------------------
-let g:coc_global_extensions = ['coc-json', 'coc-css', 'coc-pyright', 'coc-html', 'coc-pairs', 'coc-explorer', 'coc-vimlsp', 'coc-diagnostic', 'coc-snippets', 'coc-stylelint', 'coc-syntax', 'coc-translator', 'coc-tsserver', 'coc-yaml', 'coc-yank', 'coc-word']
+let g:coc_global_extensions = [
+			\ 'coc-json',
+			\ 'coc-css',
+			\ 'coc-pyright',
+			\ 'coc-html',
+			\ 'coc-pairs',
+			\ 'coc-explorer',
+			\ 'coc-vimlsp',
+			\ 'coc-diagnostic',
+			\ 'coc-snippets',
+			\ 'coc-stylelint',
+			\ 'coc-syntax',
+			\ 'coc-translator',
+			\ 'coc-tsserver',
+			\ 'coc-yaml',
+			\ 'coc-yank',
+			\ 'coc-docker',
+			\ 'coc-sourcekit',
+			\ 'coc-tasks',
+			\ 'coc-emoji',
+			\ 'coc-word']
 
-let g:coc_disable_transparent_cursor = 1
+let g:coc_disable_transparent_cursor = 0
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -521,17 +808,13 @@ inoremap <silent><expr> <TAB>
 			\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "
-" function! s:check_back_space() abort
-"     let col = col('.') - 1
-"     return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" Use <c-space> to trigger completion.
-" if has('nvim')
-"     inoremap <silent><expr> <c-space> coc#refresh()
-" else
-"     inoremap <silent><expr> <c-@> coc#refresh()
-" endif
+" Use <c-n> to trigger completion.
+inoremap <silent><expr> <c-n> coc#refresh()
 
 " Make <cr> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -540,18 +823,19 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use `g[` and `g]` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
+nnoremap <silent><nowait> <LEADER>e :CocList diagnostics<cr>
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
@@ -564,17 +848,17 @@ function! s:show_documentation()
 endfunction
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>x <Plug>(coc-rename)
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>aw  <Plug>(coc-codeaction-selected)w
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>ff  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -586,21 +870,6 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -620,23 +889,29 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " ----------------------------------------
 "  coc list
 " ----------------------------------------
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
 " Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <leader>yy :<C-u>CocList -A --normal yank<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <leader>mm  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <leader>oo  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <leader>bb  :<C-u>CocList -I symbols<cr>
+" coc-task config
+noremap <silent><nowait> <leader>tt :<C-u>CocList tasks<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <leader>rr  :<C-u>CocListResume<CR>
 " ----------------------------------------
 
 
@@ -660,11 +935,17 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
+
+let g:snips_author = '@pkuanjie'
 " ----------------------------------------
 
 " ----------------------------------------
-" nerdcommenter config
+" kommentory config
 " ----------------------------------------
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 0
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -688,6 +969,13 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
+
+nmap .. <Plug>NERDCommenterToggle
+vmap .. <Plug>NERDCommenterToggle
+nmap ,. <Plug>NERDCommenterUncomment
+vmap ,. <Plug>NERDCommenterUncomment
+nmap ,, <Plug>NERDCommenterSexy
+vmap ,, <Plug>NERDCommenterSexy
 " ----------------------------------------
 "
 " ========================================
