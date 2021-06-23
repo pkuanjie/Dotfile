@@ -2,168 +2,168 @@
 --             _                          _ _
 --  _ ____   _(_)_ __ ___  _ __ ___      | (_) ___
 -- | '_ \ \ / / | '_ ` _ \| '__/ __|  _  | | |/ _ \
--- | | | \ V /| | | | | | | | | (__  | |_| | |  __/
--- |_| |_|\_/ |_|_| |_| |_|_|  \___|  \___/|_|\___|
--- --------------------------------------------
--- Author: @pkuanjie
--- Date: 2021/6/18
--- Note: Based on native LSP, this config file can be used by 0.5 version.
--- --------------------------------------------
+		-- | | | \ V /| | | | | | | | | (__  | |_| | |  __/
+				-- |_| |_|\_/ |_|_| |_| |_|_|  \___|  \___/|_|\___|
+				-- --------------------------------------------
+				-- Author: @pkuanjie
+				-- Date: 2021/6/18
+				-- Note: Based on native LSP, this config file can be used by 0.5 version.
+				-- --------------------------------------------
 
--------------
--- Aliases --
--------------
+				-------------
+				-- Aliases --
+				-------------
 
-local cmd = vim.cmd
-local fn  = vim.fn
-local g   = vim.g
-local map = vim.api.nvim_set_keymap
-local o   = vim.opt
-local nvim_exec   =vim.api.nvim_exec
+				local cmd = vim.cmd
+				local fn  = vim.fn
+				local g   = vim.g
+				local map = vim.api.nvim_set_keymap
+				local o   = vim.opt
+				local nvim_exec   =vim.api.nvim_exec
 
--- ========================================
--- Basic Settings
--- ========================================
-g.python3_host_prog = "/usr/bin/python3"
--- ========================================
+				-- ========================================
+				-- Basic Settings
+		-- ========================================
+		g.python3_host_prog = "/usr/bin/python3"
+		-- ========================================
 
 
--- ========================================
--- Basic Settings
--- ========================================
---                       <mode>  <keys>    <actions>       <options>
+		-- ========================================
+		-- Basic Settings
+		-- ========================================
+		--                       <mode>  <keys>    <actions>       <options>
 
-o.completeopt = 'menuone,noinsert,noselect'
+		o.completeopt = 'menuone,noinsert,noselect'
 
--- Set <LEADER> as <SPACE>, ; as :
-g.mapleader = " "
-map('n', ';', ':', {noremap = true})
-o.encoding = 'UTF-8'
--- enable true color
-if fn.has("termguicolors") == 1 then
-	o.termguicolors = true
-end
-o.tabstop=4
-o.number = true
-o.showmatch = true
-o.wildmenu = true
-o.autochdir = true
-o.list = true
-o.listchars = { space = '▫', tab = '>·' }
-o.maxmempattern=10000
-o.hlsearch = true
-o.fillchars = "vert:│"
-o.showmode = false
-o.autoread = true
-vim.bo.autoread = true
-o.ignorecase = true
-o.smartcase = true
-o.ttyfast = true --should make scrolling faster
-o.lazyredraw = true --same as above
-o.foldmethod='indent'
-o.foldlevel=99
-o.scrolloff=5
-o.foldenable=true
-o.shortmess = o.shortmess + 'c'
-o.splitbelow = true
-o.splitright = true
-cmd 'filetype on'
-cmd 'filetype indent on'
-cmd 'filetype plugin on'
-cmd 'filetype plugin indent on'
+		-- Set <LEADER> as <SPACE>, ; as :
+		g.mapleader = " "
+		map('n', ';', ':', {noremap = true})
+		o.encoding = 'UTF-8'
+		-- enable true color
+		if fn.has("termguicolors") == 1 then
+		o.termguicolors = true
+		end
+		o.tabstop=4
+		o.number = true
+		o.showmatch = true
+		o.wildmenu = true
+		o.autochdir = true
+		o.list = true
+		o.listchars = { space = '▫', tab = '>·' }
+		o.maxmempattern=10000
+		o.hlsearch = true
+		o.fillchars = "vert:│"
+		o.showmode = false
+		o.autoread = true
+		vim.bo.autoread = true
+		o.ignorecase = true
+		o.smartcase = true
+		o.ttyfast = true --should make scrolling faster
+		o.lazyredraw = true --same as above
+		o.foldmethod='indent'
+		o.foldlevel=99
+		o.scrolloff=5
+		o.foldenable=true
+		o.shortmess = o.shortmess + 'c'
+		o.splitbelow = true
+		o.splitright = true
+		cmd 'filetype on'
+		cmd 'filetype indent on'
+		cmd 'filetype plugin on'
+		cmd 'filetype plugin indent on'
 
--- fancy settings, let vim save the undo history even after shut down.
-os.execute('mkdir -p ~/.config/nvim/tmp/backup')
-os.execute('mkdir -p ~/.config/nvim/tmp/undo')
-os.execute('chmod +w ~/.config/nvim/tmp/backup')
-os.execute('chmod +w ~/.config/nvim/tmp/undo')
-o.backupdir='~/.config/nvim/tmp/backup'
-o.directory='~/.config/nvim/tmp/backup'
-if fn.has('persistent_undo') == 1 then
-	o.undofile=true
-	o.undodir='~/.config/nvim/tmp/undo'
-end
+		-- fancy settings, let vim save the undo history even after shut down.
+		os.execute('mkdir -p ~/.config/nvim/tmp/backup')
+		os.execute('mkdir -p ~/.config/nvim/tmp/undo')
+		os.execute('chmod +w ~/.config/nvim/tmp/backup')
+		os.execute('chmod +w ~/.config/nvim/tmp/undo')
+		o.backupdir='~/.config/nvim/tmp/backup'
+		o.directory='~/.config/nvim/tmp/backup'
+		if fn.has('persistent_undo') == 1 then
+		o.undofile=true
+		o.undodir='~/.config/nvim/tmp/undo'
+		end
 
--- let vim cursor resume to the same position when reopen
-cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-	]]
+		-- let vim cursor resume to the same position when reopen
+		cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+		]]
 
-	-- Open the vimrc file anytime
-	map('n', '<LEADER>rc', ':e ~/.config/nvim/init.vim<CR>', {noremap = true})
+		-- Open the vimrc file anytime
+		map('n', '<LEADER>rc', ':e ~/.config/nvim/init.vim<CR>', {noremap = true})
 
-	-- Space to Tab
-	map('n', '<LEADER>w', ':%s/    /\t/g', {noremap = true})
-	map('v', '<LEADER>w', ':s/    /\t/g', {noremap = true})
+		-- Space to Tab
+		map('n', '<LEADER>w', ':%s/    /\t/g', {noremap = true})
+		map('v', '<LEADER>w', ':s/    /\t/g', {noremap = true})
 
-	-- make Y to copy till the end of the line
-	map('n', 'Y', 'y$', {noremap = true})
+		-- make Y to copy till the end of the line
+		map('n', 'Y', 'y$', {noremap = true})
 
-	-- Copy to system clipboard
-	map('v', 'Y', '"+y', {noremap = true})
+		-- Copy to system clipboard
+		map('v', 'Y', '"+y', {noremap = true})
 
-	-- Indentation
-	map('n', '<', '<<', {noremap = true})
-	map('n', '>', '>>', {noremap = true})
+		-- Indentation
+		map('n', '<', '<<', {noremap = true})
+		map('n', '>', '>>', {noremap = true})
 
-	-- Spelling Check with <leader>sc
-	map('n', '<leader>sc', ':set spell!<CR>', {noremap = true})
+		-- Spelling Check with <leader>sc
+		map('n', '<leader>sc', ':set spell!<CR>', {noremap = true})
 
-	-- find and replace
-	map('n', "'s", ':%s//g<left><left>', {noremap = true})
+		-- find and replace
+		map('n', "'s", ':%s//g<left><left>', {noremap = true})
 
-	-- markdown, latex, auto spell
-	cmd 'autocmd BufRead,BufNewFile *.md,*.tex setlocal spell'
+		-- markdown, latex, auto spell
+		cmd 'autocmd BufRead,BufNewFile *.md,*.tex setlocal spell'
 
-	-- markdown shortcuts
-	-- 快捷键	创建的文字
-	-- ,n	---
-	-- ,b	粗体文字
-	-- ,s	被划去的文字
-	-- ,i	斜体文字
-	-- ,d	代码块
-	-- ,c	大的 代码块
-	-- ,m	- [ ] 清单
-	-- ,p	图片
-	-- ,a	链接
-	-- ,1	# H1
-	-- ,2	## H2
-	-- ,3	### H3
-	-- ,4	#### H4
-	-- ,l	--------
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,f <Esc>/<++><CR>:nohlsearch<CR>"_c4l'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,n ---<Enter><Enter>'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,b **** <++><Esc>F*hi'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,s ~~~~ <++><Esc>F~hi'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,i ** <++><Esc>F*i'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,d `` <++><Esc>F`i'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,m - [ ]'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,p ![](<++>) <++><Esc>F[a'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,a [](<++>) <++><Esc>F[a'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,2 ##<Space><Enter><++><Esc>kA'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,3 ###<Space><Enter><++><Esc>kA'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA'
-	cmd 'autocmd Filetype markdown inoremap <buffer> ,l --------<Enter>'
+		-- markdown shortcuts
+		-- 快捷键	创建的文字
+		-- ,n	---
+		-- ,b	粗体文字
+		-- ,s	被划去的文字
+		-- ,i	斜体文字
+		-- ,d	代码块
+		-- ,c	大的 代码块
+		-- ,m	- [ ] 清单
+		-- ,p	图片
+		-- ,a	链接
+		-- ,1	# H1
+		-- ,2	## H2
+		-- ,3	### H3
+		-- ,4	#### H4
+		-- ,l	--------
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,f <Esc>/<++><CR>:nohlsearch<CR>"_c4l'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,n ---<Enter><Enter>'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,b **** <++><Esc>F*hi'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,s ~~~~ <++><Esc>F~hi'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,i ** <++><Esc>F*i'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,d `` <++><Esc>F`i'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,m - [ ]'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,p ![](<++>) <++><Esc>F[a'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,a [](<++>) <++><Esc>F[a'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,2 ##<Space><Enter><++><Esc>kA'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,3 ###<Space><Enter><++><Esc>kA'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA'
+		cmd 'autocmd Filetype markdown inoremap <buffer> ,l --------<Enter>'
 
-	-- Press leader twice to jump to the next '<++>' and edit it
-	map('n', '<leader>l', '<Esc>/<++><CR>:nohlsearch<CR>c4l', {noremap = true})
+		-- Press leader twice to jump to the next '<++>' and edit it
+		map('n', '<leader>l', '<Esc>/<++><CR>:nohlsearch<CR>c4l', {noremap = true})
 
-	-- bind <A-a> to use it for increasing numbers and <A-x> to decrease
-	map('n', '<M-a>', '<C-a>', {noremap = true})
-	map('n', '<M-x>', '<C-x>', {noremap = true})
+		-- bind <A-a> to use it for increasing numbers and <A-x> to decrease
+		map('n', '<M-a>', '<C-a>', {noremap = true})
+		map('n', '<M-x>', '<C-x>', {noremap = true})
 
-	-- Search
-	map('n', '<LEADER><CR>', ':nohlsearch<CR>', {noremap = true})
-	map('n', 'n', 'nzz', {noremap = true})
-	map('n', 'N', 'Nzz', {noremap = true})
+		-- Search
+		map('n', '<LEADER><CR>', ':nohlsearch<CR>', {noremap = true})
+		map('n', 'n', 'nzz', {noremap = true})
+		map('n', 'N', 'Nzz', {noremap = true})
 
-	-- Save & quit
-	map('n', 'Q', ':q<CR>', {noremap = true})
-	map('n', 'S', ':w<CR>', {noremap = true})
+		-- Save & quit
+		map('n', 'Q', ':q<CR>', {noremap = true})
+		map('n', 'S', ':w<CR>', {noremap = true})
 
-	-- k/j keys for 5 times k/j (faster navigation)
+-- k/j keys for 5 times k/j (faster navigation)
 	map('n', 'K', '5k', {noremap = true})
 	map('n', 'J', '5j', {noremap = true})
 
@@ -196,7 +196,7 @@ cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "nor
 	-- prefix
 	map('n', '<leader>q', '<C-w>o', {noremap = true})
 
-	-- split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
+-- split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
 	map('n', 'zk', ':set nosplitbelow<CR>:split<CR>:set splitbelow<CR>', {noremap = true})
 	map('n', 'zj', ':set splitbelow<CR>:split<CR>', {noremap = true})
 	map('n', 'zh', ':set nosplitright<CR>:vsplit<CR>:set splitright<CR>', {noremap = true})
@@ -260,65 +260,65 @@ cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "nor
 	-- Compile function
 	map('n', '<leader>b', ':call CompileRun()<CR>', {noremap = true})
 
-	local function CompileRun()
-		cmd [[
-exec "w"
-if &filetype == 'c'
-	exec "!g++ % -o %<"
-	exec "!time ./%<"
-elseif &filetype == 'cpp'
-	set splitbelow
-	exec "!g++ -std=c++11 % -Wall -o %<"
-	:sp
-	:res -15
-	:term ./%<
-elseif &filetype == 'java'
-	set splitbelow
-	:sp
-	:res -5
-	term javac % && time java %<
-elseif &filetype == 'sh'
-	:!time bash %
-elseif &filetype == 'python'
-	set splitbelow
-	:sp
-	:term python3 %
-elseif &filetype == 'html'
-	silent! exec "!".g:mkdp_browser.-- % &"
-elseif &filetype == 'markdown'
-	exec "InstantMarkdownPreview"
-elseif &filetype == 'tex'
-	silent! exec "VimtexStop"
-	silent! exec "VimtexCompile"
-elseif &filetype == 'javascript'
-	set splitbelow
-	:sp
-	:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
-elseif &filetype == 'go'
-	set splitbelow
-	:sp
-	:term go run .
-	endif
-	]]
-	end
+local function CompileRun()
+	cmd [[
+		exec "w"
+		if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+		elseif &filetype == 'cpp'
+		set splitbelow
+		exec "!g++ -std=c++11 % -Wall -o %<"
+		:sp
+		:res -15
+		:term ./%<
+		elseif &filetype == 'java'
+		set splitbelow
+		:sp
+		:res -5
+		term javac % && time java %<
+		elseif &filetype == 'sh'
+		:!time bash %
+		elseif &filetype == 'python'
+		set splitbelow
+		:sp
+		:term python3 %
+		elseif &filetype == 'html'
+		silent! exec "!".g:mkdp_browser.-- % &"
+		elseif &filetype == 'markdown'
+		exec "InstantMarkdownPreview"
+		elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
+		elseif &filetype == 'javascript'
+		set splitbelow
+		:sp
+		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
+		elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term go run .
+		endif
+		]]
+		end
 
-	map('n', '<leader>p', ':!python3<cr>', {noremap = true})
+		map('n', '<leader>p', ':!python3<cr>', {noremap = true})
 
-	-- ========================================
-	-- Plugins
-	-- ========================================
-	-- automatic install packer
-	local execute = vim.api.nvim_command
+		-- ========================================
+		-- Plugins
+		-- ========================================
+		-- automatic install packer
+		local execute = vim.api.nvim_command
 
-	local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+		local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-	if fn.empty(fn.glob(install_path)) > 0 then
+		if fn.empty(fn.glob(install_path)) > 0 then
 		fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
 		execute 'packadd packer.nvim'
-	end
+		end
 
-	require('packer').startup({
-			function()
+		require('packer').startup({
+				function()
 				-- Packer can manage itself
 				use 'wbthomason/packer.nvim'
 				use 'tpope/vim-surround'
@@ -326,148 +326,147 @@ elseif &filetype == 'go'
 				use 'nvim-treesitter/nvim-treesitter-textobjects'
 				use 'p00f/nvim-ts-rainbow'
 				use {
-					'lewis6991/gitsigns.nvim',
-					requires = {
-						'nvim-lua/plenary.nvim'
-					}
+				'lewis6991/gitsigns.nvim',
+				requires = {
+				'nvim-lua/plenary.nvim'
+				}
 				}
 				use 'junegunn/fzf'
 				use 'junegunn/fzf.vim'
 				use 'neovim/nvim-lspconfig'
 				use {
-					'ojroques/nvim-lspfuzzy',
-					requires = {
-						{'junegunn/fzf'},
-						{'junegunn/fzf.vim'},  -- to enable preview (optional)
-					},
+				'ojroques/nvim-lspfuzzy',
+				requires = {
+				{'junegunn/fzf'},
+				{'junegunn/fzf.vim'},  -- to enable preview (optional)
+				},
 				}
 
 				use 'nvim-lua/completion-nvim'
-				use 'kabouzeid/nvim-lspinstall'
-				use 'glepnir/lspsaga.nvim'
-				use 'kosayoda/nvim-lightbulb'
-				use {"npxbr/glow.nvim", run = ":GlowInstall"}
+					use 'kabouzeid/nvim-lspinstall'
+					use 'glepnir/lspsaga.nvim'
+					use 'kosayoda/nvim-lightbulb'
+					use {"npxbr/glow.nvim", run = ":GlowInstall"}
 				use 'norcalli/nvim-colorizer.lua'
 
-				-- top and bottom lines
-				use {'hoob3rt/lualine.nvim'}
+					-- top and bottom lines
+					use {'hoob3rt/lualine.nvim'}
 
 				use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
 				use 'folke/lsp-colors.nvim'
-				use 'jiangmiao/auto-pairs'
-				-- colorscheme
-				use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+					use 'jiangmiao/auto-pairs'
+					-- colorscheme
+					use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
 				use 'kyazdani42/nvim-tree.lua'
-				use 'jacoborus/tender.vim'
-				use 'windwp/nvim-autopairs'
-				use 'lukas-reineke/format.nvim'
-				use 'theniceboy/vim-snippets';
+					use 'jacoborus/tender.vim'
+					use 'lukas-reineke/format.nvim'
+					use 'theniceboy/vim-snippets';
 				use 'hrsh7th/vim-vsnip'
-				use 'hrsh7th/vim-vsnip-integ'
-				use 'preservim/nerdcommenter'
+					use 'hrsh7th/vim-vsnip-integ'
+					use 'preservim/nerdcommenter'
 
-			end,
-			config = {
-				git = {clone_timeout = false},
-				display = {open_fn = require("packer.util").float}
-			}
+					end,
+					config = {
+						git = {clone_timeout = false},
+						display = {open_fn = require("packer.util").float}
+					}
 		}
-		)
+)
 
-	-- 'joshdick/onedark.vim';
-	-- 'morhetz/gruvbox';
-	-- 'sheerun/vim-polyglot';
-	-- 'gcmt/wildfire.vim';
-	-- {'mg979/vim-visual-multi', branch='master'};
-	-- 'mbbill/undotree';
-	-- 'liuchengxu/vista.vim';
-	-- 'Chiel92/vim-autoformat';
-	-- 'junegunn/vim-peekaboo';
-	-- 'kshenoy/vim-signature';
-	-- 'ron89/thesaurus_query.vim';
-	-- 'mhinz/vim-startify';
-	-- 'jbgutierrez/vim-better-comments';
-	-- 'AndrewRadev/splitjoin.vim';
-	-- 'aperezdc/vim-template';
-	-- 'svermeulen/vim-subversive';
-	-- 'junegunn/goyo.vim';
-	-- 'kevinhwang91/rnvimr';
-	-- 'airblade/vim-gitgutter';
-	-- {'fszymanski/fzf-gitignore', run=[[cmd':UpdateRemotePlugins']]};
-	-- 'lambdalisue/suda.vim'; -- do stuff like :sudowrite
-	-- 'svermeulen/vim-yoink';
-	-- -- general Highlighter;
-	-- -- find & Replace;
-	-- 'Yggdroot/indentLine';
-	-- 'godlygeek/tabular'; -- ga, or :Tabularize <regex> to align
-	-- 'theniceboy/antovim'; -- gs to switch e.g., true -> false
-	-- 'junegunn/vim-after-object';
-	-- 'easymotion/vim-easymotion';
-	-- 'brooth/far.vim';
-	-- -- 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'};
-	-- -- 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] };
-	-- 'dkarter/bullets.vim';
-	-- 'lervag/vimtex';
-	-- 'mzlogin/vim-markdown-toc';
+-- 'joshdick/onedark.vim';
+-- 'morhetz/gruvbox';
+-- 'sheerun/vim-polyglot';
+-- 'gcmt/wildfire.vim';
+-- {'mg979/vim-visual-multi', branch='master'};
+-- 'mbbill/undotree';
+-- 'liuchengxu/vista.vim';
+-- 'Chiel92/vim-autoformat';
+-- 'junegunn/vim-peekaboo';
+-- 'kshenoy/vim-signature';
+-- 'ron89/thesaurus_query.vim';
+-- 'mhinz/vim-startify';
+-- 'jbgutierrez/vim-better-comments';
+-- 'AndrewRadev/splitjoin.vim';
+-- 'aperezdc/vim-template';
+-- 'svermeulen/vim-subversive';
+-- 'junegunn/goyo.vim';
+-- 'kevinhwang91/rnvimr';
+-- 'airblade/vim-gitgutter';
+-- {'fszymanski/fzf-gitignore', run=[[cmd':UpdateRemotePlugins']]};
+-- 'lambdalisue/suda.vim'; -- do stuff like :sudowrite
+-- 'svermeulen/vim-yoink';
+-- -- general Highlighter;
+-- -- find & Replace;
+-- 'Yggdroot/indentLine';
+-- 'godlygeek/tabular'; -- ga, or :Tabularize <regex> to align
+-- 'theniceboy/antovim'; -- gs to switch e.g., true -> false
+-- 'junegunn/vim-after-object';
+-- 'easymotion/vim-easymotion';
+-- 'brooth/far.vim';
+-- -- 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'};
+-- -- 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] };
+-- 'dkarter/bullets.vim';
+-- 'lervag/vimtex';
+-- 'mzlogin/vim-markdown-toc';
 
-	-- Auto install and clean plugins
+-- Auto install and clean plugins
 
-	-- ----------------------------------------
-	-- vsnip config
-	-- ----------------------------------------
-	g.vsnip_snippet_dir = "$HOME/.config/nvim/ultisnips/"
-	-- Expand or jump
-	local opt = {expr = true}
-	map('i', '<C-j>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", opt)
-	map('s', '<C-j>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", opt)
+-- ----------------------------------------
+-- vsnip config
+-- ----------------------------------------
+g.vsnip_snippet_dir = "$HOME/.config/nvim/ultisnips/"
+-- Expand or jump
+local opt = {expr = true}
+map('i', '<C-j>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", opt)
+map('s', '<C-j>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", opt)
 
-	-- Jump forward or backward
-	map('i', '<C-j>', "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", opt)
-	map('s', '<C-j>', "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", opt)
-	map('i', '<C-k>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opt)
-	map('s', '<C-k>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opt)
-	-- ----------------------------------------
+-- Jump forward or backward
+map('i', '<C-j>', "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", opt)
+map('s', '<C-j>', "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", opt)
+map('i', '<C-k>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opt)
+map('s', '<C-k>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opt)
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- nvim tree config
-	-- ----------------------------------------
-	map('n', "'e", ':NvimTreeToggle<CR>', {})
-	-- ----------------------------------------
+-- ----------------------------------------
+-- nvim tree config
+-- ----------------------------------------
+map('n', "'e", ':NvimTreeToggle<CR>', {})
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- nvim colorizer config
-	-- ----------------------------------------
-	require 'colorizer'.setup()
-	-- ----------------------------------------
+-- ----------------------------------------
+-- nvim colorizer config
+-- ----------------------------------------
+require 'colorizer'.setup()
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- lightbulb config
-	-- ----------------------------------------
-	cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-	-- ----------------------------------------
+-- ----------------------------------------
+-- lightbulb config
+-- ----------------------------------------
+cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- auto pair config
-	-- ----------------------------------------
-	require('nvim-autopairs').setup()
-	-- ----------------------------------------
+-- ----------------------------------------
+-- auto pair config
+-- ----------------------------------------
+require('nvim-autopairs').setup()
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- lsp color config
-	-- ----------------------------------------
-	require("lsp-colors").setup({
-			Error = "#db4b4b",
-			Warning = "#e0af68",
-			Information = "#0db9d7",
-			Hint = "#10B981"
+-- ----------------------------------------
+-- lsp color config
+-- ----------------------------------------
+require("lsp-colors").setup({
+		Error = "#db4b4b",
+		Warning = "#e0af68",
+		Information = "#0db9d7",
+		Hint = "#10B981"
 		})
-	-- ----------------------------------------
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- lspsaga config
-	-- ----------------------------------------
+-- ----------------------------------------
+-- lspsaga config
+-- ----------------------------------------
 	local saga = require 'lspsaga'
-	saga.init_lsp_saga()
+saga.init_lsp_saga()
 	local opt = {silent = true}
 	map('n', 'gj', "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opt)
 	map('n', '<leader>ac', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opt)
@@ -490,10 +489,10 @@ elseif &filetype == 'go'
 
 	cmd [[
 	imap <tab> <Plug>(completion_smart_tab)
-	imap <s-tab> <Plug>(completion_smart_s_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
 	inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-	imap <silent> <c-n> <Plug>(completion_trigger)
+imap <silent> <c-n> <Plug>(completion_trigger)
 	let g:completion_confirm_key = "\<C-y>"
 	let g:completion_enable_snippet = 'vim-vsnip'
 	]]
@@ -504,321 +503,321 @@ elseif &filetype == 'go'
 		fold = {
 			attach = function(_, _)
 				vim.cmd'set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
-			end,
+				end,
 			detach = function() end,
 		}
 	}
 
-	local langs = {
-		"python",
-		"bash",
-		"html",
-		"css",
-		"lua",
-		"latex",
-		"bibtex",
-		"yaml",
-		"dockerfile",
-		"c",
-		"cpp",
-	}
+local langs = {
+	"python",
+	"bash",
+	"html",
+	"css",
+	"lua",
+	"latex",
+	"bibtex",
+	"yaml",
+	"dockerfile",
+	"c",
+	"cpp",
+}
 
-	require'nvim-treesitter.configs'.setup {
-		ensure_installed = langs,
-		highlight = {
-			enable = true,
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = langs,
+	highlight = {
+		enable = true,
+	},
+	indent = {
+		enable = true,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection    = "gnn",
+			node_incremental  = "grn",
+			scope_incremental = "grc",
+			node_decremental  = "grm",
 		},
-		indent = {
+	},
+	fold = {
+		enable = true,
+	},
+	textobjects = {
+		swap = {
 			enable = true,
-		},
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection    = "gnn",
-				node_incremental  = "grn",
-				scope_incremental = "grc",
-				node_decremental  = "grm",
+			swap_next = {
+				["<leader>pl"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>ph"] = "@parameter.inner",
 			},
 		},
-		fold = {
+		move = {
 			enable = true,
-		},
-		textobjects = {
-			swap = {
-				enable = true,
-				swap_next = {
-					["<leader>pl"] = "@parameter.inner",
-				},
-				swap_previous = {
-					["<leader>ph"] = "@parameter.inner",
-				},
-			},
-			move = {
-				enable = true,
-				set_jumps = true, -- whether to set jumps in the jumplist
+			set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
 					["]]"] = "@function.outer",
 					["]a"] = "@class.outer",
 				},
-				goto_next_end = {
-					["]["] = "@function.outer",
-					["]e"] = "@class.outer",
-				},
-				goto_previous_start = {
-					["[["] = "@function.outer",
-					["[a"] = "@class.outer",
-				},
-				goto_previous_end = {
-					["[]"] = "@function.outer",
-					["[e"] = "@class.outer",
-				},
+			goto_next_end = {
+				["]["] = "@function.outer",
+				["]e"] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[["] = "@function.outer",
+				["[a"] = "@class.outer",
+			},
+			goto_previous_end = {
+				["[]"] = "@function.outer",
+				["[e"] = "@class.outer",
 			},
 		},
-		rainbow = {
-			enable = true,
-			extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+	},
+	rainbow = {
+		enable = true,
+		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
 			max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-		}
 	}
+}
 
-	-- ----------------------------------------
-	-- bufferline config
-	-- ----------------------------------------
-	require("bufferline").setup{}
-	map('n', '<TAB><TAB>', ':BufferLinePick<CR>', {noremap = true, silent = true})
+-- ----------------------------------------
+-- bufferline config
+-- ----------------------------------------
+require("bufferline").setup{}
+map('n', '<TAB><TAB>', ':BufferLinePick<CR>', {noremap = true, silent = true})
 
-	-- Move around tabs with tn and ti
-	map('n', '<tab>h', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
-	map('n', '<tab>l', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
-	-- Move tabs with tmn and tmi
-	map('n', '<tab><left>', ':BufferLineMovePrev<CR>', {noremap = true, silent = true})
-	map('n', '<tab><right>', ':BufferLineMoveNext<CR>', {noremap = true, silent = true})
+-- Move around tabs with tn and ti
+map('n', '<tab>h', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
+map('n', '<tab>l', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
+-- Move tabs with tmn and tmi
+map('n', '<tab><left>', ':BufferLineMovePrev<CR>', {noremap = true, silent = true})
+map('n', '<tab><right>', ':BufferLineMoveNext<CR>', {noremap = true, silent = true})
 
-	-- These commands will sort buffers by directory, language, or a custom criteria
-	map('n', '<tab>e', ':BufferLineSortByExtension<CR>', {noremap = true, silent = true})
-	map('n', '<tab>d', ':BufferLineSortByDirectory<CR>', {noremap = true, silent = true})
+-- These commands will sort buffers by directory, language, or a custom criteria
+map('n', '<tab>e', ':BufferLineSortByExtension<CR>', {noremap = true, silent = true})
+map('n', '<tab>d', ':BufferLineSortByDirectory<CR>', {noremap = true, silent = true})
 
-	-- ----------------------------------------
+-- ----------------------------------------
 
-	-- ----------------------------------------
-	-- lualine config
-	-- ----------------------------------------
-	local lualine = require 'lualine'
+-- ----------------------------------------
+-- lualine config
+-- ----------------------------------------
+local lualine = require 'lualine'
 
-	-- Color table for highlights
-	local colors = {
-		bg = '#202328',
-		fg = '#bbc2cf',
-		yellow = '#ECBE7B',
-		cyan = '#008080',
-		darkblue = '#081633',
-		green = '#98be65',
-		orange = '#FF8800',
-		violet = '#a9a1e1',
-		magenta = '#c678dd',
-		blue = '#51afef',
-		red = '#ec5f67'
-	}
+-- Color table for highlights
+local colors = {
+	bg = '#202328',
+	fg = '#bbc2cf',
+	yellow = '#ECBE7B',
+	cyan = '#008080',
+	darkblue = '#081633',
+	green = '#98be65',
+	orange = '#FF8800',
+	violet = '#a9a1e1',
+	magenta = '#c678dd',
+	blue = '#51afef',
+	red = '#ec5f67'
+}
 
-	local conditions = {
-		buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
-		hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
-		check_git_workspace = function()
-			local filepath = vim.fn.expand('%:p:h')
-			local gitdir = vim.fn.finddir('.git', filepath .. ';')
-			return gitdir and #gitdir > 0 and #gitdir < #filepath
+local conditions = {
+	buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
+	hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
+	check_git_workspace = function()
+		local filepath = vim.fn.expand('%:p:h')
+		local gitdir = vim.fn.finddir('.git', filepath .. ';')
+		return gitdir and #gitdir > 0 and #gitdir < #filepath
 		end
-	}
+}
 
-	-- Config
-	local config = {
-		options = {
-			-- Disable sections and component separators
+-- Config
+local config = {
+	options = {
+		-- Disable sections and component separators
 			component_separators = "",
-			section_separators = "",
-			theme = {
-				-- We are going to use lualine_c an lualine_x as left and
+		section_separators = "",
+		theme = {
+			-- We are going to use lualine_c an lualine_x as left and
 				-- right section. Both are highlighted by c theme .  So we
 				-- are just setting default looks o statusline
 				normal = {c = {fg = colors.fg, bg = colors.bg}},
-				inactive = {c = {fg = colors.fg, bg = colors.bg}}
-			}
-		},
-		sections = {
-			-- these are to remove the defaults
-			lualine_a = {},
-			lualine_b = {},
-			lualine_y = {},
-			lualine_z = {},
-			-- These will be filled later
-			lualine_c = {},
-			lualine_x = {}
-		},
-		inactive_sections = {
-			-- these are to remove the defaults
-			lualine_a = {},
-			lualine_v = {},
-			lualine_y = {},
-			lualine_z = {},
-			lualine_c = {},
-			lualine_x = {}
+			inactive = {c = {fg = colors.fg, bg = colors.bg}}
 		}
+	},
+	sections = {
+		-- these are to remove the defaults
+			lualine_a = {},
+		lualine_b = {},
+		lualine_y = {},
+		lualine_z = {},
+		-- These will be filled later
+			lualine_c = {},
+		lualine_x = {}
+	},
+	inactive_sections = {
+		-- these are to remove the defaults
+			lualine_a = {},
+		lualine_v = {},
+		lualine_y = {},
+		lualine_z = {},
+		lualine_c = {},
+		lualine_x = {}
 	}
+}
 
 	-- Inserts a component in lualine_c at left section
 	local function ins_left(component)
-		table.insert(config.sections.lualine_c, component)
+table.insert(config.sections.lualine_c, component)
 	end
 
 	-- Inserts a component in lualine_x ot right section
 	local function ins_right(component)
-		table.insert(config.sections.lualine_x, component)
+table.insert(config.sections.lualine_x, component)
 	end
 
 	ins_left {
 		function() return '▊' end,
-		color = {fg = colors.blue}, -- Sets highlighting of component
-		left_padding = 0 -- We don't need space before this
+			color = {fg = colors.blue}, -- Sets highlighting of component
+				left_padding = 0 -- We don't need space before this
 	}
 
-	ins_left {
-		-- mode component
+ins_left {
+	-- mode component
 		function()
-			-- auto change color according to neovims mode
-			local mode_color = {
-				n = colors.red,
-				i = colors.green,
-				v = colors.blue,
-				[''] = colors.blue,
-				V = colors.blue,
-				c = colors.magenta,
-				no = colors.red,
-				s = colors.orange,
-				S = colors.orange,
-				[''] = colors.orange,
-				ic = colors.yellow,
-				R = colors.violet,
-				Rv = colors.violet,
-				cv = colors.red,
-				ce = colors.red,
-				r = colors.cyan,
-				rm = colors.cyan,
-				['r?'] = colors.cyan,
-				['!'] = colors.red,
-				t = colors.red
-			}
-			vim.api.nvim_command(
-				'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
-				colors.bg)
-			return ''
+		-- auto change color according to neovims mode
+		local mode_color = {
+			n = colors.red,
+			i = colors.green,
+			v = colors.blue,
+			[''] = colors.blue,
+			V = colors.blue,
+			c = colors.magenta,
+			no = colors.red,
+			s = colors.orange,
+			S = colors.orange,
+			[''] = colors.orange,
+			ic = colors.yellow,
+			R = colors.violet,
+			Rv = colors.violet,
+			cv = colors.red,
+			ce = colors.red,
+			r = colors.cyan,
+			rm = colors.cyan,
+			['r?'] = colors.cyan,
+			['!'] = colors.red,
+			t = colors.red
+		}
+	vim.api.nvim_command(
+			'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
+			colors.bg)
+		return ''
 		end,
 		color = "LualineMode",
 		left_padding = 0
-	}
+}
 
-	ins_left {
-		-- filesize component
+ins_left {
+	-- filesize component
 		function()
-			local function format_file_size(file)
-				local size = vim.fn.getfsize(file)
-				if size <= 0 then return '' end
-				local sufixes = {'b', 'k', 'm', 'g'}
-				local i = 1
-				while size > 1024 do
-					size = size / 1024
-					i = i + 1
+		local function format_file_size(file)
+		local size = vim.fn.getfsize(file)
+		if size <= 0 then return '' end
+			local sufixes = {'b', 'k', 'm', 'g'}
+	local i = 1
+		while size > 1024 do
+			size = size / 1024
+				i = i + 1
 				end
 				return string.format('%.1f%s', size, sufixes[i])
-			end
-			local file = vim.fn.expand('%:p')
-			if string.len(file) == 0 then return '' end
-			return format_file_size(file)
-		end,
-		condition = conditions.buffer_not_empty
-	}
+				end
+				local file = vim.fn.expand('%:p')
+				if string.len(file) == 0 then return '' end
+					return format_file_size(file)
+						end,
+						condition = conditions.buffer_not_empty
+}
 
-	ins_left {
-		'filename',
+ins_left {
+	'filename',
 		condition = conditions.buffer_not_empty,
 		color = {fg = colors.magenta, gui = 'bold'}
-	}
+}
 
-	ins_left {'location'}
+ins_left {'location'}
 
-	ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
+ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
-	ins_left {
-		'diagnostics',
+ins_left {
+	'diagnostics',
 		sources = {'nvim_lsp'},
 		symbols = {error = ' ', warn = ' ', info = ' '},
 		color_error = colors.red,
 		color_warn = colors.yellow,
 		color_info = colors.cyan
-	}
+}
 
-	-- Insert mid section. You can make any number of sections in neovim :)
-	-- for lualine it's any number greater then 2
-	ins_left {function() return '%=' end}
+-- Insert mid section. You can make any number of sections in neovim :)
+-- for lualine it's any number greater then 2
+ins_left {function() return '%=' end}
 
-	ins_left {
-		-- Lsp server name .
+ins_left {
+	-- Lsp server name .
 		function()
-			local msg = 'No Active Lsp'
-			local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-			local clients = vim.lsp.get_active_clients()
-			if next(clients) == nil then return msg end
+		local msg = 'No Active Lsp'
+		local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+		local clients = vim.lsp.get_active_clients()
+		if next(clients) == nil then return msg end
 			for _, client in ipairs(clients) do
 				local filetypes = client.config.filetypes
-				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					return client.name
-				end
-			end
-			return msg
-		end,
-		icon = ' LSP:',
-		color = {fg = '#ffffff', gui = 'bold'}
-	}
+					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+						return client.name
+							end
+							end
+							return msg
+							end,
+							icon = ' LSP:',
+							color = {fg = '#ffffff', gui = 'bold'}
+}
 
-	-- Add components to right sections
-	ins_right {
-		'o:encoding', -- option component same as &encoding in viml
+-- Add components to right sections
+ins_right {
+	'o:encoding', -- option component same as &encoding in viml
 		upper = true, -- I'm not sure why it's upper case either ;)
 		condition = conditions.hide_in_width,
-		color = {fg = colors.green, gui = 'bold'}
-	}
+				  color = {fg = colors.green, gui = 'bold'}
+}
 
-	ins_right {
-		'fileformat',
+ins_right {
+	'fileformat',
 		upper = true,
 		icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-		color = {fg = colors.green, gui = 'bold'}
-	}
+			color = {fg = colors.green, gui = 'bold'}
+}
 
-	ins_right {
-		'branch',
+ins_right {
+	'branch',
 		icon = '',
 		condition = conditions.check_git_workspace,
 		color = {fg = colors.violet, gui = 'bold'}
-	}
+}
 
-	ins_right {
-		'diff',
+ins_right {
+	'diff',
 		-- Is it me or the symbol for modified us really weird
-		symbols = {added = ' ', modified = '柳 ', removed = ' '},
+			symbols = {added = ' ', modified = '柳 ', removed = ' '},
 		color_added = colors.green,
 		color_modified = colors.orange,
 		color_removed = colors.red,
 		condition = conditions.hide_in_width
-	}
+}
 
-	ins_right {
-		function() return '▊' end,
+ins_right {
+	function() return '▊' end,
 		color = {fg = colors.blue},
 		right_padding = 0
-	}
+}
 
 	-- Now don't forget to initialize lualine
-	lualine.setup(config)
+lualine.setup(config)
 	-- ----------------------------------------
 
 	-- ----------------------------------------
@@ -836,13 +835,13 @@ elseif &filetype == 'go'
 	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 	fn.sign_define("LspDiagnosticsSignError",
-		{text = "", texthl = LspDiagnosticsError})
+			{text = "", texthl = LspDiagnosticsError})
 	fn.sign_define("LspDiagnosticsSignWarning",
-		{text = "", texthl = LspDiagnosticsWarning})
+			{text = "", texthl = LspDiagnosticsWarning})
 	fn.sign_define("LspDiagnosticsSignInformation",
-		{text = "", texthl = LspDiagnosticsInformation})
+			{text = "", texthl = LspDiagnosticsInformation})
 	fn.sign_define("LspDiagnosticsSignHint",
-		{text = "", texthl = LspDiagnosticsHint})
+			{text = "", texthl = LspDiagnosticsHint})
 
 
 	g.completion_customize_lsp_label = {
@@ -861,25 +860,25 @@ elseif &filetype == 'go'
 		Class= ' [class]',
 		Interface= ' [interface]',
 	}
-	-- ----------------------------------------
+-- ----------------------------------------
 
+-- ----------------------------------------
+-- lsp install config
 	-- ----------------------------------------
-	-- lsp install config
-	-- ----------------------------------------
-	local function setup_servers()
-		require'lspinstall'.setup()
-		local servers = require'lspinstall'.installed_servers()
-		for _, server in pairs(servers) do
-			require'lspconfig'[server].setup{}
-		end
+local function setup_servers()
+	require'lspinstall'.setup()
+	local servers = require'lspinstall'.installed_servers()
+	for _, server in pairs(servers) do
+	require'lspconfig'[server].setup{}
+	end
 	end
 
-	setup_servers()
+setup_servers()
 
 	-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 	require'lspinstall'.post_install_hook = function ()
-		setup_servers() -- reload installed servers
-		vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+	setup_servers() -- reload installed servers
+	vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 	end
 	-- ----------------------------------------
 
@@ -900,104 +899,104 @@ elseif &filetype == 'go'
 			topdelete    = {text= '‾', hl = 'GitGutterDelete'},
 			changedelete = {text= '≃', hl = 'GitGutterChange'},
 		},
-		numhl = false,
-		linehl = false,
-		keymaps = {
-			-- Default keymap options
-			noremap = true,
-			buffer = true,
+			  numhl = false,
+			  linehl = false,
+			  keymaps = {
+				  -- Default keymap options
+					  noremap = true,
+				  buffer = true,
 
-			['n <leader>hl'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-			['n <leader>hh'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+				  ['n <leader>hl'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+				  ['n <leader>hh'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
-			['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-			['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-			['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-			['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-			['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-			['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-			['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-			['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+				  ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+				  ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+				  ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+				  ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+				  ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+				  ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+				  ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+				  ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
 
-			-- Text objects
-			['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-			['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
-		},
-		watch_index = {
-			interval = 1000
-		},
-		current_line_blame = false,
-		current_line_blame_delay = 1000,
-		current_line_blame_position = 'eol',
-		sign_priority = 6,
-		update_debounce = 100,
-		status_formatter = nil, -- Use default
-		use_decoration_api = true,
-		use_internal_diff = true,  -- If luajit is present
+				  -- Text objects
+					  ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+				  ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+			  },
+			  watch_index = {
+				  interval = 1000
+			  },
+			  current_line_blame = false,
+			  current_line_blame_delay = 1000,
+			  current_line_blame_position = 'eol',
+			  sign_priority = 6,
+			  update_debounce = 100,
+			  status_formatter = nil, -- Use default
+				  use_decoration_api = true,
+			  use_internal_diff = true,  -- If luajit is present
 	}
-	-- ----------------------------------------
+-- ----------------------------------------
 
-	-- -- ----------------------------------------
-	-- -- far config
-	-- -- ----------------------------------------
-	-- nnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
-	-- vnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
-	-- let g:far#enable_undo=1
-	-- nnoremap <LEADER>fr :Farr<cr>
-	-- vnoremap <LEADER>fr :Farr<cr>
-	-- -- ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- vim markdown toc config
-	-- -- ----------------------------------------
-	-- let g:vmt_cycle_list_item_markers = 1
-	-- let g:vmt_fence_text = 'TOC'
-	-- let g:vmt_fence_closing_text = '/TOC'
-	-- -- ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- rnvimr config
-	-- -- ----------------------------------------
-	-- let g:rnvimr_ex_enable = 1
-	-- let g:rnvimr_pick_enable = 1
-	-- let g:rnvimr_draw_border = 0
-	-- -- let g:rnvimr_bw_enable = 1
-	-- highlight link RnvimrNormal CursorLine
-	-- nnoremap <silent> R :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
-	-- let g:rnvimr_action = {
+-- -- ----------------------------------------
+-- -- far config
+-- -- ----------------------------------------
+-- nnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
+-- vnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
+-- let g:far#enable_undo=1
+-- nnoremap <LEADER>fr :Farr<cr>
+-- vnoremap <LEADER>fr :Farr<cr>
+-- -- ----------------------------------------
+--
+-- -- ----------------------------------------
+-- -- vim markdown toc config
+-- -- ----------------------------------------
+-- let g:vmt_cycle_list_item_markers = 1
+-- let g:vmt_fence_text = 'TOC'
+-- let g:vmt_fence_closing_text = '/TOC'
+-- -- ----------------------------------------
+--
+-- -- ----------------------------------------
+-- -- rnvimr config
+-- -- ----------------------------------------
+-- let g:rnvimr_ex_enable = 1
+-- let g:rnvimr_pick_enable = 1
+-- let g:rnvimr_draw_border = 0
+-- -- let g:rnvimr_bw_enable = 1
+-- highlight link RnvimrNormal CursorLine
+-- nnoremap <silent> R :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+-- let g:rnvimr_action = {
 	--     \ '<C-t>': 'NvimEdit tabedit',
 	--     \ '<C-x>': 'NvimEdit split',
 	--     \ '<C-v>': 'NvimEdit vsplit',
 	--     \ 'gw': 'JumpNvimCwd',
 	--     \ 'yw': 'EmitRangerCwd'
-	-- \ }
-	-- let g:rnvimr_layout = {
-	--     \ 'relative': 'editor',
-	--     \ 'width': float2nr(round(0.5 * &columns)),
-	--     \ 'height': float2nr(round(0.5 * &lines)),
-	--     \ 'col': float2nr(round(0.15 * &columns)),
-	--     \ 'row': float2nr(round(0.15 * &lines)),
-	--     \ 'style': 'minimal'
-	-- \ }
-	-- let g:rnvimr_presets = [{'width': 0.7, 'height': 0.7}]
-	-- -- ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- goyo config
-	-- -- ----------------------------------------
-	-- map <leader>gy :Goyo<CR>
-	-- -- ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- vim subversive config
-	-- -- ----------------------------------------
+		-- \ }
+		-- let g:rnvimr_layout = {
+			--     \ 'relative': 'editor',
+			--     \ 'width': float2nr(round(0.5 * &columns)),
+			--     \ 'height': float2nr(round(0.5 * &lines)),
+			--     \ 'col': float2nr(round(0.15 * &columns)),
+			--     \ 'row': float2nr(round(0.15 * &lines)),
+			--     \ 'style': 'minimal'
+				-- \ }
+				-- let g:rnvimr_presets = [{'width': 0.7, 'height': 0.7}]
+				-- -- ----------------------------------------
+				--
+				-- -- ----------------------------------------
+				-- -- goyo config
+				-- -- ----------------------------------------
+				-- map <leader>gy :Goyo<CR>
+				-- -- ----------------------------------------
+				--
+				-- -- ----------------------------------------
+				-- -- vim subversive config
+				-- -- ----------------------------------------
 	-- -- s for substitute
 	-- nmap s <plug>(SubversiveSubstitute)
 	-- vmap s <plug>(SubversiveSubstitute)
 	-- nmap ss <plug>(SubversiveSubstituteLine)
 	-- nmap <leader>s <plug>(SubversiveSubstituteRange)
 	-- xmap <leader>s <plug>(SubversiveSubstituteRange)
-	-- nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+-- nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 	-- -- ----------------------------------------
 	--
 	-- -- ----------------------------------------
@@ -1038,20 +1037,20 @@ elseif &filetype == 'go'
 	-- --  vim yoink config
 	-- -- ----------------------------------------
 	-- nmap - <plug>(YoinkPostPasteSwapBack)
-	-- nmap = <plug>(YoinkPostPasteSwapForward)
+-- nmap = <plug>(YoinkPostPasteSwapForward)
 	--
 	-- nmap p <plug>(YoinkPaste_p)
-	-- nmap P <plug>(YoinkPaste_P)
+-- nmap P <plug>(YoinkPaste_P)
 	--
 	-- -- Also replace the default gp with yoink paste so we can toggle paste in this case too
 	-- nmap gp <plug>(YoinkPaste_gp)
-	-- nmap gP <plug>(YoinkPaste_gP)
+-- nmap gP <plug>(YoinkPaste_gP)
 	--
 	-- -- Note that the swap operations above will only affect the current paste and the history order will be unchanged. However - if you do want to permanently cycle through the history, you can do that too:
 	-- nmap y[ <plug>(YoinkRotateBack)
-	-- nmap y] <plug>(YoinkRotateForward)
+-- nmap y] <plug>(YoinkRotateForward)
 	--
-	-- nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
+-- nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
 	-- -- ----------------------------------------
 	--
 	-- -- ----------------------------------------
@@ -1068,18 +1067,18 @@ elseif &filetype == 'go'
 	--
 	-- -- Jump to anywhere you want with minimal keystrokes, with just one key binding.
 	-- -- `s{char}{label}`
-	-- nmap <leader><leader> <Plug>(easymotion-overwin-f)
+-- nmap <leader><leader> <Plug>(easymotion-overwin-f)
 	-- -- or
 	-- -- `s{char}{char}{label}`
 	-- -- Need one more keystroke, but on average, it may be more comfortable.
-	-- nmap <leader><leader> <Plug>(easymotion-overwin-f2)
+-- nmap <leader><leader> <Plug>(easymotion-overwin-f2)
 	--
 	-- -- Turn on case-insensitive feature
 	-- let g:EasyMotion_smartcase = 1
 	--
 	-- -- JK motions: Line motions
 	-- map <Leader>j <Plug>(easymotion-j)
-	-- map <Leader>k <Plug>(easymotion-k)
+-- map <Leader>k <Plug>(easymotion-k)
 	-- -- ----------------------------------------
 	--
 	-- -- ----------------------------------------
@@ -1110,7 +1109,7 @@ elseif &filetype == 'go'
 	-- -- '[           Jump by alphabetical order to start of prev line having a mark
 	-- -- m/           Open location list and display marks from current buffer
 	-- "
-	-- -- m[0-9]       Toggle the corresponding marker !@#$%^&*()
+-- -- m[0-9]       Toggle the corresponding marker !@#$%^&*()
 	-- -- m<S-[0-9]>   Remove all markers of the same type
 	-- -- ]-           Jump to next line having a marker of the same type
 	-- -- [-           Jump to prev line having a marker of the same type
@@ -1128,49 +1127,49 @@ elseif &filetype == 'go'
 		["*"] = {
 			{cmd = {"sed -i 's/[ \t]*$//'"}} -- remove trailing whitespace
 		},
-		vim = {
-			{
-				cmd = {"luafmt -w replace"},
-				start_pattern = "^lua << EOF$",
-				end_pattern = "^EOF$"
-			}
-		},
-		vimwiki = {
-			{
-				cmd = {"prettier -w --parser babel"},
-				start_pattern = "^{{{javascript$",
-				end_pattern = "^}}}$"
-			}
-		},
-		lua = {
-			{
-				cmd = {
-					function(file)
-						return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
-					end
+			vim = {
+				{
+					cmd = {"luafmt -w replace"},
+					start_pattern = "^lua << EOF$",
+					end_pattern = "^EOF$"
+				}
+			},
+			vimwiki = {
+				{
+					cmd = {"prettier -w --parser babel"},
+					start_pattern = "^{{{javascript$",
+					end_pattern = "^}}}$"
+				}
+			},
+			lua = {
+				{
+					cmd = {
+						function(file)
+							return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
+							end
+					}
+				}
+			},
+			go = {
+				{
+					cmd = {"gofmt -w", "goimports -w"},
+					tempfile_postfix = ".tmp"
+				}
+			},
+			javascript = {
+				{cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
+			},
+			markdown = {
+				{cmd = {"prettier -w"}},
+				{
+					cmd = {"black"},
+					start_pattern = "^```python$",
+					end_pattern = "^```$",
+					target = "current"
 				}
 			}
-		},
-		go = {
-			{
-				cmd = {"gofmt -w", "goimports -w"},
-				tempfile_postfix = ".tmp"
-			}
-		},
-		javascript = {
-			{cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
-		},
-		markdown = {
-			{cmd = {"prettier -w"}},
-			{
-				cmd = {"black"},
-				start_pattern = "^```python$",
-				end_pattern = "^```$",
-				target = "current"
-			}
-		}
 	}
-	cmd [[
+cmd [[
 	augroup Format
 	autocmd!
 	autocmd BufWritePost * FormatWrite
@@ -1262,7 +1261,7 @@ elseif &filetype == 'go'
 	-- -- colorscheme config
 	-- -- ----------------------------------------
 	o.background = "dark" -- or "light" for light mode
-	cmd([[colorscheme gruvbox]])
+cmd([[colorscheme gruvbox]])
 	cmd 'hi Search ctermbg=LightBlue guibg=LightBlue'
 	cmd 'hi Search ctermfg=Red guifg=Red'
 	-- -- ----------------------------------------
@@ -1294,7 +1293,7 @@ elseif &filetype == 'go'
 	-- let g:VM_maps['Find Under']         = '<leader>n'
 	-- let g:VM_maps['Find Subword Under'] = '<leader>n'
 	--
-	-- -- select words with Ctrl-N (remapped to <leader>n) (like Ctrl-d in Sublime Text/VS Code)
+-- -- select words with Ctrl-N (remapped to <leader>n) (like Ctrl-d in Sublime Text/VS Code)
 	-- -- create cursors vertically with Ctrl-Down/Ctrl-Up
 	-- -- select one character at a time with Shift-Arrows
 	-- -- press n/N to get next/previous occurrence
@@ -1307,101 +1306,101 @@ elseif &filetype == 'go'
 	-- -- vim-surround usage
 	-- -- ----------------------------------------
 	-- nmap <leader>[ ysiw[
-	-- nmap <leader>] ysiw]
-	--
-	-- nmap <leader>{ ysiw{
-	-- nmap <leader>} ysiw}
-	--
-	-- nmap <leader>( ysiw(
-	-- nmap <leader>) ysiw)
-	--
-	-- nmap <leader>' ysiw'
-	--
-	-- nmap <leader>` ysiw`
-	--
-	-- nmap <leader>-- ysiw"
-	--
-	-- nmap <leader>$ ysiw$
-	--
-	-- nmap <leader>< ysiw<
-	-- nmap <leader>> ysiw>
-	--
-	-- nmap <leader>* ysiw*
-	-- --  cs <now surround> <target surround> cs'"
-	-- --  ysiw <surround sign> surround the current word surrounded by space
-	-- --  ysw <surround sign> surround the current word
-	-- --  yse <surround sign>
-	-- --  ys$ <surround sign>
-	-- --  ys0 <surround sign>
-	-- --  ...
-	-- --  yss <surround sign> surround the current line
-	-- --  ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- coc-pairs config
-	-- -- ----------------------------------------
-	-- autocmd FileType tex let b:coc_pairs = [["$", "$"]]
-	-- autocmd FileType markdown let b:coc_pairs_disabled = ['`']
-	-- -- ----------------------------------------
-	--
-	-- -- ----------------------------------------
-	-- -- coc config
-	-- -- ----------------------------------------
-	-- let g:coc_global_extensions = [
-	-- \ 'coc-json',
-	-- \ 'coc-css',
-	-- \ 'coc-pyright',
-	-- \ 'coc-html',
-	-- \ 'coc-pairs',
-	-- \ 'coc-explorer',
-	-- \ 'coc-vimlsp',
-	-- \ 'coc-diagnostic',
-	-- \ 'coc-snippets',
-	-- \ 'coc-highlight',
-	-- \ 'coc-stylelint',
-	-- \ 'coc-syntax',
-	-- \ 'coc-translator',
-	-- \ 'coc-tsserver',
-	-- \ 'coc-markdownlint',
-	-- \ 'coc-yaml',
-	-- \ 'coc-yank',
-	-- \ 'coc-docker',
-	-- \ 'coc-sourcekit',
-	-- \ 'coc-tasks',
-	-- \ 'coc-emoji',
-	-- \ 'coc-word']
-	--
-	-- let g:coc_disable_transparent_cursor = 0
-	--
-	-- -- TextEdit might fail if hidden is not set.
-	-- set hidden
-	--
-	-- -- Some servers have issues with backup files, see #649.
-	-- set nobackup
-	-- set nowritebackup
-	--
-	-- -- Give more space for displaying messages.
-	-- set cmdheight=1
-	--
-	-- -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-	-- -- delays and poor user experience.
-	-- set updatetime=100
-	--
-	-- -- Don't pass messages to |ins-completion-menu|.
-	-- set shortmess+=c
-	--
-	-- -- Always show the signcolumn, otherwise it would shift the text each time
-	-- -- diagnostics appear/become resolved.
-	-- -- if has("nvim-0.5.0") || has("patch-8.1.1564")
-	-- --   -- Recently vim can merge signcolumn and number column into one
-	-- --   set signcolumn=number
-	-- -- else
-	-- --   set signcolumn=yes
-	-- -- endif
-	-- set signcolumn=yes
-	--
+		-- nmap <leader>] ysiw]
+		--
+		-- nmap <leader>{ ysiw{
+			-- nmap <leader>} ysiw}
+			--
+			-- nmap <leader>( ysiw(
+						-- nmap <leader>) ysiw)
+			--
+			-- nmap <leader>' ysiw'
+			--
+			-- nmap <leader>` ysiw`
+			--
+			-- nmap <leader>-- ysiw"
+			--
+			-- nmap <leader>$ ysiw$
+			--
+			-- nmap <leader>< ysiw<
+			-- nmap <leader>> ysiw>
+			--
+			-- nmap <leader>* ysiw*
+			-- --  cs <now surround> <target surround> cs'"
+			-- --  ysiw <surround sign> surround the current word surrounded by space
+			-- --  ysw <surround sign> surround the current word
+			-- --  yse <surround sign>
+			-- --  ys$ <surround sign>
+			-- --  ys0 <surround sign>
+			-- --  ...
+			-- --  yss <surround sign> surround the current line
+			-- --  ----------------------------------------
+			--
+			-- -- ----------------------------------------
+			-- -- coc-pairs config
+			-- -- ----------------------------------------
+			-- autocmd FileType tex let b:coc_pairs = [["$", "$"]]
+			-- autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+			-- -- ----------------------------------------
+			--
+			-- -- ----------------------------------------
+			-- -- coc config
+			-- -- ----------------------------------------
+			-- let g:coc_global_extensions = [
+				-- \ 'coc-json',
+				-- \ 'coc-css',
+				-- \ 'coc-pyright',
+				-- \ 'coc-html',
+				-- \ 'coc-pairs',
+				-- \ 'coc-explorer',
+				-- \ 'coc-vimlsp',
+				-- \ 'coc-diagnostic',
+				-- \ 'coc-snippets',
+				-- \ 'coc-highlight',
+				-- \ 'coc-stylelint',
+				-- \ 'coc-syntax',
+				-- \ 'coc-translator',
+				-- \ 'coc-tsserver',
+				-- \ 'coc-markdownlint',
+				-- \ 'coc-yaml',
+				-- \ 'coc-yank',
+				-- \ 'coc-docker',
+				-- \ 'coc-sourcekit',
+				-- \ 'coc-tasks',
+				-- \ 'coc-emoji',
+				-- \ 'coc-word']
+				--
+				-- let g:coc_disable_transparent_cursor = 0
+				--
+				-- -- TextEdit might fail if hidden is not set.
+				-- set hidden
+				--
+				-- -- Some servers have issues with backup files, see #649.
+				-- set nobackup
+				-- set nowritebackup
+				--
+				-- -- Give more space for displaying messages.
+				-- set cmdheight=1
+				--
+				-- -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+				-- -- delays and poor user experience.
+				-- set updatetime=100
+				--
+				-- -- Don't pass messages to |ins-completion-menu|.
+				-- set shortmess+=c
+				--
+				-- -- Always show the signcolumn, otherwise it would shift the text each time
+				-- -- diagnostics appear/become resolved.
+				-- -- if has("nvim-0.5.0") || has("patch-8.1.1564")
+				-- --   -- Recently vim can merge signcolumn and number column into one
+				-- --   set signcolumn=number
+				-- -- else
+				-- --   set signcolumn=yes
+				-- -- endif
+				-- set signcolumn=yes
+				--
 	-- -- coc-translator
-	-- nmap ts <Plug>(coc-translator-p)
+-- nmap ts <Plug>(coc-translator-p)
 	--
 	-- -- Use tab for trigger completion with characters ahead and navigate.
 	-- -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -1409,7 +1408,7 @@ elseif &filetype == 'go'
 	-- inoremap <silent><expr> <TAB>
 	-- \ pumvisible() ? "\<C-n>-- :
 	-- \ <SID>check_back_space() ? "\<TAB>-- :
-	-- \ coc#refresh()
+-- \ coc#refresh()
 	-- inoremap <expr><S-TAB> pumvisible() ? "\<C-p>-- : "\<C-h>"
 	-- "
 	-- function! s:check_back_space() abort
@@ -1418,11 +1417,11 @@ elseif &filetype == 'go'
 	-- endfunction
 	--
 	-- -- Use <c-n> to trigger completion.
-	-- inoremap <silent><expr> <c-n> coc#refresh()
+-- inoremap <silent><expr> <c-n> coc#refresh()
 	--
 	-- -- Make <cr> auto-select the first completion item and notify coc.nvim to
 	-- -- format on enter, <cr> could be remapped by other vim plugin
-	-- -- inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+-- -- inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 	-- --             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 	--
 	-- -- Use `g[` and `g]` to navigate diagnostics
@@ -1431,7 +1430,7 @@ elseif &filetype == 'go'
 	-- function! s:show_documentation()
 	-- if (index(['vim','help'], &filetype) >= 0)
 	-- execute 'h '.expand('<cword>')
-	-- elseif (coc#rpc#ready())
+-- elseif (coc#rpc#ready())
 	-- call CocActionAsync('doHover')
 	-- else
 	-- execute '!' . &keywordprg . -- -- . expand('<cword>')
@@ -1439,17 +1438,17 @@ elseif &filetype == 'go'
 	-- endfunction
 	--
 	-- -- Symbol renaming.
-	-- nmap <leader>x <Plug>(coc-rename)
+-- nmap <leader>x <Plug>(coc-rename)
 	--
 	-- -- Applying codeAction to the selected region.
 	-- -- Example: `<leader>aap` for current paragraph
-	-- xmap <leader>a  <Plug>(coc-codeaction-selected)
+-- xmap <leader>a  <Plug>(coc-codeaction-selected)
 	-- nmap <leader>aw  <Plug>(coc-codeaction-selected)w
 	--
 	-- -- Remap keys for applying codeAction to the current buffer.
-	-- nmap <leader>ac  <Plug>(coc-codeaction)
+-- nmap <leader>ac  <Plug>(coc-codeaction)
 	-- -- Apply AutoFix to problem on the current line.
-	-- nmap <leader>ff  <Plug>(coc-fix-current)
+-- nmap <leader>ff  <Plug>(coc-fix-current)
 	--
 	-- -- Map function and class text objects
 	-- -- NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -1460,7 +1459,7 @@ elseif &filetype == 'go'
 	-- xmap ic <Plug>(coc-classobj-i)
 	-- omap ic <Plug>(coc-classobj-i)
 	-- xmap ac <Plug>(coc-classobj-a)
-	-- omap ac <Plug>(coc-classobj-a)
+-- omap ac <Plug>(coc-classobj-a)
 	--
 	-- -- Add `:Format` command to format current buffer.
 	-- command! -nargs=0 Format :call CocAction('format')
@@ -1510,10 +1509,10 @@ elseif &filetype == 'go'
 	-- -- coc-snippets
 	-- -- ----------------------------------------
 	-- -- Use <C-l> for trigger snippet expand. instead use tab
-	-- -- imap <C-l> <Plug>(coc-snippets-expand)
+-- -- imap <C-l> <Plug>(coc-snippets-expand)
 	--
 	-- -- Use <C-j> for select text for visual placeholder of snippet.
-	-- vmap <C-j> <Plug>(coc-snippets-select)
+-- vmap <C-j> <Plug>(coc-snippets-select)
 	--
 	-- -- Use <C-j> for jump to next placeholder, it's default of coc.nvim
 	-- let g:coc_snippet_next = '<c-j>'
@@ -1522,10 +1521,10 @@ elseif &filetype == 'go'
 	-- let g:coc_snippet_prev = '<c-k>'
 	--
 	-- -- Use <C-j> for both expand and jump (make expand higher priority.)
-	-- imap <C-j> <Plug>(coc-snippets-expand-jump)
+-- imap <C-j> <Plug>(coc-snippets-expand-jump)
 	--
 	-- -- Use <leader>x for convert visual selected code to snippet
-	-- xmap <leader>x  <Plug>(coc-convert-snippet)
+-- xmap <leader>x  <Plug>(coc-convert-snippet)
 	--
 	-- let g:snips_author = '@pkuanjie'
 	-- -- ----------------------------------------
@@ -1552,7 +1551,7 @@ elseif &filetype == 'go'
 	-- Add your own custom formats or override the defaults
 	cmd [[let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }]]
 
-	-- Allow commenting and inverting empty lines (useful when commenting a region)
+-- Allow commenting and inverting empty lines (useful when commenting a region)
 	g.NERDCommentEmptyLines = 1
 
 	-- Enable trimming of trailing whitespace when uncommenting
