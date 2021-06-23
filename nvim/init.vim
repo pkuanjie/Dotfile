@@ -45,7 +45,7 @@ set showmatch
 set wildmenu
 set autochdir
 set list
-set listchars=tab:>-,trail:▫
+set listchars=tab:\|\ ,trail:▫
 set maxmempattern=10000
 set hlsearch
 set ignorecase
@@ -297,6 +297,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim',
 Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mbbill/undotree'
 Plug 'liuchengxu/vista.vim'
@@ -316,11 +317,8 @@ Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
 Plug 'kyazdani42/nvim-web-devicons'
-
-" General Highlighter
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'luochen1990/rainbow'
 " Find & Replace
 Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
@@ -350,7 +348,13 @@ Plug 'jacoborus/tender.vim'
 call plug#end()
 
 " ----------------------------------------
-" nvim treesitter config
+" antovim config
+" ----------------------------------------
+nmap <leader>rv :Antovim<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" glow config
 " ----------------------------------------
 nmap <leader>gg :Glow<CR>
 " ----------------------------------------
@@ -736,7 +740,7 @@ nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-colorscheme tender
+colorscheme gruvbox
 hi Search ctermbg=LightBlue guibg=LightBlue
 hi Search ctermfg=Red guifg=Red
 " ----------------------------------------
@@ -1019,7 +1023,7 @@ let g:snips_author = '@pkuanjie'
 " ----------------------------------------
 
 " ----------------------------------------
-" kommentory config
+" nerdcommenter config
 " ----------------------------------------
 
 " Create default mappings
