@@ -8,7 +8,16 @@
 " Author: @pkuanjie
 " Thanks: @theniceboy
 " Date: 2021/6/18
+" Note: Based on: CoC, this config file can be used by 0.5 version.
 " --------------------------------------------
+
+
+" ========================================
+" Basic Settings
+" ========================================
+let g:python3_host_prog = "/usr/bin/python3"
+" ========================================
+
 
 " ========================================
 " Basic Settings
@@ -16,6 +25,7 @@
 set nocompatible
 
 " Set <LEADER> as <SPACE>, ; as :
+noremap <SPACE> <NOP>
 let mapleader=" "
 noremap ; :
 set encoding=UTF-8
@@ -24,20 +34,18 @@ filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-set cursorline
+set nocursorline
 if has("termguicolors")
 	" enable true color
 	set termguicolors
 endif
 set tabstop=4
-if !exists('g:vscode')
-	set number
-endif
+set number
 set showmatch
 set wildmenu
 set autochdir
 set list
-set listchars=tab:\|\ ,trail:▫
+set listchars=tab:>-,trail:▫
 set maxmempattern=10000
 set hlsearch
 set ignorecase
@@ -67,8 +75,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 nnoremap <LEADER>h :e ~/.config/nvim/init.vim<CR>
 
 " Space to Tab
-nnoremap <LEADER>w :%s/    /\t/g
-vnoremap <LEADER>w :s/    /\t/g
+nnoremap <LEADER>st :%s/    /\t/g
+vnoremap <LEADER>st :s/    /\t/g
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -139,16 +147,16 @@ nnoremap Q :q<CR>
 nnoremap S :w<CR>
 
 " k/j keys for 5 times k/j (faster navigation)
-nnoremap <silent> K 5k
-nnoremap <silent> J 5j
+nnoremap K 5k
+nnoremap J 5j
 
 " H key: go to the start of the line
-nnoremap <silent> H 0
-vnoremap <silent> H 0
+nnoremap H 0
+vnoremap H 0
 inoremap <C-a> <ESC>I
 " L key: go to the end of the line
-nnoremap <silent> L $
-vnoremap <silent> L $
+nnoremap L $
+vnoremap L $
 inoremap <C-e> <ESC>A
 
 " Faster in-line navigation
@@ -299,7 +307,6 @@ Plug 'ron89/thesaurus_query.vim'
 Plug 'mhinz/vim-startify'
 Plug 'jbgutierrez/vim-better-comments'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'DougBeney/pickachu'
 Plug 'aperezdc/vim-template'
 Plug 'svermeulen/vim-subversive'
 Plug 'junegunn/goyo.vim'
@@ -308,12 +315,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
-Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
 
 " General Highlighter
-Plug 'RRethy/vim-illuminate'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'luochen1990/rainbow'
@@ -324,7 +328,6 @@ Plug 'theniceboy/vim-snippets'
 Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
 Plug 'junegunn/vim-after-object'
 Plug 'easymotion/vim-easymotion'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'brooth/far.vim'
 
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
@@ -333,26 +336,110 @@ Plug 'dkarter/bullets.vim'
 Plug 'lervag/vimtex'
 Plug 'mzlogin/vim-markdown-toc'
 
+" fancy treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'p00f/nvim-ts-rainbow'
+
+" 0.5
+Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
+
 " colorschemes
 Plug 'jacoborus/tender.vim'
 
 call plug#end()
 
-
 " ----------------------------------------
-" barbar config
+" nvim treesitter config
 " ----------------------------------------
-" Magic buffer-picking mode
-nnoremap <silent> <C-s>    :BufferPick<CR>
-" Sort automatically by...
-nnoremap <silent> <leader>bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <leader>bl :BufferOrderByLanguage<CR>
+nmap <leader>gg :Glow<CR>
 " ----------------------------------------
 
 " ----------------------------------------
-" glow config
+" nvim treesitter config
 " ----------------------------------------
-nmap <leader>gp :Glow<CR>
+lua <<EOF
+require'nvim-treesitter'.define_modules {
+	fold = {
+		attach = function(_, _)
+			vim.cmd'set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
+		end,
+		detach = function() end,
+	}
+}
+
+local langs = {
+	"python",
+	"bash",
+	"html",
+	"css",
+	"lua",
+	"latex",
+	"bibtex",
+	"yaml",
+	"dockerfile",
+	"c",
+	"cpp",
+}
+
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = langs,
+	highlight = {
+		enable = true,
+	},
+	indent = {
+		enable = true,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection    = "gnn",
+			node_incremental  = "grn",
+			scope_incremental = "grc",
+			node_decremental  = "grm",
+		},
+	},
+	fold = {
+		enable = true,
+	},
+	textobjects = {
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>pl"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>ph"] = "@parameter.inner",
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true, -- whether to set jumps in the jumplist
+			goto_next_start = {
+				["]]"] = "@function.outer",
+				["]a"] = "@class.outer",
+			},
+			goto_next_end = {
+				["]["] = "@function.outer",
+				["]e"] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[["] = "@function.outer",
+				["[a"] = "@class.outer",
+			},
+			goto_previous_end = {
+				["[]"] = "@function.outer",
+				["[e"] = "@class.outer",
+			},
+		},
+	},
+	rainbow = {
+		enable = true,
+		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+		max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+	}
+}
+EOF
 " ----------------------------------------
 
 " ----------------------------------------
@@ -413,13 +500,13 @@ let g:rnvimr_action = {
             \ }
 let g:rnvimr_layout = {
             \ 'relative': 'editor',
-            \ 'width': float2nr(round(0.7 * &columns)),
-            \ 'height': float2nr(round(0.7 * &lines)),
+            \ 'width': float2nr(round(0.5 * &columns)),
+            \ 'height': float2nr(round(0.5 * &lines)),
             \ 'col': float2nr(round(0.15 * &columns)),
             \ 'row': float2nr(round(0.15 * &lines)),
             \ 'style': 'minimal'
             \ }
-let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
+let g:rnvimr_presets = [{'width': 0.7, 'height': 0.7}]
 " ----------------------------------------
 
 " ----------------------------------------
@@ -458,13 +545,6 @@ nnoremap <silent> 'h :History<CR>
 nnoremap <silent> 'm :Maps<CR>
 nnoremap <silent> 't :Tags<CR>
 nnoremap <silent> 'a :Ag<CR>
-" ----------------------------------------
-
-" ----------------------------------------
-"  vim semshi config
-" ----------------------------------------
-let g:semshi#mark_selected_nodes = 0
-let g:semshi#error_sign = v:false
 " ----------------------------------------
 
 " ----------------------------------------
@@ -599,14 +679,12 @@ autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 " ----------------------------------------
 
 " ----------------------------------------
-" vim after object config
+" vim tabular config
 " ----------------------------------------
-if exists(":Tabularize")
-	nmap <Leader>= :Tabularize /=<CR>
-	vmap <Leader>= :Tabularize /=<CR>
-	nmap <Leader>: :Tabularize /:\zs<CR>
-	vmap <Leader>: :Tabularize /:\zs<CR>
-endif
+nmap <leader>= :Tabularize /=<CR>
+vmap <leader>= :Tabularize /=<CR>
+nmap <leader>: :Tabularize /:\zs<CR>
+vmap <leader>: :Tabularize /:\zs<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -650,20 +728,6 @@ let g:instant_markdown_autoscroll = 1
 " ----------------------------------------
 
 " ----------------------------------------
-" vim illuminate config
-" ----------------------------------------
-" Don't highlight word under cursor (default: 1)
-let g:Illuminate_highlightUnderCursor = 0
-
-let g:Illuminate_ftblacklist = ['nerdtree']
-let g:Illuminate_delay = 400
-augroup illuminate_augroup
-	autocmd!
-	autocmd VimEnter * hi illuminatedWord ctermbg=12 guibg='#11515F'
-augroup END
-" ----------------------------------------
-
-" ----------------------------------------
 " coc explorer config
 " ----------------------------------------
 nnoremap 'e :CocCommand explorer<CR>
@@ -673,6 +737,18 @@ nnoremap 'e :CocCommand explorer<CR>
 " colorscheme config
 " ----------------------------------------
 colorscheme tender
+hi Search ctermbg=LightBlue guibg=LightBlue
+hi Search ctermfg=Red guifg=Red
+" ----------------------------------------
+
+" ----------------------------------------
+" ccc highlight config --- make sure this part is below the colorscheme part
+" to override the default colorscheme settings
+" ----------------------------------------
+autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight CocHighlightText ctermfg=LightMagenta guifg=LightMagenta guibg=Black ctermbg=Black
+nnoremap <leader>pc :call CocAction('pickColor')<CR>
+nnoremap <leader>cp :call CocAction('colorPresentation')<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -750,15 +826,18 @@ let g:coc_global_extensions = [
 			\ 'coc-css',
 			\ 'coc-pyright',
 			\ 'coc-html',
+			\ 'coc-lua',
 			\ 'coc-pairs',
 			\ 'coc-explorer',
 			\ 'coc-vimlsp',
 			\ 'coc-diagnostic',
 			\ 'coc-snippets',
+			\ 'coc-highlight',
 			\ 'coc-stylelint',
 			\ 'coc-syntax',
 			\ 'coc-translator',
 			\ 'coc-tsserver',
+			\ 'coc-markdownlint',
 			\ 'coc-yaml',
 			\ 'coc-yank',
 			\ 'coc-docker',
