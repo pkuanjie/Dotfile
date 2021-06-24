@@ -258,11 +258,11 @@ func! CompileRun()
 	elseif &filetype == 'python'
 		set splitbelow
 		:sp
-		:term python3 %
+		:term python %
 	elseif &filetype == 'html'
 		silent! exec "!".g:mkdp_browser." % &"
 	elseif &filetype == 'markdown'
-		exec "InstantMarkdownPreview"
+		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
 		silent! exec "VimtexStop"
 		silent! exec "VimtexCompile"
@@ -312,6 +312,8 @@ Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
+Plug 'iamcco/markdown-preview.nvim'
+Plug '907th/vim-auto-save'
 
 " Find & Replace
 Plug 'Yggdroot/indentLine'
@@ -320,7 +322,6 @@ Plug 'theniceboy/vim-snippets'
 Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
 Plug 'junegunn/vim-after-object'
 
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
 Plug 'lervag/vimtex'
@@ -339,6 +340,13 @@ Plug 'jacoborus/tender.vim'
 Plug 'mhartington/oceanic-next'
 
 call plug#end()
+
+" ----------------------------------------
+" vim auto save config
+" ----------------------------------------
+let g:auto_save = 1  " enable AutoSave on Vim startup
+nmap <leader>as :AutoSaveToggle<CR>
+" ----------------------------------------
 
 " ----------------------------------------
 " antovim config
@@ -680,20 +688,9 @@ inoreabbrev <expr> __
 
 
 " ----------------------------------------
-" vim instant markdown config
+" vim markdown preview config
 " ----------------------------------------
-"Uncomment to override defaults:
-"let g:instant_markdown_slow = 1
-"let g:instant_markdown_autostart = 0
-"let g:instant_markdown_open_to_the_world = 1
-"let g:instant_markdown_allow_unsafe_content = 1
-"let g:instant_markdown_allow_external_content = 0
-"let g:instant_markdown_mathjax = 1
-"let g:instant_markdown_mermaid = 1
-"let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
-let g:instant_markdown_autoscroll = 1
-"let g:instant_markdown_port = 8888
-"let g:instant_markdown_python = 1
+nmap <leader>pv <Plug>MarkdownPreviewToggle
 " ----------------------------------------
 
 " ----------------------------------------
