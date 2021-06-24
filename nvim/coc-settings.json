@@ -72,8 +72,16 @@
 	"yaml.format.enable": true,
 	"highlight.colors.enable": true,
 	"highlight.document.enable": true,
-	"pairs.enableCharacters": ["(", "[", "{", "<", "'", "\"", "`"],
-		"explorer.width": 38,
-		"explorer.file.showHiddenFiles": true,
-		"explorer.icon.enableNerdfont": true
-	}
+	"pairs.enableCharacters": [
+		"(",
+		"[",
+		"{",
+		"<",
+		"'",
+		"\"",
+		"`"
+	],
+	"explorer.width": 38,
+	"explorer.file.showHiddenFiles": true,
+	"explorer.icon.enableNerdfont": true
+}

@@ -6,9 +6,8 @@
 " |_| |_|\_/ |_|_| |_| |_|_|  \___|  \___/|_|\___|
 " --------------------------------------------
 " Author: @pkuanjie
-" Thanks: @theniceboy
-" Date: 2021/6/18
-" Note: Based on: CoC, this config file can be used by 0.5 version.
+" Date: 2021/6/24
+" Note: Based on CoC (which is the best!), this config file only support neovim=0.5.
 " --------------------------------------------
 
 
@@ -27,7 +26,6 @@ set nocompatible
 " Set <LEADER> as <SPACE>, ; as :
 noremap <SPACE> <NOP>
 let mapleader=" "
-noremap ; :
 set encoding=UTF-8
 let &t_ut=''
 filetype on
@@ -44,6 +42,7 @@ set number
 set showmatch
 set wildmenu
 set autochdir
+set relativenumber
 set list
 set listchars=tab:\|\ ,trail:▫
 set maxmempattern=10000
@@ -92,7 +91,8 @@ nnoremap > >>
 nnoremap <leader>sc :set spell!<CR>
 
 " find and replace
-nnoremap 's :%s//g<left><left>
+nnoremap 'sa :%s//g<left><left>
+nnoremap 'sc :%s//gc<left><left>
 
 " markdown, latex, auto spell
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
@@ -131,7 +131,7 @@ autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap <buffer> ,l --------<Enter>
 
 " Press leader twice to jump to the next '<++>' and edit it
-noremap <leader>l <Esc>/<++><CR>:nohlsearch<CR>c4l
+noremap <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " bind <A-a> to use it for increasing numbers and <A-x> to decrease
 nnoremap <M-a> <C-a>
@@ -216,7 +216,7 @@ noremap <leader>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
 " Terminal Behaviors
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
-tnoremap <C-n> <C-\><C-n>
+tnoremap <C-c> <C-\><C-n>
 
 " terminal colors
 let g:terminal_color_0  = '#000000'
@@ -286,11 +286,9 @@ vmap <leader>p :!python3<cr>
 " Plugins
 " ========================================
 call plug#begin()
+Plug 'tpope/vim-obsession'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
-Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -306,7 +304,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'kshenoy/vim-signature'
 Plug 'ron89/thesaurus_query.vim'
 Plug 'mhinz/vim-startify'
-Plug 'jbgutierrez/vim-better-comments'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'aperezdc/vim-template'
 Plug 'svermeulen/vim-subversive'
@@ -325,8 +322,6 @@ Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
 Plug 'theniceboy/vim-snippets'
 Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
 Plug 'junegunn/vim-after-object'
-Plug 'easymotion/vim-easymotion'
-Plug 'brooth/far.vim'
 
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
@@ -344,6 +339,7 @@ Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 
 " colorschemes
 Plug 'jacoborus/tender.vim'
+Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
@@ -470,15 +466,6 @@ nnoremap <LEADER>gl :GitGutterNextHunk<CR>
 " ----------------------------------------
 
 " ----------------------------------------
-" far config
-" ----------------------------------------
-nnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
-vnoremap <LEADER>fa :F  **/*<left><left><left><left><left>
-nnoremap <LEADER>fr :Farr
-vnoremap <LEADER>fr :Farr
-" ----------------------------------------
-
-" ----------------------------------------
 " vim markdown toc config
 " ----------------------------------------
 let g:vmt_cycle_list_item_markers = 1
@@ -556,6 +543,7 @@ nnoremap <silent> 'a :Ag<CR>
 " ----------------------------------------
 let g:indentLine_color_term = 238
 let g:indentLine_color_gui = '#444444'
+nnoremap <leader>id :IndentLinesToggle<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -583,27 +571,6 @@ nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
 " ----------------------------------------
 "  gS for split
 "  gJ for join
-" ----------------------------------------
-
-" ----------------------------------------
-"  vim easymotion config
-" ----------------------------------------
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap <leader><leader> <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap <leader><leader> <Plug>(easymotion-overwin-f2)
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
 " ----------------------------------------
 
 " ----------------------------------------
@@ -649,6 +616,7 @@ vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 "  vim autoformat config
 " ----------------------------------------
 noremap <C-=> :AutoformatLine<CR>
+noremap <leader>fm :Autoformat<CR>
 au BufWrite * :Autoformat
 autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
@@ -740,7 +708,7 @@ nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-colorscheme gruvbox
+colorscheme OceanicNext
 hi Search ctermbg=LightBlue guibg=LightBlue
 hi Search ctermfg=Red guifg=Red
 " ----------------------------------------
@@ -758,7 +726,7 @@ nnoremap <leader>cp :call CocAction('colorPresentation')<CR>
 " ----------------------------------------
 " airline config
 " ----------------------------------------
-let g:airline_theme='tender'
+let g:airline_theme='OceanicNext'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
@@ -841,7 +809,6 @@ let g:coc_global_extensions = [
 			\ 'coc-syntax',
 			\ 'coc-translator',
 			\ 'coc-tsserver',
-			\ 'coc-markdownlint',
 			\ 'coc-yaml',
 			\ 'coc-yank',
 			\ 'coc-docker',
@@ -1053,10 +1020,19 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
-nmap ,, <Plug>NERDCommenterToggle
-vmap ,, <Plug>NERDCommenterToggle
-nmap ,. <Plug>NERDCommenterSexy
-vmap ,. <Plug>NERDCommenterSexy
+nmap '' <Plug>NERDCommenterToggle
+vmap '' <Plug>NERDCommenterToggle
+nmap '; <Plug>NERDCommenterSexy
+vmap '; <Plug>NERDCommenterSexy
+nmap 'y <Plug>NERDCommenterYank
+vmap 'y <Plug>NERDCommenterYank
+nmap '] <Plug>NERDCommenterAppend
+vmap '] <Plug>NERDCommenterAppend
+nmap '[ <Plug>NERDCommenterToEOL
+vmap '[ <Plug>NERDCommenterToEOL
+
+nnoremap <silent> 'p vip:call NERDComment('x', 'toggle')<CR>
+
 " ----------------------------------------
 "
 " ========================================
