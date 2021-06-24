@@ -621,7 +621,7 @@ autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
 "  vista config
 " ----------------------------------------
-nnoremap <leader>v :Vista<CR>
+nnoremap 'v :Vista<CR>
 " ----------------------------------------
 
 " ----------------------------------------
