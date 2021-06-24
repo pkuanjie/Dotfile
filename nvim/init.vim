@@ -38,6 +38,7 @@ if has("termguicolors")
 	set termguicolors
 endif
 set tabstop=4
+set autoindent
 set number
 set showmatch
 set wildmenu
@@ -92,7 +93,7 @@ nnoremap <leader>sc :set spell!<CR>
 
 " find and replace
 nnoremap 'sa :%s//g<left><left>
-nnoremap 'sc :%s//gc<left><left>
+nnoremap 'ss :%s//gc<left><left>
 
 " markdown, latex, auto spell
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
@@ -146,10 +147,6 @@ nnoremap N Nzz
 nnoremap Q :q<CR>
 nnoremap S :w<CR>
 
-" k/j keys for 5 times k/j (faster navigation)
-nnoremap K 5k
-nnoremap J 5j
-
 " H key: go to the start of the line
 nnoremap H 0
 vnoremap H 0
@@ -199,8 +196,8 @@ noremap z. <C-w>t<C-w>H
 " Create a new tab with tu
 noremap <tab>g :tabe<CR>
 " Move around tabs with tn and ti
-noremap <tab>h :-tabnext<CR>
-noremap <tab>l :+tabnext<CR>
+noremap J :-tabnext<CR>
+noremap K :+tabnext<CR>
 " Move tabs with tmn and tmi
 noremap <tab><left> :-tabmove<CR>
 noremap <tab><right> :+tabmove<CR>
@@ -615,7 +612,7 @@ vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 " ----------------------------------------
 "  vim autoformat config
 " ----------------------------------------
-noremap <C-=> :AutoformatLine<CR>
+noremap <leader>fl :AutoformatLine<CR>
 noremap <leader>fm :Autoformat<CR>
 au BufWrite * :Autoformat
 autocmd FileType vim,tex let b:autoformat_autoindent=0

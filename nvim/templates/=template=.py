@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright © %USER% <%EMAIL%>.
+# Copyright © %USER% <%MAIL%>.
 #
 # %DATE% %TIME%
 #
