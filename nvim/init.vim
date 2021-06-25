@@ -320,6 +320,7 @@ Plug 'iamcco/markdown-preview.nvim'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'rhysd/vim-grammarous'
 
 " Find & Replace
 Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
@@ -345,6 +346,22 @@ Plug 'jacoborus/tender.vim'
 Plug 'mhartington/oceanic-next'
 
 call plug#end()
+
+" ----------------------------------------
+" grammarous config
+" ----------------------------------------
+nmap <leader>gc :GrammarousCheck --no-comments-only<CR>
+
+" Mappings  Description
+" q Quit the info window
+" <CR>  Move to the location of the error
+" f Fix the error automatically
+" r Remove the error without fix
+" R Disable the grammar rule in the checked buffer
+" n Move to the next error's location
+" p Move to the previous error's location
+" ? Show help of the mapping in info window
+" ----------------------------------------
 
 " ----------------------------------------
 " antovim config
