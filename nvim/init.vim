@@ -1,6 +1,6 @@
 " --------------------------------------------
-"             _                          _ _
-"  _ ____   _(_)_ __ ___  _ __ ___      | (_) ___
+"            _                        _ _
+"  _ ____   _(_)_ __ ___  _ __ ___    | (_) ___
 " | '_ \ \ / / | '_ ` _ \| '__/ __|  _  | | |/ _ \
 " | | | \ V /| | | | | | | | | (__  | |_| | |  __/
 " |_| |_|\_/ |_|_| |_| |_|_|  \___|  \___/|_|\___|
@@ -34,10 +34,12 @@ filetype plugin on
 filetype plugin indent on
 set cursorline
 if has("termguicolors")
-	" enable true color
-	set termguicolors
+    " enable true color
+    set termguicolors
 endif
 set tabstop=4
+set shiftwidth=4
+set expandtab
 set autoindent
 set number
 set showmatch
@@ -45,7 +47,7 @@ set wildmenu
 set autochdir
 set relativenumber
 set list
-set listchars=tab:\|\ ,trail:▫
+set listchars=tab:\│\ ,trail:▫
 set maxmempattern=10000
 set hlsearch
 set ignorecase
@@ -64,16 +66,16 @@ silent !mkdir -p ~/.config/nvim/tmp/undo
 set backupdir=~/.config/nvim/tmp/backup,.
 set directory=~/.config/nvim/tmp/backup,.
 if has('persistent_undo')
-	set undofile
-	set undodir=~/.config/nvim/tmp/undo,.
+    set undofile
+    set undodir=~/.config/nvim/tmp/undo,.
 endif
 
 " Open the vimrc file anytime
 nnoremap <LEADER>h :e ~/.config/nvim/init.vim<CR>
 
 " Space to Tab
-nnoremap <LEADER>st :%s/    /\t/g
-vnoremap <LEADER>st :s/    /\t/g
+nnoremap <LEADER>st :%s/    /\t/g<CR>
+nnoremap <LEADER>ts :%s/\t/    /g<CR>
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -96,37 +98,37 @@ nnoremap 'ss :%s//gc<left><left>
 autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
 
 " markdown shortcuts
-" 快捷键	创建的文字
-" ,n	---
-" ,b	粗体文字
-" ,s	被划去的文字
-" ,i	斜体文字
-" ,d	代码块
-" ,c	大的 代码块
-" ,m	- [ ] 清单
-" ,p	图片
-" ,a	链接
-" ,1	# H1
-" ,2	## H2
-" ,3	### H3
-" ,4	#### H4
-" ,l	--------
-autocmd Filetype markdown inoremap <buffer> ,f <Esc>/<++><CR>:nohlsearch<CR>"_c4l
-autocmd Filetype markdown inoremap <buffer> ,w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>
-autocmd Filetype markdown inoremap <buffer> ,n ---<Enter><Enter>
-autocmd Filetype markdown inoremap <buffer> ,b **** <++><Esc>F*hi
-autocmd Filetype markdown inoremap <buffer> ,s ~~~~ <++><Esc>F~hi
-autocmd Filetype markdown inoremap <buffer> ,i ** <++><Esc>F*i
-autocmd Filetype markdown inoremap <buffer> ,d `` <++><Esc>F`i
-autocmd Filetype markdown inoremap <buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
-autocmd Filetype markdown inoremap <buffer> ,m - [ ]
-autocmd Filetype markdown inoremap <buffer> ,p ![](<++>) <++><Esc>F[a
-autocmd Filetype markdown inoremap <buffer> ,a [](<++>) <++><Esc>F[a
-autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,2 ##<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,3 ###<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,l --------<Enter>
+" 快捷键    创建的文字
+" ,n    ---
+" ,b    粗体文字
+" ,s    被划去的文字
+" ,i    斜体文字
+" ,d    代码块
+" ,c    大的 代码块
+" ,m    - [ ] 清单
+" ,p    图片
+" ,a    链接
+" ,1    # H1
+" ,2    ## H2
+" ,3    ### H3
+" ,4    #### H4
+" ,l    --------
+autocmd Filetype markdown inoremap <buffer> `f <Esc>/ <CR>:nohlsearch<CR>"_c4l
+autocmd Filetype markdown inoremap <buffer> `w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>
+autocmd Filetype markdown inoremap <buffer> `n ---<Enter><Enter>
+autocmd Filetype markdown inoremap <buffer> `b **** <++><Esc>F*hi
+autocmd Filetype markdown inoremap <buffer> `s ~~~~ <++><Esc>F~hi
+autocmd Filetype markdown inoremap <buffer> `i ** <++><Esc>F*i
+autocmd Filetype markdown inoremap <buffer> `d `` <++><Esc>F`i
+autocmd Filetype markdown inoremap <buffer> `c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
+autocmd Filetype markdown inoremap <buffer> `m - [ ]
+autocmd Filetype markdown inoremap <buffer> `p ![](<++>) <++><Esc>F[a
+autocmd Filetype markdown inoremap <buffer> `a [](<++>) <++><Esc>F[a
+autocmd Filetype markdown inoremap <buffer> `1 #<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> `2 ##<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> `3 ###<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> `4 ####<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> `l --------<Enter>
 
 " Press leader twice to jump to the next '<++>' and edit it
 noremap <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>c4l
@@ -241,43 +243,43 @@ let g:terminal_color_14 = '#9AEDFE'
 " Compile function
 noremap <leader>b :call CompileRun()<CR>
 func! CompileRun()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'cpp'
-		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
-		:sp
-		:res -15
-		:term ./%<
-	elseif &filetype == 'java'
-		set splitbelow
-		:sp
-		:res -5
-		term javac % && time java %<
-	elseif &filetype == 'sh'
-		:!time bash %
-	elseif &filetype == 'python'
-		set splitbelow
-		:sp
-		:term python %
-	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
-	elseif &filetype == 'markdown'
-		exec "MarkdownPreview"
-	elseif &filetype == 'tex'
-		silent! exec "VimtexStop"
-		silent! exec "VimtexCompile"
-	elseif &filetype == 'javascript'
-		set splitbelow
-		:sp
-		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
-	elseif &filetype == 'go'
-		set splitbelow
-		:sp
-		:term go run .
-	endif
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        set splitbelow
+        exec "!g++ -std=c++11 % -Wall -o %<"
+        :sp
+        :res -15
+        :term ./%<
+    elseif &filetype == 'java'
+        set splitbelow
+        :sp
+        :res -5
+        term javac % && time java %<
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        set splitbelow
+        :sp
+        :term python %
+    elseif &filetype == 'html'
+        silent! exec "!".g:mkdp_browser." % &"
+    elseif &filetype == 'markdown'
+        exec "MarkdownPreview"
+    elseif &filetype == 'tex'
+        silent! exec "VimtexStop"
+        silent! exec "VimtexCompile"
+    elseif &filetype == 'javascript'
+        set splitbelow
+        :sp
+        :term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
+    elseif &filetype == 'go'
+        set splitbelow
+        :sp
+        :term go run .
+    endif
 endfunc
 
 vmap <leader>p :!python3<cr>
@@ -317,9 +319,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'iamcco/markdown-preview.nvim'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'farmergreg/vim-lastplace'
+Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Find & Replace
-Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
 Plug 'theniceboy/vim-snippets'
 Plug 'theniceboy/antovim' " gs to switch e.g., true -> false
@@ -394,7 +396,7 @@ require'nvim-treesitter.configs'.setup {
     incremental_selection = {
         enable = true,
         keymaps = {
-            init_selection    = "gnn",
+            init_selection  = "gnn",
             node_incremental  = "grn",
             scope_incremental = "grc",
             node_decremental  = "grm",
@@ -542,9 +544,9 @@ nnoremap <silent> 'a :Ag<CR>
 " ----------------------------------------
 "  vim indentline config
 " ----------------------------------------
-let g:indentLine_color_term = 238
-let g:indentLine_color_gui = '#444444'
-nnoremap <leader>id :IndentLinesToggle<CR>
+" This plugin has been deleted for a better speed, just use list char to
+" instead
+nnoremap <leader>id :set list!<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -586,12 +588,12 @@ vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 "  vim signature config
 " ----------------------------------------
 " mx           Toggle mark 'x' and display it in the leftmost column
-" dmx          Remove mark 'x' where x is a-zA-Z
+" dmx         Remove mark 'x' where x is a-zA-Z
 "
 " m,           Place the next available mark
 " m.           If no mark on line, place the next available mark. Otherwise, remove (first) existing mark.
 " m-           Delete all marks from the current line
-" m<Space>     Delete all marks from the current buffer
+" m<Space>   Delete all marks from the current buffer
 " ]`           Jump to next mark
 " [`           Jump to prev mark
 " ]'           Jump to start of next line containing a mark
@@ -609,7 +611,7 @@ vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 " ]=           Jump to next line having a marker of any type
 " [=           Jump to prev line having a marker of any type
 " m?           Open location list and display markers from current buffer
-" m<BS>        Remove all markers
+" m<BS>     Remove all markers
 
 " ----------------------------------------
 
@@ -728,7 +730,7 @@ let g:airline_powerline_fonts = 0
 " vim-visual-multi usage
 " ----------------------------------------
 let g:VM_maps = {}
-let g:VM_maps['Find Under']         = '<leader>n'
+let g:VM_maps['Find Under']      = '<leader>n'
 let g:VM_maps['Find Subword Under'] = '<leader>n'
 
 " select words with Ctrl-N (remapped to <leader>n) (like Ctrl-d in Sublime Text/VS Code)
@@ -860,7 +862,7 @@ inoremap <silent><expr> <c-n> coc#refresh()
 " Make <cr> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `g[` and `g]` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
