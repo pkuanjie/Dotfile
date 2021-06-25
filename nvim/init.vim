@@ -160,41 +160,48 @@ inoremap <C-e> <ESC>A
 " window management
 " ========================================
 " Use <space> + new arrow keys for moving the cursor around windows
-noremap S <C-w>w
-noremap K <C-w>k
-noremap L <C-w>j
-noremap H <C-w>h
-noremap L <C-w>l
+nnoremap S <C-w>w
+nnoremap K <C-w>k
+nnoremap L <C-w>j
+nnoremap H <C-w>h
+nnoremap L <C-w>l
 
 " can be used to close taglist, filetree, and windows at below, so use ctrl
 " prefix
-noremap <leader>q <C-w>o
+nnoremap <leader>q <C-w>o
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap zk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap zj :set splitbelow<CR>:split<CR>
-noremap zh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap zl :set splitright<CR>:vsplit<CR>
+nnoremap zk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+nnoremap zj :set splitbelow<CR>:split<CR>
+nnoremap zh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+nnoremap zl :set splitright<CR>:vsplit<CR>
 
 " Resize splits with arrow keys
-noremap <M-up> :res +5<CR>
-noremap <M-down> :res -5<CR>
-noremap <M-left> :vertical resize-5<CR>
-noremap <M-right> :vertical resize+5<CR>
+nnoremap <M-up> :res +5<CR>
+nnoremap <M-down> :res -5<CR>
+nnoremap <M-left> :vertical resize-5<CR>
+nnoremap <M-right> :vertical resize+5<CR>
 
 " Place the two screens up and down
-noremap z] <C-w>t<C-w>K
+nnoremap z] <C-w>t<C-w>K
 " Place the two screens side by side
-noremap z[ <C-w>t<C-w>H
+nnoremap z[ <C-w>t<C-w>H
 
 " Create a new tab with tu
-noremap <tab>g :tabe<CR>
+nnoremap <tab>g :tab split<CR>
+nnoremap <tab>e :tabe<CR>
+
 " Move around tabs with tn and ti
-noremap <C-j> :-tabnext<CR>
-noremap <C-k> :+tabnext<CR>
+nnoremap <C-j> :-tabnext<CR>
+nnoremap <C-k> :+tabnext<CR>
+
+" Move around buffers
+nnoremap <C-p> :bprevious<CR>
+nnoremap <C-n> :bnext<CR>
+
 " Move tabs with tmn and tmi
-noremap <tab>[ :-tabmove<CR>
-noremap <tab>] :+tabmove<CR>
+nnoremap <tab>[ :-tabmove<CR>
+nnoremap <tab>] :+tabmove<CR>
 " ========================================
 
 
@@ -307,7 +314,7 @@ Plug 'svermeulen/vim-yoink'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'iamcco/markdown-preview.nvim'
-Plug '907th/vim-auto-save'
+Plug 'jmcantrell/vim-virtualenv'
 
 " Find & Replace
 Plug 'Yggdroot/indentLine'
@@ -335,12 +342,6 @@ Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
-" ----------------------------------------
-" vim auto save config
-" ----------------------------------------
-let g:auto_save = 1  " enable AutoSave on Vim startup
-nmap <leader>as :AutoSaveToggle<CR>
-" ----------------------------------------
 
 " ----------------------------------------
 " antovim config
@@ -690,6 +691,8 @@ nmap <leader>pv <Plug>MarkdownPreviewToggle
 " ----------------------------------------
 " coc explorer config
 " ----------------------------------------
+" automatically open explorer when open a new tab with no file assigned
+autocmd TabEnter * if !argc() | exec 'CocCommand explorer' | endif
 nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 
@@ -861,7 +864,7 @@ inoremap <silent><expr> <c-n> coc#refresh()
 
 " Use `g[` and `g]` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nnoremap <silent><nowait> <LEADER>e :CocList diagnostics<cr>
+nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 
