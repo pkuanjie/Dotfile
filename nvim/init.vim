@@ -32,7 +32,7 @@ filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-set nocursorline
+set cursorline
 if has("termguicolors")
 	" enable true color
 	set termguicolors
@@ -140,25 +140,19 @@ nnoremap <M-x> <C-x>
 
 " Search
 nnoremap <LEADER><CR> :nohlsearch<CR>
-nnoremap n nzz
-nnoremap N Nzz
 
 " Save & quit
 nnoremap Q :q<CR>
-nnoremap S :w<CR>
+nnoremap W :w<CR>
 
 " H key: go to the start of the line
-nnoremap H 0
-vnoremap H 0
+nnoremap <c-a> 0
+vnoremap <c-a> 0
 inoremap <C-a> <ESC>I
 " L key: go to the end of the line
-nnoremap L $
-vnoremap L $
+nnoremap <c-e> $
+vnoremap <c-e> $
 inoremap <C-e> <ESC>A
-
-" Faster in-line navigation
-noremap W 5w
-noremap B 5b
 
 " ========================================
 
@@ -166,11 +160,11 @@ noremap B 5b
 " window management
 " ========================================
 " Use <space> + new arrow keys for moving the cursor around windows
-noremap <M-w> <C-w>w
-noremap <M-K> <C-w>k
-noremap <M-J> <C-w>j
-noremap <M-H> <C-w>h
-noremap <M-L> <C-w>l
+noremap S <C-w>w
+noremap K <C-w>k
+noremap L <C-w>j
+noremap H <C-w>h
+noremap L <C-w>l
 
 " can be used to close taglist, filetree, and windows at below, so use ctrl
 " prefix
@@ -183,24 +177,24 @@ noremap zh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap zl :set splitright<CR>:vsplit<CR>
 
 " Resize splits with arrow keys
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+noremap <M-up> :res +5<CR>
+noremap <M-down> :res -5<CR>
+noremap <M-left> :vertical resize-5<CR>
+noremap <M-right> :vertical resize+5<CR>
 
 " Place the two screens up and down
-noremap z, <C-w>t<C-w>K
+noremap z] <C-w>t<C-w>K
 " Place the two screens side by side
-noremap z. <C-w>t<C-w>H
+noremap z[ <C-w>t<C-w>H
 
 " Create a new tab with tu
 noremap <tab>g :tabe<CR>
 " Move around tabs with tn and ti
-noremap J :-tabnext<CR>
-noremap K :+tabnext<CR>
+noremap <C-j> :-tabnext<CR>
+noremap <C-k> :+tabnext<CR>
 " Move tabs with tmn and tmi
-noremap <tab><left> :-tabmove<CR>
-noremap <tab><right> :+tabmove<CR>
+noremap <tab>[ :-tabmove<CR>
+noremap <tab>] :+tabmove<CR>
 " ========================================
 
 
