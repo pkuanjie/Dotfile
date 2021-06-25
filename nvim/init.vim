@@ -68,9 +68,6 @@ if has('persistent_undo')
 	set undodir=~/.config/nvim/tmp/undo,.
 endif
 
-" let vim cursor resume to the same position when reopen
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 " Open the vimrc file anytime
 nnoremap <LEADER>h :e ~/.config/nvim/init.vim<CR>
 
@@ -319,6 +316,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'iamcco/markdown-preview.nvim'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'farmergreg/vim-lastplace'
 
 " Find & Replace
 Plug 'Yggdroot/indentLine'
