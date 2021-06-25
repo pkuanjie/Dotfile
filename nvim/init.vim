@@ -190,6 +190,8 @@ nnoremap z[ <C-w>t<C-w>H
 " Create a new tab with tu
 nnoremap <tab>g :tab split<CR>
 nnoremap <tab>e :tabe<CR>
+nnoremap <tab>[ :tab split<CR>:set splitright<CR>:vsplit<CR>
+nnoremap <tab>] :tab split<CR>:set splitbelow<CR>:split<CR>
 
 " Move around tabs with tn and ti
 nnoremap <C-j> :-tabnext<CR>
