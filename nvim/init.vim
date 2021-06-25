@@ -187,6 +187,9 @@ nnoremap z] <C-w>t<C-w>K
 " Place the two screens side by side
 nnoremap z[ <C-w>t<C-w>H
 
+" swap two panes
+nnoremap zr <C-w><C-r>
+
 " Create a new tab with tu
 nnoremap <tab>g :tab split<CR>
 nnoremap <tab>e :tabe<CR>
@@ -202,8 +205,8 @@ nnoremap <C-p> :bprevious<CR>
 nnoremap <C-n> :bnext<CR>
 
 " Move tabs with tmn and tmi
-nnoremap <tab>[ :-tabmove<CR>
-nnoremap <tab>] :+tabmove<CR>
+nnoremap <tab>h :-tabmove<CR>
+nnoremap <tab>l :+tabmove<CR>
 " ========================================
 
 
@@ -286,7 +289,6 @@ vmap <leader>p :!python3<cr>
 " Plugins
 " ========================================
 call plug#begin()
-Plug 'tpope/vim-obsession'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -344,7 +346,6 @@ Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
-
 " ----------------------------------------
 " antovim config
 " ----------------------------------------
@@ -362,84 +363,84 @@ nmap <leader>gg :Glow<CR>
 " ----------------------------------------
 lua <<EOF
 require'nvim-treesitter'.define_modules {
-	fold = {
-		attach = function(_, _)
-			vim.cmd'set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
-		end,
-		detach = function() end,
-	}
+    fold = {
+        attach = function(_, _)
+            vim.cmd'set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
+        end,
+        detach = function() end,
+    }
 }
 
 local langs = {
-	"python",
-	"bash",
-	"html",
-	"css",
-	"lua",
-	"latex",
-	"bibtex",
-	"yaml",
-	"dockerfile",
-	"c",
-	"cpp",
+    "python",
+    "bash",
+    "html",
+    "css",
+    "lua",
+    "latex",
+    "bibtex",
+    "yaml",
+    "dockerfile",
+    "c",
+    "cpp",
 }
 
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = langs,
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-	},
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection    = "gnn",
-			node_incremental  = "grn",
-			scope_incremental = "grc",
-			node_decremental  = "grm",
-		},
-	},
-	fold = {
-		enable = true,
-	},
-	textobjects = {
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>pl"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>ph"] = "@parameter.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]]"] = "@function.outer",
-				["]a"] = "@class.outer",
-			},
-			goto_next_end = {
-				["]["] = "@function.outer",
-				["]e"] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[["] = "@function.outer",
-				["[a"] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[]"] = "@function.outer",
-				["[e"] = "@class.outer",
-			},
-		},
-	},
-	rainbow = {
-		enable = true,
-		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-		max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-	}
+    ensure_installed = langs,
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection    = "gnn",
+            node_incremental  = "grn",
+            scope_incremental = "grc",
+            node_decremental  = "grm",
+        },
+    },
+    fold = {
+        enable = true,
+    },
+    textobjects = {
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>pl"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>ph"] = "@parameter.inner",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]]"] = "@function.outer",
+                ["]a"] = "@class.outer",
+            },
+            goto_next_end = {
+                ["]["] = "@function.outer",
+                ["]e"] = "@class.outer",
+            },
+            goto_previous_start = {
+                ["[["] = "@function.outer",
+                ["[a"] = "@class.outer",
+            },
+            goto_previous_end = {
+                ["[]"] = "@function.outer",
+                ["[e"] = "@class.outer",
+            },
+        },
+    },
+    rainbow = {
+        enable = true,
+        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+        max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+    }
 }
 EOF
 " ----------------------------------------
@@ -668,18 +669,18 @@ vmap <leader>: :Tabularize /:\zs<CR>
 
 " || or __ to quickly enable / disable table mode in insert mode
 function! s:isAtStartOfLine(mapping)
-	let text_before_cursor = getline('.')[0 : col('.')-1]
-	let mapping_pattern = '\V' . escape(a:mapping, '\')
-	let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-	return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+    let text_before_cursor = getline('.')[0 : col('.')-1]
+    let mapping_pattern = '\V' . escape(a:mapping, '\')
+    let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+    return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
 endfunction
 
 inoreabbrev <expr> <bar><bar>
-			\ <SID>isAtStartOfLine('\|\|') ?
-			\ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+            \ <SID>isAtStartOfLine('\|\|') ?
+            \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
 inoreabbrev <expr> __
-			\ <SID>isAtStartOfLine('__') ?
-			\ '<c-o>:silent! TableModeDisable<cr>' : '__'
+            \ <SID>isAtStartOfLine('__') ?
+            \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " ----------------------------------------
 
@@ -693,8 +694,6 @@ nmap <leader>pv <Plug>MarkdownPreviewToggle
 " ----------------------------------------
 " coc explorer config
 " ----------------------------------------
-" automatically open explorer when open a new tab with no file assigned
-autocmd TabEnter * if !argc() | exec 'CocCommand explorer' | endif
 nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 
@@ -719,10 +718,11 @@ nnoremap <leader>cp :call CocAction('colorPresentation')<CR>
 " ----------------------------------------
 " airline config
 " ----------------------------------------
-let g:airline_theme='OceanicNext'
+" let g:airline_theme= 'default'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#bufferline#enabled = 1
 let g:airline_powerline_fonts = 0
 " ----------------------------------------
 
@@ -787,28 +787,28 @@ autocmd FileType markdown let b:coc_pairs_disabled = ['`']
 " coc config
 " ----------------------------------------
 let g:coc_global_extensions = [
-			\ 'coc-json',
-			\ 'coc-css',
-			\ 'coc-pyright',
-			\ 'coc-html',
-			\ 'coc-lua',
-			\ 'coc-pairs',
-			\ 'coc-explorer',
-			\ 'coc-vimlsp',
-			\ 'coc-diagnostic',
-			\ 'coc-snippets',
-			\ 'coc-highlight',
-			\ 'coc-stylelint',
-			\ 'coc-syntax',
-			\ 'coc-translator',
-			\ 'coc-tsserver',
-			\ 'coc-yaml',
-			\ 'coc-yank',
-			\ 'coc-docker',
-			\ 'coc-sourcekit',
-			\ 'coc-tasks',
-			\ 'coc-emoji',
-			\ 'coc-word']
+            \ 'coc-json',
+            \ 'coc-css',
+            \ 'coc-pyright',
+            \ 'coc-html',
+            \ 'coc-lua',
+            \ 'coc-pairs',
+            \ 'coc-explorer',
+            \ 'coc-vimlsp',
+            \ 'coc-diagnostic',
+            \ 'coc-snippets',
+            \ 'coc-highlight',
+            \ 'coc-stylelint',
+            \ 'coc-syntax',
+            \ 'coc-translator',
+            \ 'coc-tsserver',
+            \ 'coc-yaml',
+            \ 'coc-yank',
+            \ 'coc-docker',
+            \ 'coc-sourcekit',
+            \ 'coc-tasks',
+            \ 'coc-emoji',
+            \ 'coc-word']
 
 let g:coc_disable_transparent_cursor = 0
 
@@ -846,14 +846,14 @@ nmap ts <Plug>(coc-translator-p)
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-n> to trigger completion.
@@ -881,13 +881,13 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
-		call CocActionAsync('doHover')
-	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
-	endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " Symbol renaming.
