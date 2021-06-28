@@ -61,10 +61,11 @@ set foldenable
 syntax on
 
 " fancy settings, let vim save the undo history even after shut down.
-silent !mkdir -p ~/.config/nvim/tmp/backup
+" !!! comment all backup settings according to the suggestion of the coc
+" silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
-set backupdir=~/.config/nvim/tmp/backup,.
-set directory=~/.config/nvim/tmp/backup,.
+" set backupdir=~/.config/nvim/tmp/backup,.
+" set directory=~/.config/nvim/tmp/backup,.
 if has('persistent_undo')
     set undofile
     set undodir=~/.config/nvim/tmp/undo,.
@@ -140,17 +141,14 @@ nnoremap <M-x> <C-x>
 " Search
 nnoremap <LEADER><CR> :nohlsearch<CR>
 
-" Save & quit
-nnoremap Q :q<CR>
-nnoremap W :w<CR>
 
 " H key: go to the start of the line
-nnoremap <c-a> 0
-vnoremap <c-a> 0
+nnoremap <c-a> ^
+vnoremap <c-a> ^
 inoremap <C-a> <ESC>I
 " L key: go to the end of the line
-nnoremap <c-e> $
-vnoremap <c-e> $
+nnoremap <c-e> g_
+vnoremap <c-e> g_
 inoremap <C-e> <ESC>A
 
 " ========================================
@@ -321,6 +319,7 @@ Plug 'jmcantrell/vim-virtualenv'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'rhysd/vim-grammarous'
+Plug 'vimwiki/vimwiki'
 
 " Find & Replace
 Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
