@@ -57,6 +57,28 @@ set foldmethod=indent
 set foldlevel=99
 set scrolloff=5
 set foldenable
+" TextEdit might fail if hidden is not set.
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+" Give more space for displaying messages.
+set cmdheight=1
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=100
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+" if has("nvim-0.5.0") || has("patch-8.1.1564")
+"   " Recently vim can merge signcolumn and number column into one
+"   set signcolumn=number
+" else
+"   set signcolumn=yes
+" endif
+set signcolumn=yes
 syntax on
 filetype on
 filetype indent on
@@ -310,7 +332,6 @@ Plug 'aperezdc/vim-template'
 Plug 'svermeulen/vim-subversive'
 Plug 'junegunn/goyo.vim'
 Plug 'kevinhwang91/rnvimr'
-Plug 'airblade/vim-gitgutter'
 Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
@@ -467,23 +488,6 @@ EOF
 " fzf-gitignore config
 " ----------------------------------------
 noremap <leader>gi :FzfGitignore<CR>
-" ----------------------------------------
-
-" ----------------------------------------
-" vim-gitgutter config
-" ----------------------------------------
-let g:gitgutter_sign_allow_clobber = 0
-let g:gitgutter_map_keys = 0
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_preview_win_floating = 1
-let g:gitgutter_sign_added = '▎'
-let g:gitgutter_sign_modified = '░'
-let g:gitgutter_sign_removed = '▏'
-let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_sign_modified_removed = '▒'
-nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap <LEADER>gh :GitGutterPrevHunk<CR>
-nnoremap <LEADER>gl :GitGutterNextHunk<CR>
 " ----------------------------------------
 
 " ----------------------------------------
@@ -800,6 +804,7 @@ let g:coc_global_extensions = [
             \ 'coc-css',
             \ 'coc-pyright',
             \ 'coc-html',
+            \ 'coc-git',
             \ 'coc-lua',
             \ 'coc-pairs',
             \ 'coc-explorer',
@@ -821,32 +826,6 @@ let g:coc_global_extensions = [
 
 let g:coc_disable_transparent_cursor = 0
 
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=1
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=100
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-" if has("nvim-0.5.0") || has("patch-8.1.1564")
-"   " Recently vim can merge signcolumn and number column into one
-"   set signcolumn=number
-" else
-"   set signcolumn=yes
-" endif
-set signcolumn=yes
 
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
@@ -966,6 +945,25 @@ noremap <silent><nowait> <leader>tt :<C-u>CocList tasks<CR>
 nnoremap <silent><nowait> <leader>rr  :<C-u>CocListResume<CR>
 " ----------------------------------------
 
+" ----------------------------------------
+" coc-git
+" ----------------------------------------
+" navigate chunks of current buffer
+nmap <leader>g[ <Plug>(coc-git-prevchunk)
+nmap <leader>g] <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap <leader>c[ <Plug>(coc-git-prevconflict)
+nmap <leader>c] <Plug>(coc-git-nextconflict)
+" show chunk diff at current position
+nmap <leader>gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap <leader>gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap <leader>ig <Plug>(coc-git-chunk-inner)
+xmap <leader>ig <Plug>(coc-git-chunk-inner)
+omap <leader>ag <Plug>(coc-git-chunk-outer)
+xmap <leader>ag <Plug>(coc-git-chunk-outer)
+" ----------------------------------------
 
 " ----------------------------------------
 " coc-snippets
