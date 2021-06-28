@@ -7,6 +7,9 @@
     "coc.preferences.floatActions": true,
     "coc.preferences.useQuickfixForLocations": true,
     "coc.preferences.formatOnType": true,
+    "coc.preferences.formatOnTypeFiletypes": [
+        "python"
+    ],
     "coc.preferences.previewAutoClose": true,
     "python.linting.enabled": true,
     "python.linting.lintOnSave": true,
