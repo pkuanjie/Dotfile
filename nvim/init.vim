@@ -28,24 +28,22 @@ noremap <SPACE> <NOP>
 let mapleader=" "
 set encoding=UTF-8
 let &t_ut=''
-filetype on
-filetype indent on
-filetype plugin on
-filetype plugin indent on
-set cursorline
+" set cursorline
 if has("termguicolors")
     " enable true color
     set termguicolors
 endif
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set autoindent
+set smartindent
 set number
 set showmatch
 set wildmenu
 set autochdir
-set relativenumber
+" set relativenumber
 set list
 set listchars=tab:\│\ ,trail:▫
 set maxmempattern=10000
@@ -54,11 +52,16 @@ set ignorecase
 set smartcase
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
+set synmaxcol=300
 set foldmethod=indent
 set foldlevel=99
 set scrolloff=5
 set foldenable
 syntax on
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
 
 " fancy settings, let vim save the undo history even after shut down.
 " !!! comment all backup settings according to the suggestion of the coc
@@ -211,7 +214,7 @@ nnoremap <tab>l :+tabmove<CR>
 " terminal config
 " ========================================
 " Opening a terminal window
-noremap <leader>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
+noremap <leader>/ :set splitbelow<CR>:split<CR>:term<CR>
 
 " Terminal Behaviors
 let g:neoterm_autoscroll = 1
