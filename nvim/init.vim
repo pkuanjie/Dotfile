@@ -301,7 +301,6 @@ Plug 'tpope/vim-repeat'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mbbill/undotree'
 Plug 'liuchengxu/vista.vim'
-Plug 'Chiel92/vim-autoformat'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kshenoy/vim-signature'
 Plug 'ron89/thesaurus_query.vim'
@@ -632,15 +631,6 @@ vnoremap <leader>rp y:ThesaurusQueryReplace <C-r>"<CR>
 " m?           Open location list and display markers from current buffer
 " m<BS>     Remove all markers
 
-" ----------------------------------------
-
-" ----------------------------------------
-"  vim autoformat config
-" ----------------------------------------
-noremap <leader>fl :AutoformatLine<CR>
-noremap <leader>fm :Autoformat<CR>
-au BufWrite * :Autoformat
-autocmd FileType vim,tex let b:autoformat_autoindent=0
 " ----------------------------------------
 
 " ----------------------------------------
