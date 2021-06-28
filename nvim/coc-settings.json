@@ -59,7 +59,7 @@
     "diagnostic.displayByAle": false,
     "diagnostic.refreshOnInsertMode": false,
     "diagnostic.checkCurrentLine": false,
-    "diagnostic.virtualTextPrefix": "  ",
+    "diagnostic.virtualTextPrefix": " \u00a7 ",
     "diagnostic.virtualText": true,
     "diagnostic.virtualTextCurrentLineOnly": false,
     "codeLens.enable": true,

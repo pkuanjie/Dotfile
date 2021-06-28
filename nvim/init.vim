@@ -23,7 +23,7 @@ let g:python3_host_prog = "/usr/bin/python3"
 " ========================================
 set nocompatible
 
-" Set <LEADER> as <SPACE>, ; as :
+" Set <LEADER> as <SPACE>
 noremap <SPACE> <NOP>
 let mapleader=" "
 set encoding=UTF-8
