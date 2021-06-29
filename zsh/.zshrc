@@ -132,8 +132,7 @@ else
 fi
 # unset __conda_setup
 # <<< conda initialize <<<
-source ~/anaconda3/etc/profile.d/conda.sh
-[[ -z $TMUX ]] || conda deactivate; conda activate py36
+conda activate py36
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
