@@ -56,7 +56,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting autojump)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting tmux sudo extract z safe-paste colored-man-pages)
 
 # User configuration
 
@@ -116,8 +116,12 @@ alias lg='lazygit'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/anjie/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
+# comment the following line to improve the speed of the zsh start
+# __conda_setup="$('/Users/anjie/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# use this setting to make zsh startup quicker, the below line is the vanilla if condition
+if [ 1 -eq 0 ]; then
+# vanilla if condition
+# if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
     if [ -f "/Users/anjie/anaconda3/etc/profile.d/conda.sh" ]; then
@@ -126,11 +130,10 @@ else
         export PATH="/Users/anjie/anaconda3/bin:$PATH"
     fi
 fi
-unset __conda_setup
+# unset __conda_setup
 # <<< conda initialize <<<
 source ~/anaconda3/etc/profile.d/conda.sh
 [[ -z $TMUX ]] || conda deactivate; conda activate py36
-# conda activate py36
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -182,3 +185,4 @@ export FZF_COMPLETION_TRIGGER='\'
 # editor settings for ranger
 export VISUAL=nvim;
 export EDITOR=nvim;
+
