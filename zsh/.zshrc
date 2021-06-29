@@ -112,6 +112,7 @@ alias ra='ranger'
 eval $(thefuck --alias)
 alias f='fuck'
 alias c='clear'
+alias j='z'
 alias lg='lazygit'
 
 # >>> conda initialize >>>
