@@ -471,8 +471,8 @@ nnoremap <C-p> :bprevious<CR>
 nnoremap <C-n> :bnext<CR>
 
 " Move tabs with tmn and tmi
-nnoremap <tab>h :-tabmove<CR>
-nnoremap <tab>l :+tabmove<CR>
+nnoremap <tab>- :-tabmove<CR>
+nnoremap <tab>= :+tabmove<CR>
 " ========================================
 
 
