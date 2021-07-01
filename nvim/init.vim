@@ -832,7 +832,7 @@ nmap gP <plug>(YoinkPaste_gP)
 nmap y[ <plug>(YoinkRotateBack)
 nmap y] <plug>(YoinkRotateForward)
 
-nmap <c-=> <plug>(YoinkPostPasteToggleFormat)
+nmap ym <plug>(YoinkPostPasteToggleFormat)
 " ----------------------------------------
 
 " ----------------------------------------
