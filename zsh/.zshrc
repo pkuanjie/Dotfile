@@ -186,3 +186,4 @@ export FZF_COMPLETION_TRIGGER='\'
 export VISUAL=nvim;
 export EDITOR=nvim;
 
+clear
