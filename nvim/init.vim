@@ -383,8 +383,7 @@ autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
 " ,3    ### H3
 " ,4    #### H4
 " ,l    --------
-autocmd Filetype markdown inoremap <buffer> `f <Esc>/ <CR>:nohlsearch<CR>"_c4l
-autocmd Filetype markdown inoremap <buffer> `w <Esc>/ <++><CR>:nohlsearch<CR>"_c5l<CR>
+autocmd Filetype markdown inoremap <buffer> `f <Esc>/<++><CR>:nohlsearch<CR>c4l
 autocmd Filetype markdown inoremap <buffer> `n ---<Enter><Enter>
 autocmd Filetype markdown inoremap <buffer> `b **** <++><Esc>F*hi
 autocmd Filetype markdown inoremap <buffer> `s ~~~~ <++><Esc>F~hi
@@ -508,7 +507,7 @@ let g:terminal_color_14 = '#9AEDFE'
 " Code Runner
 " ========================================
 " Compile function
-noremap <leader>b :call CompileRun()<CR>
+noremap <leader>bd :call CompileRun()<CR>
 func! CompileRun()
     exec "w"
     if &filetype == 'c'
@@ -533,8 +532,6 @@ func! CompileRun()
         :term python %
     elseif &filetype == 'html'
         silent! exec "!".g:mkdp_browser." % &"
-    elseif &filetype == 'markdown'
-        exec "MarkdownPreview"
     elseif &filetype == 'tex'
         silent! exec "VimtexStop"
         silent! exec "VimtexCompile"
@@ -581,7 +578,7 @@ Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
-Plug 'iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ConradIrwin/vim-bracketed-paste'
@@ -1083,9 +1080,9 @@ nmap ts <Plug>(coc-translator-p)
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <tab>
             \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
+            \ <SID>check_back_space() ? "\<tab>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "
