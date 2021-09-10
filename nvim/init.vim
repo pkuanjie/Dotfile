@@ -426,10 +426,10 @@ inoremap <C-e> <ESC>A
 " ========================================
 " Use <space> + new arrow keys for moving the cursor around windows
 nnoremap S <C-w>w
-nnoremap K <C-w>k
-nnoremap L <C-w>j
-nnoremap H <C-w>h
-nnoremap L <C-w>l
+nnoremap <Up> <C-w>k
+nnoremap <Down> <C-w>j
+nnoremap <Left> <C-w>h
+nnoremap <Right> <C-w>l
 
 " can be used to close taglist, filetree, and windows at below, so use ctrl
 " prefix
