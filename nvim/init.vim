@@ -1069,6 +1069,7 @@ let g:coc_global_extensions = [
             \ 'coc-sourcekit',
             \ 'coc-tasks',
             \ 'coc-emoji',
+            \ 'coc-clangd',
             \ 'coc-word']
 
 let g:coc_disable_transparent_cursor = 0
