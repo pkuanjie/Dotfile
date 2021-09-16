@@ -554,7 +554,7 @@ vmap <leader>p :!python3<cr>
 call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vimwiki/vimwiki'
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim',
@@ -583,7 +583,6 @@ Plug 'jmcantrell/vim-virtualenv'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'rhysd/vim-grammarous'
-Plug 'vimwiki/vimwiki'
 
 " Find & Replace
 Plug 'godlygeek/tabular' " ga, or :Tabularize <regex> to align
@@ -608,6 +607,8 @@ Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'jacoborus/tender.vim'
 Plug 'mhartington/oceanic-next'
 
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " ----------------------------------------
@@ -723,6 +724,23 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 EOF
+" ----------------------------------------
+
+" ----------------------------------------
+" vimwiki config
+" ----------------------------------------
+let g:vimwiki_key_mappings = {
+            \ 'all_maps': 1,
+            \ 'global': 1,
+            \ 'headers': 1,
+            \ 'text_objs': 1,
+            \ 'table_format': 1,
+            \ 'table_mappings': 0,
+            \ 'lists': 1,
+            \ 'links': 1,
+            \ 'html': 1,
+            \ 'mouse': 0,
+            \ }
 " ----------------------------------------
 
 " ----------------------------------------
