@@ -606,6 +606,8 @@ Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 " colorschemes
 Plug 'jacoborus/tender.vim'
 Plug 'mhartington/oceanic-next'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'navarasu/onedark.nvim'
 
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -956,7 +958,6 @@ inoreabbrev <expr> __
 
 " ----------------------------------------
 
-
 " ----------------------------------------
 " vim markdown preview config
 " ----------------------------------------
@@ -972,7 +973,8 @@ nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-colorscheme OceanicNext
+let g:onedark_style = 'darker'
+colorscheme onedark 
 hi Search ctermbg=LightBlue guibg=LightBlue
 hi Search ctermfg=Red guifg=Red
 " ----------------------------------------
