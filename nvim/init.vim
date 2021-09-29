@@ -462,8 +462,8 @@ nnoremap <tab>[ :tab split<CR>:set splitright<CR>:vsplit<CR>
 nnoremap <tab>] :tab split<CR>:set splitbelow<CR>:split<CR>
 
 " Move around tabs with tn and ti
-nnoremap <C-j> :-tabnext<CR>
-nnoremap <C-k> :+tabnext<CR>
+nnoremap <C-h> :-tabnext<CR>
+nnoremap <C-l> :+tabnext<CR>
 
 " Move around buffers
 nnoremap <C-p> :bprevious<CR>
