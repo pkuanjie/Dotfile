@@ -573,7 +573,6 @@ Plug 'aperezdc/vim-template'
 Plug 'svermeulen/vim-subversive'
 Plug 'junegunn/goyo.vim'
 Plug 'kevinhwang91/rnvimr'
-Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
 Plug 'svermeulen/vim-yoink'
 Plug 'kyazdani42/nvim-web-devicons'

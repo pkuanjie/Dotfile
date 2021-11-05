@@ -61,6 +61,8 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting tmux sudo extract z saf
 # User configuration
 
 # paths
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/anaconda3/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.local/nvim-osx64/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -115,26 +117,6 @@ alias c='clear'
 alias j='z'
 alias lg='lazygit'
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# comment the following line to improve the speed of the zsh start
-# __conda_setup="$('/Users/anjie/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# use this setting to make zsh startup quicker, the below line is the vanilla if condition
-if [ 1 -eq 0 ]; then
-# vanilla if condition
-# if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/anjie/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/anjie/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/anjie/anaconda3/bin:$PATH"
-    fi
-fi
-# unset __conda_setup
-# <<< conda initialize <<<
-conda activate py36
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -186,4 +168,20 @@ export FZF_COMPLETION_TRIGGER='\'
 export VISUAL=nvim;
 export EDITOR=nvim;
 
-clear
+# clear
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+conda activate py36
