@@ -14,7 +14,8 @@
 " ========================================
 " Init Settings
 " ========================================
-let g:python3_host_prog = "/usr/bin/python3"
+let g:python3_host_prog = "/opt/anaconda3/envs/py36/bin/python3"
+let g:coc_node_path = '/opt/homebrew/bin/node'
 " ========================================
 
 " ========================================

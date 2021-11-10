@@ -63,8 +63,6 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting tmux sudo extract z saf
 # paths
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/anaconda3/bin:$PATH
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.local/nvim-osx64/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -185,3 +183,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 conda activate py36
+
+clear
