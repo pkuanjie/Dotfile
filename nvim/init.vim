@@ -7,7 +7,7 @@
 " --------------------------------------------
 " Author: @pkuanjie
 " Date: 2021/11/11
-" Note: Based on CoC (which is the best!), this config file only support neovim>=0.5.
+" Note: Based on CoC (which is the best!), this config file only support neovim=0.5.
 " --------------------------------------------
 
 
@@ -289,9 +289,6 @@ set showmatch
 set wildmenu
 set autochdir
 " set relativenumber
-set laststatus=2
-" set showtabline=2
-set statusline=%F\ %m%=%l,\%c\ %p%%\ %L "tail of the filename
 set list
 set listchars=tab:\│\ ,trail:▫
 set maxmempattern=10000
@@ -556,8 +553,8 @@ vmap <leader>p :!python3<cr>
 " Plugins
 " ========================================
 call plug#begin()
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -607,9 +604,9 @@ Plug 'p00f/nvim-ts-rainbow'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 
 " colorschemes
-" Plug 'jacoborus/tender.vim'
-" Plug 'mhartington/oceanic-next'
-" Plug 'EdenEast/nightfox.nvim'
+Plug 'jacoborus/tender.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'EdenEast/nightfox.nvim'
 Plug 'navarasu/onedark.nvim'
 
 " coc
@@ -977,7 +974,7 @@ nnoremap 'e :CocCommand explorer<CR>
 " colorscheme config
 " ----------------------------------------
 let g:onedark_style = 'darker'
-colorscheme onedark 
+colorscheme onedark
 hi Search ctermbg=LightBlue guibg=LightBlue
 hi Search ctermfg=Red guifg=Red
 " ----------------------------------------
@@ -996,15 +993,16 @@ nnoremap <leader>cp :call CocAction('colorPresentation')<CR>
 " airline config
 " ----------------------------------------
 " let g:airline_theme= 'default'
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#bufferline#enabled = 1
-" let g:airline_powerline_fonts = 0
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-" let g:airline_symbols.linenr = ' ␤:'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline_powerline_fonts = 0
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_section_z = '%3p%% %4l/%L:%3v'
+" let g:airline_symbols.linenr = ' '
 " let g:airline_symbols.maxlinenr = ''
 " let g:airline_symbols.colnr = ':'
 " ----------------------------------------
