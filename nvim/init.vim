@@ -14,7 +14,7 @@
 " ========================================
 " Init Settings
 " ========================================
-let g:python3_host_prog = "/opt/anaconda3/envs/py36/bin/python"
+let g:python3_host_prog = "/opt/homebrew/Caskroom/miniforge/base/envs/py38/bin/python"
 let g:coc_node_path = "/opt/homebrew/bin/node"
 " ========================================
 
