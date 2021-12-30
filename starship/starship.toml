@@ -1,0 +1,61 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$character"""
+
+add_newline = false
+
+[git_status]
+format = '[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)'
+style = 'cyan'
+conflicted = '​'
+untracked = '​'
+modified = '​'
+staged = '​'
+renamed = '​'
+deleted = '​'
+stashed = '≡'
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = 'bright-black'
+
+[cmd_duration]
+format = '[$duration]($style) '
+style = 'yellow'
+min_time = 3_000
+
+[python]
+format = '[$virtualenv]($style) '
+style = 'bright-black'
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+
+[git_branch]
+format = '[$branch]($style) '
+# format = '[$symbol$branch]($style) '
+
+[character]
+success_symbol = '[❯](green)'
+error_symbol = '[✗](bold red)'
+vicmd_symbol = '[V](bold blue)'
+
+[username]
+style_user = 'yellow bold'
+style_root = 'black bold'
+format = '\[[$user|]($style)'
+disabled = false
+
+[hostname]
+ssh_only = true
+format =  '[$hostname](bold #d78787)\] '
+disabled = false

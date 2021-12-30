@@ -17,13 +17,9 @@
 source ~/.zsh_plugins.sh
 
 # =============================================
-# load other useful plugins and a fast theme
+# load other useful plugins
 # =============================================
 . ~/Dotfile/zsh/z.sh
-
-# sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
-# brew install starship
-eval "$(starship init zsh)"
 
 # =============================================
 # paths
@@ -125,3 +121,12 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# =============================================
+# finally load a super fast theme
+# =============================================
+# sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
+# brew install starship
+export STARSHIP_CONFIG=~/Dotfile/starship/starship.toml
+eval "$(starship init zsh)"
+
