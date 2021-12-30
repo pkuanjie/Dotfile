@@ -12,11 +12,12 @@ $python\
 $character"""
 
 add_newline = false
+command_timeout = 1000
 
 [cmd_duration]
 format = '[$duration]($style) '
 style = 'yellow'
-min_time = 3_000
+min_time = 3000
 
 [python]
 format = '[$virtualenv]($style) '
