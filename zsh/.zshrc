@@ -50,15 +50,6 @@ alias la='ls -lha --color'
 alias ..='cd ..'
 
 # =============================================
-# fzf setup
-# =============================================
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore --hidden -g ""'
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || ccat --color=always {}) 2> /dev/null | head -500'"
-export FZF_COMPLETION_TRIGGER='\'
-
-# =============================================
 #fzf functions
 # =============================================
 fe() {
@@ -123,7 +114,16 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # =============================================
-# finally load a super fast theme
+# fzf setup ![This has to be near the bottom]
+# =============================================
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore --hidden -g ""'
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || ccat --color=always {}) 2> /dev/null | head -500'"
+export FZF_COMPLETION_TRIGGER='\'
+
+# =============================================
+# finally load a super fast theme ![This has to be at the bottom]
 # =============================================
 # sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
 # brew install starship
