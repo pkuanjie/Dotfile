@@ -46,6 +46,7 @@ alias j='z'
 alias c='clear'
 alias lg='lazygit'
 alias l='ls -lh --color'
+alias ll='ls -lh --color'
 alias la='ls -lha --color'
 alias ..='cd ..'
 
