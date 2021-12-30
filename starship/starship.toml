@@ -1,5 +1,6 @@
 format = """
 $username\
+@\
 $hostname\
 $directory\
 $git_branch\
@@ -50,12 +51,13 @@ error_symbol = '[✗](bold red)'
 vicmd_symbol = '[V](bold blue)'
 
 [username]
+show_always = true
 style_user = 'yellow bold'
 style_root = 'black bold'
-format = '\[[$user|]($style)'
+format = '\[[$user]($style)'
 disabled = false
 
 [hostname]
-ssh_only = true
+ssh_only = false
 format =  '[$hostname](bold #d78787)\] '
 disabled = false
