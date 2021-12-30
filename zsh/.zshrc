@@ -10,12 +10,19 @@
 # =============================================
 # use antibody to laod must have plugins (ohmyzsh is toooooo slow!)
 # =============================================
-source ~/Dotfile/zsh/zsh_plugins.sh
+# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+# or
+# brew install antibody
+# antibody bundle < ~/Dotfile/zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
+source ~/.zsh_plugins.sh
 
 # =============================================
 # load other useful plugins and a fast theme
 # =============================================
 . ~/Dotfile/zsh/z.sh
+
+# sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
+# brew install starship
 eval "$(starship init zsh)"
 
 # =============================================
@@ -34,7 +41,7 @@ export LANG=en_US.UTF-8
 # alias
 # =============================================
 alias vim='nvim'
-alias vi='nvim'
+alias vi='vim'
 alias v='nvim'
 alias ra='ranger'
 eval $(thefuck --alias)
@@ -99,6 +106,7 @@ tm() {
 # =============================================
 export VISUAL=nvim;
 export EDITOR=nvim;
+bindkey -e
 
 # =============================================
 # conda initialization
