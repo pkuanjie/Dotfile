@@ -463,8 +463,8 @@ nnoremap <tab>[ :tab split<CR>:set splitright<CR>:vsplit<CR>
 nnoremap <tab>] :tab split<CR>:set splitbelow<CR>:split<CR>
 
 " Move around tabs with tn and ti
-nnoremap <C-h> :-tabnext<CR>
-nnoremap <C-l> :+tabnext<CR>
+nnoremap <C-[> :-tabnext<CR>
+nnoremap <C-]> :+tabnext<CR>
 
 " Move around buffers
 nnoremap <C-p> :bprevious<CR>
@@ -533,9 +533,6 @@ func! CompileRun()
         :term python %
     elseif &filetype == 'html'
         silent! exec "!".g:mkdp_browser." % &"
-    elseif &filetype == 'tex'
-        silent! exec "VimtexStop"
-        silent! exec "VimtexCompile"
     elseif &filetype == 'javascript'
         set splitbelow
         :sp
@@ -592,7 +589,8 @@ Plug 'junegunn/vim-after-object'
 
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
+Plug 'vim-latex/vim-latex'
 Plug 'mzlogin/vim-markdown-toc'
 
 " fancy treesitter
@@ -633,6 +631,18 @@ nmap <leader>gc :GrammarousCheck --no-comments-only<CR>
 " antovim config
 " ----------------------------------------
 nmap <leader>rv :Antovim<CR>
+" ----------------------------------------
+
+" ----------------------------------------
+" vim latex config
+" ----------------------------------------
+imap <c-l> <Plug>IMAP_JumpForward
+imap <c-h> <Plug>IMAP_JumpBack
+imap <Alt-r> <Plug>Tex_LeftRight
+let g:Tex_AdvancedMath = 1
+let g:Tex_FoldedSections=""
+let g:Tex_FoldedEnvironments=""
+let g:Tex_FoldedMisc=""
 " ----------------------------------------
 
 " ----------------------------------------
@@ -1241,16 +1251,16 @@ xmap <leader>ag <Plug>(coc-git-chunk-outer)
 " imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-]> <Plug>(coc-snippets-select)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_next = '<c-]>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_prev = '<c-[>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+imap <C-]> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)

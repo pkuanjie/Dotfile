@@ -22,6 +22,12 @@ source ~/.zsh_plugins.sh
 . ~/Dotfile/zsh/z.sh
 
 # =============================================
+# add case insensitive command completion like the default behavior of ohmyzsh
+# =============================================
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
+# =============================================
 # paths
 # =============================================
 export PATH=/opt/homebrew/bin:$PATH
@@ -130,4 +136,7 @@ export FZF_COMPLETION_TRIGGER='\'
 # brew install starship
 export STARSHIP_CONFIG=~/Dotfile/starship/starship.toml
 eval "$(starship init zsh)"
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
