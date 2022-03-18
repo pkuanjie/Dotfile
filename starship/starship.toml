@@ -50,5 +50,5 @@ format =  '[$hostname](bold #d78787)\] '
 disabled = false
 
 [conda]
-format = '\([$environment]($style)\) '
+format = '\([$environment]($style)\)'
 

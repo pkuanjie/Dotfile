@@ -636,6 +636,8 @@ nmap <leader>rv :Antovim<CR>
 " ----------------------------------------
 " vim latex config
 " ----------------------------------------
+nmap <c-l> <Plug>IMAP_JumpForward
+nmap <c-h> <Plug>IMAP_JumpBack
 imap <c-l> <Plug>IMAP_JumpForward
 imap <c-h> <Plug>IMAP_JumpBack
 imap <Alt-r> <Plug>Tex_LeftRight
@@ -985,7 +987,7 @@ nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 let g:onedark_style = 'darker'
 colorscheme onedark
-hi Search ctermbg=LightBlue guibg=LightBlue
+hi Search ctermbg=DarkCyan guibg=DarkCyan
 hi Search ctermfg=Red guifg=Red
 " ----------------------------------------
 
