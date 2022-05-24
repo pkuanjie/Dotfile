@@ -985,7 +985,9 @@ nnoremap 'e :CocCommand explorer<CR>
 " ----------------------------------------
 " colorscheme config
 " ----------------------------------------
-let g:onedark_style = 'darker'
+let g:onedark_config = {
+    \ 'style': 'darker',
+\}
 colorscheme onedark
 hi Search ctermbg=DarkCyan guibg=DarkCyan
 hi Search ctermfg=Red guifg=Red
