@@ -14,7 +14,7 @@
 " ========================================
 " Init Settings
 " ========================================
-let g:python3_host_prog = "/opt/homebrew/Caskroom/miniforge/base/envs/py38/bin/python"
+let g:python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/envs/py38/bin/python"
 let g:coc_node_path = "/opt/homebrew/bin/node"
 " ========================================
 
@@ -609,6 +609,7 @@ Plug 'navarasu/onedark.nvim'
 
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim'
 call plug#end()
 
 " ----------------------------------------
