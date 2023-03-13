@@ -1,29 +1,44 @@
-# =============================================
-#          _
-#  _______| |__  _ __ ___
-# |_  / __| '_ \| '__/ __|
-#  / /\__ \ | | | | | (__
-# /___|___/_| |_|_|  \___|
-#
-# =============================================
+# If not in tmux, start tmux.
+if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
+  exec tmux
+fi
 
-# =============================================
-# use antibody to laod must have plugins (ohmyzsh is toooooo slow!)
-# =============================================
-# brew install antibody
-# antibody bundle < ~/Dotfile/zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.sh
+function zcompile-many() {
+  local f
+  for f; do zcompile -R -- "$f".zwc "$f"; done
+}
 
-# =============================================
-# load other useful plugins
-# =============================================
-. ~/Dotfile/zsh/z.sh
+# Clone and compile to wordcode missing plugins.
+if [[ ! -e ~/zsh-syntax-highlighting ]]; then
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/zsh-syntax-highlighting
+  zcompile-many ~/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
+fi
+if [[ ! -e ~/zsh-autosuggestions ]]; then
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/zsh-autosuggestions
+  zcompile-many ~/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+fi
+if [[ ! -e ~/powerlevel10k ]]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  make -C ~/powerlevel10k pkg
+fi
 
-# =============================================
-# add case insensitive command completion like the default behavior of ohmyzsh
-# =============================================
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+# Activate Powerlevel10k Instant Prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Enable the "new" completion system (compsys).
 autoload -Uz compinit && compinit
+[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
+unfunction zcompile-many
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Load plugins.
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.p10k.zsh
 
 # =============================================
 # paths
@@ -85,15 +100,3 @@ unset __conda_setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Use ; as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER=';'
-
-# =============================================
-# finally load a super fast theme ![This has to be at the bottom]
-# =============================================
-# sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
-# brew install starship
-export STARSHIP_CONFIG=~/Dotfile/starship/starship.toml
-eval "$(starship init zsh)"
-
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
