@@ -10,8 +10,6 @@
 # =============================================
 # use antibody to laod must have plugins (ohmyzsh is toooooo slow!)
 # =============================================
-# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-# or
 # brew install antibody
 # antibody bundle < ~/Dotfile/zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
@@ -57,45 +55,6 @@ alias la='ls -lha --color'
 alias ..='cd ..'
 
 # =============================================
-#fzf functions
-# =============================================
-fe() {
-    local files
-    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-    [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
-}
-
-fd() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune \
-        -o -type d -print 2> /dev/null | fzf +m) &&
-        cd "$dir"
-    }
-
-# fkill - kill process
-fkill() {
-    local pid
-    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-    if [ "x$pid" != "x" ]
-    then
-        echo $pid | xargs kill -${1:-9}
-    fi
-}
-
-# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
-# `tm` will allow you to select your tmux session via fzf.
-# `tm irc` will attach to the irc session (if it exists), else it will create it.
-
-tm() {
-    [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-    if [ $1 ]; then
-        tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
-    fi
-    session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
-}
-
-# =============================================
 # editor settings for ranger
 # =============================================
 export VISUAL=nvim;
@@ -107,14 +66,14 @@ bindkey -e
 # =============================================
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -124,10 +83,8 @@ unset __conda_setup
 # fzf setup ![This has to be near the bottom]
 # =============================================
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore --hidden -g ""'
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || ccat --color=always {}) 2> /dev/null | head -500'"
-export FZF_COMPLETION_TRIGGER='\'
+# Use ; as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER=';'
 
 # =============================================
 # finally load a super fast theme ![This has to be at the bottom]
