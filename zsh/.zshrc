@@ -41,6 +41,11 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.p10k.zsh
 
 # =============================================
+# load autojump plugin
+# =============================================
+. ~/Dotfile/zsh/z.sh
+
+# =============================================
 # paths
 # =============================================
 export PATH=/opt/homebrew/bin:$PATH
