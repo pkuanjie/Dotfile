@@ -8,4 +8,4 @@ vim.opt.termguicolors = true
 -- empty setup using defaults
 require("nvim-tree").setup()
 
-vim.keymap.set('n', '<leader><leader>', ':NvimTreeFindFileToggle<CR>')
+vim.keymap.set('n', 'tt', ':NvimTreeFindFileToggle<CR>')
