@@ -23,8 +23,8 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- move to the head and end of lines with ctrl-a and ctrl-e following linux keybindings
 vim.keymap.set("n", "<C-a>", "0", opts)
 vim.keymap.set("n", "<C-e>", "$", opts)
-vim.keymap.set("i", "<C-a>", "0", opts)
-vim.keymap.set("i", "<C-e>", "$", opts)
+vim.keymap.set("i", "<C-a>", "<ESC>0i", opts)
+vim.keymap.set("i", "<C-e>", "<ESC>$a", opts)
 
 -- move lines up and down with ctrl-j and ctrl-k
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)

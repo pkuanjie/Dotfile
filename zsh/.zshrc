@@ -1,3 +1,39 @@
+# =============================================
+# paths
+# =============================================
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
+# =============================================
+# You may need to manually set your language environment
+# =============================================
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# =============================================
+# alias
+# =============================================
+alias vim='nvim'
+alias vi='vim'
+alias v='nvim'
+alias ra='ranger'
+eval $(thefuck --alias)
+alias f='fuck'
+alias j='z'
+alias c='clear'
+alias lg='lazygit'
+alias l='ls -lh --color'
+alias ll='ls -lh --color'
+alias la='ls -lha --color'
+alias ..='cd ..'
+
+# =============================================
+# editor settings for ranger
+# =============================================
+export VISUAL=nvim;
+export EDITOR=nvim;
+bindkey -e
+
 # If not in tmux, start tmux.
 if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
   exec tmux
@@ -46,42 +82,6 @@ source ~/.p10k.zsh
 . ~/Dotfile/zsh/z.sh
 
 # =============================================
-# paths
-# =============================================
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-
-# =============================================
-# You may need to manually set your language environment
-# =============================================
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-# =============================================
-# alias
-# =============================================
-alias vim='nvim'
-alias vi='vim'
-alias v='nvim'
-alias ra='ranger'
-eval $(thefuck --alias)
-alias f='fuck'
-alias j='z'
-alias c='clear'
-alias lg='lazygit'
-alias l='ls -lh --color'
-alias ll='ls -lh --color'
-alias la='ls -lha --color'
-alias ..='cd ..'
-
-# =============================================
-# editor settings for ranger
-# =============================================
-export VISUAL=nvim;
-export EDITOR=nvim;
-bindkey -e
-
-# =============================================
 # conda initialization
 # =============================================
 # >>> conda initialize >>>
@@ -105,3 +105,8 @@ unset __conda_setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Use ; as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER=';'
+
+# =============================================
+# zsh autosuggestions color settings
+# =============================================
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=11'
