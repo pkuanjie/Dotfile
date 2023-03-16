@@ -6,3 +6,4 @@ vim.opt.laststatus = 2
 vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
+vim.opt.mouse = "c"  -- disable mouse support
