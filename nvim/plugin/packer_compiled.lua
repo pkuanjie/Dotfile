@@ -84,12 +84,10 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["alternate-toggler"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/opt/alternate-toggler",
-    url = "https://github.com/rmagatti/alternate-toggler"
+  ["boole.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/boole.nvim",
+    url = "https://github.com/nat-418/boole.nvim"
   },
   ["bufferline.nvim"] = {
     loaded = true,
@@ -300,22 +298,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
     url = "https://github.com/mg979/vim-visual-multi"
-  },
-  ["wildfire.vim"] = {
-    loaded = true,
-    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/wildfire.vim",
-    url = "https://github.com/gcmt/wildfire.vim"
   }
 }
 
 time([[Defining packer_plugins]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufReadPost * ++once lua require("packer.load")({'alternate-toggler'}, { event = "BufReadPost *" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

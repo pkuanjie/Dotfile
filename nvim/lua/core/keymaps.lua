@@ -4,7 +4,6 @@ vim.g.mapleader = " "
 
 -- quick quit and esc
 vim.keymap.set("n", "qq", ":x<CR>", opts)
-vim.keymap.set("n", "<leader>q", ":bdelete<CR>", opts)
 vim.keymap.set("i", "jj", "<ESC>", opts)
 vim.keymap.set("i", "kj", "<ESC>", opts)
 vim.keymap.set("i", "jk", "<ESC>", opts)
@@ -15,8 +14,9 @@ vim.keymap.set("t", "jk", "<ESC>", opts)
 vim.keymap.set("t", "kk", "<ESC>", opts)
 
 -- buffer navigation
-vim.keymap.set("n", "<C-n>", ":bnext<CR>", opts)
-vim.keymap.set("n", "<C-p>", ":bprevious<CR>", opts)
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", opts)
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", opts)
+vim.keymap.set("n", "<leader>bc", ":bdelete<CR>", opts)
 
 -- resize windows with ctrl-up, ctrl-down, ctrl-left, ctrl-right
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -54,12 +54,6 @@ vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- new tab
 vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", opts) -- close tab
 vim.keymap.set("n", "<leader>tn", ":tabnext<CR>", opts) -- next tab
 vim.keymap.set("n", "<leader>tp", ":tabprevious<CR>", opts) -- previous tab
-
--- telescope git commands
-vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
-vim.keymap.set("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
-vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
-vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
 -- restart lsp server
 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary

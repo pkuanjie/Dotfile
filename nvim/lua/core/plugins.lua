@@ -128,9 +128,6 @@ return require("packer").startup(function(use)
 	-- multi cursor support
 	use({ "mg979/vim-visual-multi", branch = "master" })
 
-	-- press enter to select text within a pair
-	use("gcmt/wildfire.vim")
-
 	-- split and join
 	use({
 		"Wansmer/treesj",
@@ -138,10 +135,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- true to false
-	use({
-		"rmagatti/alternate-toggler",
-		event = { "BufReadPost" }, -- lazy load after reading a buffer
-	})
+	use("nat-418/boole.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
