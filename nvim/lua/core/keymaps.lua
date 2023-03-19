@@ -1,14 +1,22 @@
 local opts = { noremap = true, silent = true }
 
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- quick quit and esc
-vim.keymap.set('n', 'qq', ':x<CR>', opts)
-vim.keymap.set('i', 'jj', '<ESC>', opts)
+vim.keymap.set("n", "qq", ":x<CR>", opts)
+vim.keymap.set("n", "<leader>q", ":bdelete<CR>", opts)
+vim.keymap.set("i", "jj", "<ESC>", opts)
+vim.keymap.set("i", "kj", "<ESC>", opts)
+vim.keymap.set("i", "jk", "<ESC>", opts)
+vim.keymap.set("i", "kk", "<ESC>", opts)
+vim.keymap.set("t", "jj", "<ESC>", opts)
+vim.keymap.set("t", "kj", "<ESC>", opts)
+vim.keymap.set("t", "jk", "<ESC>", opts)
+vim.keymap.set("t", "kk", "<ESC>", opts)
 
 -- buffer navigation
-vim.keymap.set('n', '<C-n>', ':bnext<CR>', opts)
-vim.keymap.set('n', '<C-p>', ':bprevious<CR>', opts)
+vim.keymap.set("n", "<C-n>", ":bnext<CR>", opts)
+vim.keymap.set("n", "<C-p>", ":bprevious<CR>", opts)
 
 -- resize windows with ctrl-up, ctrl-down, ctrl-left, ctrl-right
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -22,6 +30,7 @@ vim.keymap.set("n", "<C-e>", "g_", opts)
 vim.keymap.set("v", "<C-a>", "^", opts)
 vim.keymap.set("v", "<C-e>", "g_", opts)
 vim.keymap.set("i", "<C-a>", "<ESC>I", opts)
+vim.keymap.set("i", "<C-f>", "<ESC>la", opts)
 vim.keymap.set("i", "<C-e>", "<ESC>A", opts)
 
 -- move lines up and down with ctrl-j and ctrl-k
@@ -54,3 +63,23 @@ vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list curre
 
 -- restart lsp server
 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
+
+-- copy to system clipboard
+vim.keymap.set("v", "<leader>y", '"+y') -- copy to system clipboard
+vim.keymap.set("n", "<leader>y", '"+y') -- copy to system clipboard
+vim.keymap.set("n", "<leader>Y", '"+yg_') -- copy to system clipboard
+
+--paste from system clipboard
+vim.keymap.set("n", "<leader>p", '"+p') -- paste from system clipboard
+vim.keymap.set("v", "<leader>p", '"+p') -- paste from system clipboard
+vim.keymap.set("n", "<leader>P", '"+P') -- paste from system clipboard
+vim.keymap.set("v", "<leader>P", '"+P') -- paste from system clipboard
+
+-- toggle undo tree
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", opts)
+
+-- multiple cursors
+vim.g.multi_cursor_use_default_mapping = 0
+vim.cmd("let g:VM_maps = {}")
+vim.cmd("let g:VM_maps['Find Under'] = '<leader>n'")
+vim.cmd("let g:VM_maps['Find Subword Under'] = '<leader>n'")

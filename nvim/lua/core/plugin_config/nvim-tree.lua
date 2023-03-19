@@ -6,10 +6,15 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
-local setup, nvim_tree = pcall(require, 'nvim-tree')
+local setup, nvim_tree = pcall(require, "nvim-tree")
 if not setup then
-    return
+	return
 end
 nvim_tree.setup()
 
-vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>')
+vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>")
+vim.api.nvim_create_autocmd({ "QuitPre" }, {
+	callback = function()
+		vim.cmd("NvimTreeClose")
+	end,
+})

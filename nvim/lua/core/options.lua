@@ -17,3 +17,9 @@ vim.opt.cursorline = true
 -- search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- show command
+vim.opt.showcmd = true
+
+-- persistent undo
+vim.opt.undofile = true

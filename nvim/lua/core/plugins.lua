@@ -95,6 +95,54 @@ return require("packer").startup(function(use)
 	-- git
 	use("lewis6991/gitsigns.nvim")
 
+	-- indent guides
+	use("lukas-reineke/indent-blankline.nvim")
+
+	-- bufferline
+	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
+
+	-- registers viewer
+	use("tversteeg/registers.nvim")
+
+	-- illuminate current word
+	use("RRethy/vim-illuminate")
+
+	-- undo tree
+	use("mbbill/undotree")
+
+	-- edit folders
+	use("stevearc/oil.nvim")
+
+	-- easy motion
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+	})
+
+	-- go to last place in file when reopening
+	use("ethanholz/nvim-lastplace")
+
+	-- automatically set paste mode when pasting
+	use("ConradIrwin/vim-bracketed-paste")
+
+	-- multi cursor support
+	use({ "mg979/vim-visual-multi", branch = "master" })
+
+	-- press enter to select text within a pair
+	use("gcmt/wildfire.vim")
+
+	-- split and join
+	use({
+		"Wansmer/treesj",
+		requires = { "nvim-treesitter" },
+	})
+
+	-- true to false
+	use({
+		"rmagatti/alternate-toggler",
+		event = { "BufReadPost" }, -- lazy load after reading a buffer
+	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

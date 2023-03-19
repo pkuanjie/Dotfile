@@ -84,6 +84,18 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["alternate-toggler"] = {
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/opt/alternate-toggler",
+    url = "https://github.com/rmagatti/alternate-toggler"
+  },
+  ["bufferline.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -123,6 +135,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
+  ["hop.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/hop.nvim",
+    url = "https://github.com/phaazon/hop.nvim"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -169,6 +191,11 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-lastplace"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-lastplace",
+    url = "https://github.com/ethanholz/nvim-lastplace"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -194,6 +221,11 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
+  ["oil.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/oil.nvim",
+    url = "https://github.com/stevearc/oil.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -208,6 +240,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
     url = "https://github.com/ThePrimeagen/refactoring.nvim"
+  },
+  ["registers.nvim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/registers.nvim",
+    url = "https://github.com/tversteeg/registers.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
@@ -229,6 +266,26 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  treesj = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/treesj",
+    url = "https://github.com/Wansmer/treesj"
+  },
+  undotree = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/undotree",
+    url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-bracketed-paste"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-bracketed-paste",
+    url = "https://github.com/ConradIrwin/vim-bracketed-paste"
+  },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
+  },
   ["vim-maximizer"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-maximizer",
@@ -238,10 +295,27 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
     url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
+  ["vim-visual-multi"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
+    url = "https://github.com/mg979/vim-visual-multi"
+  },
+  ["wildfire.vim"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/wildfire.vim",
+    url = "https://github.com/gcmt/wildfire.vim"
   }
 }
 
 time([[Defining packer_plugins]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au BufReadPost * ++once lua require("packer.load")({'alternate-toggler'}, { event = "BufReadPost *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
