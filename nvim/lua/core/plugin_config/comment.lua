@@ -1,4 +1,9 @@
-require('Comment').setup(
+local setup, Comment = pcall(require, 'Comment')
+if not setup then
+    return
+end
+
+Comment.setup(
 {
     ---Add a space b/w comment and the line
     padding = true,
@@ -9,16 +14,16 @@ require('Comment').setup(
     ---LHS of toggle mappings in NORMAL mode
     toggler = {
         ---Line-comment toggle keymap
-        line = "''",
+        line = "gcc",
         ---Block-comment toggle keymap
-        block = "';",
+        block = "gbc",
     },
     ---LHS of operator-pending mappings in NORMAL and VISUAL mode
     opleader = {
         ---Line-comment keymap
-        line = "''",
+        line = "gc",
         ---Block-comment keymap
-        block = "';",
+        block = "gb",
     },
     ---LHS of extra mappings
     extra = {

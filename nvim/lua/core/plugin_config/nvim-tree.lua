@@ -6,6 +6,10 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
-require("nvim-tree").setup()
+local setup, nvim_tree = pcall(require, 'nvim-tree')
+if not setup then
+    return
+end
+nvim_tree.setup()
 
-vim.keymap.set('n', 'tt', ':NvimTreeFindFileToggle<CR>')
+vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>')

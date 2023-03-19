@@ -1,6 +1,22 @@
-local cmp = require("cmp")
+local cmp_setup, cmp = pcall(require, 'cmp')
+if not cmp_setup then
+    return
+end
 
-require("luasnip.loaders.from_vscode").lazy_load()
+local luasnip_setup, luasnip = pcall(require, 'luasnip')
+if not luasnip_setup then
+    return
+end
+
+-- import lspkind plugin safely
+local lspkind_status, lspkind = pcall(require, "lspkind")
+if not lspkind_status then
+    return
+end
+
+-- load friendly snippets
+require('luasnip/loaders/from_vscode').lazy_load()
+
 
 cmp.setup({
     mapping = cmp.mapping.preset.insert({
@@ -12,7 +28,7 @@ cmp.setup({
     }),
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     sources = cmp.config.sources({
@@ -21,8 +37,39 @@ cmp.setup({
         { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
-    }, {
         { name = 'buffer' },
+        { name = 'path' },
+        { name = 'cmdline' },
     }),
+    -- configure lspkind for vs-code like icons
+    formatting = {
+        format = lspkind.cmp_format({
+            maxwidth = 50,
+            ellipsis_char = "...",
+        }),
+    },
 })
 
+-- `/` cmdline setup.
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        {
+            name = 'cmdline',
+            option = {
+                ignore_cmds = { 'Man', '!' }
+            }
+        }
+    })
+})

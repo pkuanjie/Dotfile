@@ -1,6 +1,23 @@
-require'nvim-treesitter.configs'.setup {
+local setup, treesitter = pcall(require, 'nvim-treesitter.configs')
+if not setup then
+    return
+end
+treesitter.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = {"lua", "vim", "python", "yaml", "json" },
+    ensure_installed = {
+        "lua",
+        "vim",
+        "python",
+        "yaml",
+        "json",
+        "yaml",
+        "html",
+        "css",
+        "markdown",
+        "bash",
+        "dockerfile",
+        "gitignore",
+    },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -10,6 +27,10 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
 
     highlight = {
+        enable = true,
+    },
+
+    indent = {
         enable = true,
     },
 }
