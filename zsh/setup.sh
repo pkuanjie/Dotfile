@@ -28,4 +28,6 @@ conda init zsh
 # nvim dependencies
 conda install neovim
 conda install -c conda-forge nodejs
+npm install -g neovim
+conda install -c conda-forge fd-find
 

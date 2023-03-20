@@ -50,12 +50,12 @@ return require("packer").startup(function(use)
 
 	-- File finder
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use("nvim-telescope/telescope-ui-select.nvim") -- for showing lsp code actions
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.1",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-	use("nvim-telescope/telescope-ui-select.nvim") -- for showing lsp code actions
 
 	-- LSP
 	use({
