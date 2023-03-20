@@ -65,3 +65,6 @@ mason_null_ls.setup({
 	-- auto-install configured formatters & linters (with null-ls)
 	automatic_installation = true,
 })
+
+-- using null_ls for formatting
+vim.keymap.set("n", "<leader>fm", ":lua vim.lsp.buf.formatting_sync()<CR>", { silent = true })
