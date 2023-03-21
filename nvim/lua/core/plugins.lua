@@ -65,6 +65,7 @@ return require("packer").startup(function(use)
 	})
 	use("onsails/lspkind-nvim")
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
+	use({ "ray-x/lsp_signature.nvim" })
 
 	-- Autocompletion
 	use("hrsh7th/nvim-cmp")

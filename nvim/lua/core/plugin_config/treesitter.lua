@@ -14,6 +14,7 @@ treesitter.setup({
 		"html",
 		"css",
 		"markdown",
+		"markdown_inline",
 		"bash",
 		"dockerfile",
 		"gitignore",

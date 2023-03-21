@@ -64,6 +64,10 @@ local on_attach = function(client, bufnr)
 	end)
 	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
 	keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>") -- see outline on right hand side
+
+	-- Call hierarchy
+	keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+	keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
 end
 
 local cmp_nvim_lsp_setup, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

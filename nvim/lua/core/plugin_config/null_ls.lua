@@ -48,7 +48,7 @@ null_ls.setup({
 		diagnostics.cspell.with({ filetypes = { "markdown", "tex" } }),
 		diagnostics.markdownlint.with({ filetypes = { "markdown" } }),
 		-- code actions
-		code_actions.cspell,
+		code_actions.cspell.with({ filetypes = { "markdown", "tex" } }),
 		code_actions.refactoring,
 	},
 	-- configure format on save
@@ -68,4 +68,4 @@ mason_null_ls.setup({
 })
 
 -- using null_ls for formatting
-vim.keymap.set("n", "<leader>fm", ":lua vim.lsp.buf.format()<CR>", { silent = true })
+vim.keymap.set("n", "<leader>fm", ":lua vim.lsp.buf.format{ async = true }<CR>")
