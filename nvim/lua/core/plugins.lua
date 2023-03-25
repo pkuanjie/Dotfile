@@ -106,7 +106,7 @@ return require("packer").startup(function(use)
 	use("tversteeg/registers.nvim")
 
 	-- illuminate current word
-	use("RRethy/vim-illuminate")
+	use("yamatsum/nvim-cursorline")
 
 	-- undo tree
 	use("mbbill/undotree")

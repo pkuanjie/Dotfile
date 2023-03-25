@@ -194,6 +194,11 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-cursorline"] = {
+    loaded = true,
+    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-cursorline",
+    url = "https://github.com/yamatsum/nvim-cursorline"
+  },
   ["nvim-lastplace"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/nvim-lastplace",
@@ -288,11 +293,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-bracketed-paste",
     url = "https://github.com/ConradIrwin/vim-bracketed-paste"
-  },
-  ["vim-illuminate"] = {
-    loaded = true,
-    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/vim-illuminate",
-    url = "https://github.com/RRethy/vim-illuminate"
   },
   ["vim-maximizer"] = {
     loaded = true,
