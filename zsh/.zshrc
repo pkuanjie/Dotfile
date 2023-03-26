@@ -51,7 +51,6 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # Load plugins.
 source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.p10k.zsh
 
 # =============================================
 # load autojump plugin
