@@ -21,11 +21,6 @@ alias ll='ls -lh --color'
 alias la='ls -lha --color'
 alias ..='cd ..'
 
-# If not in tmux, start tmux.
-if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
-  exec tmux
-fi
-
 function zcompile-many() {
   local f
   for f; do zcompile -R -- "$f".zwc "$f"; done
@@ -58,6 +53,18 @@ source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
 . ~/Dotfile/zsh/z.sh
 
 # =============================================
+# fzf setup ![This has to be near the bottom]
+# =============================================
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Use ; as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER=';'
+
+# =============================================
+# zsh autosuggestions color settings
+# =============================================
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=11'
+
+# =============================================
 # conda initialization
 # =============================================
 # >>> conda initialize >>>
@@ -75,17 +82,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# =============================================
-# fzf setup ![This has to be near the bottom]
-# =============================================
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Use ; as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER=';'
-
-# =============================================
-# zsh autosuggestions color settings
-# =============================================
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=11'
 
 # =============================================
 # finally load a super fast theme ![This has to be at the bottom]
