@@ -34,19 +34,19 @@ format = '[$branch]($style) '
 
 [character]
 success_symbol = '[❯](green)'
-error_symbol = '[✗](bold red)'
-vicmd_symbol = '[V](bold blue)'
+error_symbol = '[✗](red)'
+vicmd_symbol = '[V](blue)'
 
 [username]
 show_always = true
-style_user = 'yellow bold'
-style_root = 'black bold'
+style_user = 'yellow'
+style_root = 'black'
 format = '\[[$user]($style)'
 disabled = false
 
 [hostname]
 ssh_only = false
-format =  '[$hostname](bold #d78787)\] '
+format =  '[$hostname](#d78787)\] '
 disabled = false
 
 [conda]
