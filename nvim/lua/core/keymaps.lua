@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 
 -- quick quit and esc
 vim.keymap.set("n", "<leader>q", ":x<CR>", opts)
-vim.keymap.set("i", "<leader>w", ":w<CR>", opts)
+vim.keymap.set("n", "<leader>w", ":w<CR>", opts)
 vim.keymap.set("i", "<leader>j", "<ESC>", opts)
 
 -- buffer navigation
