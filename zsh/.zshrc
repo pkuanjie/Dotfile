@@ -88,4 +88,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 autoload -U colors && colors
-export PS1="%{$reset_color%}[%F{40}%n%{$reset_color%}@%F{39}%m%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}%% "
+export PS1="%{$reset_color%}[%F{40}%n%{$reset_color%}@%F{39}%m%{$reset_color%}] %{$fg[yellow]%}%~"$'\n'"%{$reset_color%}%% "

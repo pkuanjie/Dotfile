@@ -81,12 +81,12 @@ if not lspconfig_setup then
 	return
 end
 
-lspconfig["pyright"].setup({
+lspconfig.pyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
-lspconfig["lua_ls"].setup({
+lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
