@@ -1,4 +1,9 @@
 # =============================================
+# basic settings
+# =============================================
+export CLICOLOR=1
+
+# =============================================
 # paths
 # =============================================
 export PATH=/opt/homebrew/bin:$PATH
@@ -82,11 +87,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
-# =============================================
-# finally load a super fast theme ![This has to be at the bottom]
-# =============================================
-# sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -b ~/.local/bin
-# brew install starship
-export STARSHIP_CONFIG=~/Dotfile/starship/starship.toml
-eval "$(starship init zsh)"
+autoload -U colors && colors
+export PS1="%{$reset_color%}[%F{40}%n%{$reset_color%}@%F{39}%m%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}%% "
