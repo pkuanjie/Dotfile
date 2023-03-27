@@ -4,7 +4,7 @@ if not setup then
 end
 
 toggleterm.setup({
-	open_mapping = [[<c-;>]],
+	open_mapping = [[<leader>;]],
 	direction = "float",
 	start_in_insert = true,
 })
