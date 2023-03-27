@@ -3,15 +3,8 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 -- quick quit and esc
-vim.keymap.set("n", "qq", ":x<CR>", opts)
-vim.keymap.set("i", "jj", "<ESC>", opts)
-vim.keymap.set("i", "kj", "<ESC>", opts)
-vim.keymap.set("i", "jk", "<ESC>", opts)
-vim.keymap.set("i", "kk", "<ESC>", opts)
-vim.keymap.set("t", "jj", "<ESC>", opts)
-vim.keymap.set("t", "kj", "<ESC>", opts)
-vim.keymap.set("t", "jk", "<ESC>", opts)
-vim.keymap.set("t", "kk", "<ESC>", opts)
+vim.keymap.set("n", "<leader>q", ":x<CR>", opts)
+vim.keymap.set("i", "<leader>j", "<ESC>", opts)
 
 -- buffer navigation
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", opts)
