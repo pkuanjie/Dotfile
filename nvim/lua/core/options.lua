@@ -23,3 +23,6 @@ vim.opt.showcmd = true
 
 -- persistent undo
 vim.opt.undofile = true
+
+-- shorten waiting time when typing
+vim.opt.timeoutlen = 500
