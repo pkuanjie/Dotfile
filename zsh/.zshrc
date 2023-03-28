@@ -48,7 +48,6 @@ alias vi='vim'
 alias v='nvim'
 eval $(thefuck --alias)
 alias f='fuck'
-alias j='z'
 alias c='clear'
 alias lg='lazygit'
 alias l='ls -lh --color'
@@ -108,7 +107,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting z)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting autojump)
 
 source $ZSH/oh-my-zsh.sh
 
