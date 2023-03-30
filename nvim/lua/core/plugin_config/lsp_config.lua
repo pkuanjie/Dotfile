@@ -49,8 +49,7 @@ local on_attach = function(client, bufnr)
 	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
 	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
 	keymap.set("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-	keymap.set("x", "<leader>ca", "<cmd>Lspsaga range_code_action<CR>", opts) -- see available code actions, in visual mode will apply to selection
+	keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
 	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
 	keymap.set("n", "<leader>D", "<cmd>Lspsaga show_buffer_diagnostics<CR>", opts) -- show  diagnostics for file
 	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
@@ -69,6 +68,11 @@ local on_attach = function(client, bufnr)
 	-- Call hierarchy
 	keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 	keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+
+	-- sort import using pyright
+	if client.name == "pyright" then
+		keymap.set("n", "<leader>si", "<cmd>PyrightOrganizeImports<CR>")
+	end
 end
 
 local cmp_nvim_lsp_setup, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

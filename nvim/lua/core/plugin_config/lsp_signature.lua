@@ -12,6 +12,6 @@ vim.keymap.set({ "n" }, "<leader>ts", function()
 	lsp_signature.toggle_float_win()
 end, { silent = true, noremap = true, desc = "toggle signature" })
 
-vim.keymap.set({ "n" }, "<Leader>sh", function()
+vim.keymap.set({ "n" }, "<Leader>hp", function()
 	vim.lsp.buf.signature_help()
 end, { silent = true, noremap = true, desc = "toggle signature" })
