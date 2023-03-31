@@ -29,7 +29,7 @@ vim.keymap.set("i", "<C-e>", "<ESC>A", opts)
 
 -- move lines up and down with ctrl-j and ctrl-k
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "K", ":move '<-1<CR>gv-gv", opts)
+vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
 -- add or minus numbers with <leader>a and <leader>x
 vim.keymap.set("n", "<leader>a", "<C-a>", opts)
