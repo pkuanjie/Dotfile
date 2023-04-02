@@ -9,8 +9,8 @@ vim.keymap.set("i", "kj", "<ESC>", opts)
 vim.keymap.set("v", "<leader>j", "<ESC>", opts)
 
 -- buffer navigation
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>", opts)
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", opts)
+vim.keymap.set("n", "<C-n>", ":bnext<CR>", opts)
+vim.keymap.set("n", "<C-p>", ":bprevious<cr>", opts)
 vim.keymap.set("n", "<leader>bc", ":bdelete<CR>", opts)
 
 -- resize windows with ctrl-up, ctrl-down, ctrl-left, ctrl-right
