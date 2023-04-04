@@ -13,6 +13,7 @@ treesitter.setup({
 		"yaml",
 		"html",
 		"css",
+		"latex",
 		"markdown",
 		"markdown_inline",
 		"bash",
@@ -28,6 +29,10 @@ treesitter.setup({
 	auto_install = true,
 
 	highlight = {
+		enable = true,
+	},
+
+	autotag = {
 		enable = true,
 	},
 

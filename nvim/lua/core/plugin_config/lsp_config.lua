@@ -13,6 +13,8 @@ mason_lspconfig.setup({
 	ensure_installed = {
 		"lua_ls",
 		"pyright",
+		"html",
+		"texlab",
 	},
 })
 
@@ -92,6 +94,16 @@ lspconfig.pyright.setup({
 })
 
 lspconfig.lua_ls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lspconfig.html.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lspconfig.texlab.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })

@@ -48,6 +48,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- html auto close tag
+	use("windwp/nvim-ts-autotag")
+
 	-- File finder
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("nvim-telescope/telescope-ui-select.nvim") -- for showing lsp code actions
@@ -80,7 +83,13 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 
 	-- snippets
-	use("L3MON4D3/LuaSnip")
+	use({
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		tag = "v1.2.*",
+		-- install jsregexp (optional!:).
+		run = "make install_jsregexp",
+	})
 	use("saadparwaiz1/cmp_luasnip")
 	use("rafamadriz/friendly-snippets")
 
