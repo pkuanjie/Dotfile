@@ -4,7 +4,8 @@ if not setup then
 end
 bufferline.setup({
 	options = {
-		show_close_icon = false,
-		show_buffer_close_icon = false,
+		buffer_close_icon = "",
+		modified_icon = "●",
+		close_icon = "",
 	},
 })
