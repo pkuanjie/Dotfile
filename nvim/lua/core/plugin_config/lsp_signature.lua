@@ -5,6 +5,8 @@ end
 
 lsp_signature.setup({
 	hi_parameter = "Search",
+	clse_timeout = 200,
+	hint_enable = false,
 })
 
 -- keymaps

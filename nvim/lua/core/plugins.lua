@@ -116,9 +116,6 @@ return require("packer").startup(function(use)
 	-- bufferline
 	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
 
-	-- registers viewer
-	use("tversteeg/registers.nvim")
-
 	-- illuminate current word
 	use("yamatsum/nvim-cursorline")
 

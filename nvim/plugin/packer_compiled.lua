@@ -266,11 +266,6 @@ _G.packer_plugins = {
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
     url = "https://github.com/ThePrimeagen/refactoring.nvim"
   },
-  ["registers.nvim"] = {
-    loaded = true,
-    path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/registers.nvim",
-    url = "https://github.com/tversteeg/registers.nvim"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/Users/JieAn/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
