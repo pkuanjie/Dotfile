@@ -171,7 +171,7 @@ ctrl + alt - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 
 # ===============================================
-# Moving Window Around
+# start and stop
 # ===============================================
 ctrl + alt - q : brew services stop yabai
 ctrl + alt - s : brew services restart yabai
