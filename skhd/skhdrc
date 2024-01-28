@@ -88,8 +88,8 @@ alt - k : yabai -m window --focus north
 # alt - s : yabai -m window --focus recent
 
 # focus monitor
-alt - 0  : yabai -m display --focus next
-alt - 9  : yabai -m display --focus prev
+alt + cmd - n  : yabai -m display --focus next
+alt + cmd - p  : yabai -m display --focus prev
 # shift + alt - 1  : yabai -m display --focus 1
 # shift + alt - 2  : yabai -m display --focus 2
 # shift + alt - 3  : yabai -m display --focus 3
@@ -149,11 +149,11 @@ shift + alt - h : yabai -m window --swap west
 shift + alt - l : yabai -m window --swap east
 shift + alt - j : yabai -m window --swap south
 shift + alt - k : yabai -m window --swap north
-# shift + alt - s : yabai -m window --swap recent
+shift + alt - s : yabai -m window --swap recent
 
 # send window to desktop
-shift + alt - 0 : yabai -m window --space next
-shift + alt - 9 : yabai -m window --space prev
+shift + alt - n : yabai -m window --space next
+shift + alt - p : yabai -m window --space prev
 shift + alt - 1 : yabai -m window --space  1
 shift + alt - 2 : yabai -m window --space  2
 shift + alt - 3 : yabai -m window --space  3
@@ -163,8 +163,8 @@ shift + alt - 6 : yabai -m window --space  6
 shift + alt - 7 : yabai -m window --space  7
 
 # send window to monitor and follow focus
-ctrl + alt - 0  : yabai -m window --display next; yabai -m display --focus next
-ctrl + alt - 9  : yabai -m window --display prev; yabai -m display --focus prev
+ctrl + alt - n  : yabai -m window --display next; yabai -m display --focus next
+ctrl + alt - p  : yabai -m window --display prev; yabai -m display --focus prev
 ctrl + alt - 1  : yabai -m window --display 1; yabai -m display --focus 1
 ctrl + alt - 2  : yabai -m window --display 2; yabai -m display --focus 2
 ctrl + alt - 3  : yabai -m window --display 3; yabai -m display --focus 3
