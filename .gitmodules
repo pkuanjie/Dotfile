@@ -16,3 +16,6 @@
 [submodule "tmux/tpm"]
 	path = tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "nvim/plugin/packer.nvim"]
+	path = nvim/plugin/packer.nvim
+	url = https://github.com/wbthomason/packer.nvim
