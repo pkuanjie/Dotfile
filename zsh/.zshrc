@@ -50,8 +50,10 @@ bindkey -e
 # Load plugins.
 source ~/Dotfile/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/Dotfile/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source ~/Dotfile/zsh/zsh-z/zsh-z.plugin.zsh
 source ~/Dotfile/zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/Dotfile/zsh/zsh-z/zsh-z.plugin.zsh
+# z setting
+ZSHZ_CMD="j"
 
 # =============================================
 # conda initialization
