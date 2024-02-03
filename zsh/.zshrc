@@ -88,4 +88,4 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=11'
 # activate p10k
 # =============================================
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/Dotfile/zsh/.p10k.zsh
