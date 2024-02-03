@@ -12,7 +12,7 @@ style = "Regular"
 action = "ToggleViMode"
 key = "Return"
 mode = "~Search"
-mods = "Shift|Control"
+mods = "Command|Shift"
 
 [selection]
 save_to_clipboard = true
@@ -22,5 +22,5 @@ decorations = "buttonless"
 opacity = 0.9
 
 [window.padding]
-x = 2
-y = 2
+x = 4
+y = 4
