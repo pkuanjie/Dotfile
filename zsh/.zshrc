@@ -30,7 +30,6 @@ alias l='ls -lh --color'
 alias ll='ls -lh --color'
 alias la='ls -lha --color'
 alias ..='cd ..'
-alias j='z'
 
 # mac specific alias
 alias lg='lazygit'
@@ -52,6 +51,7 @@ bindkey -e
 source ~/Dotfile/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/Dotfile/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source ~/Dotfile/zsh/powerlevel10k/powerlevel10k.zsh-theme
+ZSHZ_CMD='j'
 source ~/Dotfile/zsh/zsh-z/zsh-z.plugin.zsh
 
 # =============================================
