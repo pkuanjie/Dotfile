@@ -38,13 +38,6 @@ eval $(thefuck --alias)
 alias f='fuck'
 
 # =============================================
-# editor settings for ranger
-# =============================================
-export VISUAL=nvim;
-export EDITOR=nvim;
-bindkey -e
-
-# =============================================
 # plugin setting
 # =============================================
 # Load plugins.
