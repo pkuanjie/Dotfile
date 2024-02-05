@@ -20,6 +20,13 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # =============================================
+# set default editor and visual
+# =============================================
+export EDITOR="nvim"
+export VISUAL="nvim"
+bindkey -e
+
+# =============================================
 # alias
 # =============================================
 alias vim='nvim'
