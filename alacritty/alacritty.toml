@@ -20,6 +20,7 @@ save_to_clipboard = true
 [window]
 decorations = "buttonless"
 opacity = 0.9
+blur = true
 
 [window.padding]
 x = 4
