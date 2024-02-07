@@ -1,165 +1,148 @@
--- Automatically download the packer plugin manager
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+-- Automatically download the lazy plugin manager
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+-- map the leader key before plugins to make all the mappings in plugins work
+vim.g.mapleader = " "
 
--- Autocommand that reloads neovim whenever you save this file
-vim.cmd([[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost plugins.lua source <afile> | PackerSync
-augroup end
-]])
-
-return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
+require("lazy").setup({
 	-- My plugins here
 
 	-- Theme
-	use("folke/tokyonight.nvim")
+	"folke/tokyonight.nvim",
 
 	-- File explorer
-	use("nvim-tree/nvim-tree.lua")
+	"nvim-tree/nvim-tree.lua",
 
 	-- Status line
-	use("nvim-tree/nvim-web-devicons")
-	use("nvim-lualine/lualine.nvim")
+	"nvim-tree/nvim-web-devicons",
+	"nvim-lualine/lualine.nvim",
 
 	-- formatting & linting
-	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
-	use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
-	use("ThePrimeagen/refactoring.nvim")
+	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+	"ThePrimeagen/refactoring.nvim",
 
 	-- treesitter configuration
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
+		build = function()
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
-	})
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        }
+	},
 
 	-- html auto close tag
-	use("windwp/nvim-ts-autotag")
+	"windwp/nvim-ts-autotag",
 
 	-- File finder
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use("nvim-telescope/telescope-ui-select.nvim") -- for showing lsp code actions
-	use({
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	"nvim-telescope/telescope-ui-select.nvim", -- for showing lsp code actions
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
-	})
-	use({
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter",
-		requires = "nvim-treesitter/nvim-treesitter",
-	})
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 
 	-- LSP
-	use({
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-	})
-	use("onsails/lspkind-nvim")
-	use({ "glepnir/lspsaga.nvim", branch = "main" })
-	use({ "ray-x/lsp_signature.nvim" })
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
+
+	"onsails/lspkind-nvim",
+	{ "glepnir/lspsaga.nvim", branch = "main" },
+	"ray-x/lsp_signature.nvim",
 
 	-- Autocompletion
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-cmdline")
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
 
 	-- snippets
-	use({
+	{
 		"L3MON4D3/LuaSnip",
-		-- follow latest release.
-		tag = "v1.2.*",
 		-- install jsregexp (optional!:).
-		run = "make install_jsregexp",
-	})
-	use("saadparwaiz1/cmp_luasnip")
-	use("rafamadriz/friendly-snippets")
+		build = "make install_jsregexp",
+	},
+	"saadparwaiz1/cmp_luasnip",
+	"rafamadriz/friendly-snippets",
 
 	-- copilot
-	use("github/copilot.vim")
+	"github/copilot.vim",
 
 	-- commenting
-	use("numToStr/Comment.nvim")
+	"numToStr/Comment.nvim",
 
 	-- editing pairs
-	use("windwp/nvim-autopairs")
-	use({ "kylechui/nvim-surround", tag = "*" })
+	"windwp/nvim-autopairs",
+	{ "kylechui/nvim-surround", version = "*" },
 
 	-- window management
-	use("christoomey/vim-tmux-navigator")
-	use("szw/vim-maximizer")
+	"christoomey/vim-tmux-navigator",
+	"szw/vim-maximizer",
 
 	-- git
-	use("lewis6991/gitsigns.nvim")
+	"lewis6991/gitsigns.nvim",
 
 	-- indent guides
-	use("lukas-reineke/indent-blankline.nvim")
+	"lukas-reineke/indent-blankline.nvim",
 
 	-- bufferline
-	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
+	{ "akinsho/bufferline.nvim", version = "v3.*", dependencies = "nvim-tree/nvim-web-devicons" },
 
 	-- illuminate current word
-	use("yamatsum/nvim-cursorline")
+	"yamatsum/nvim-cursorline",
 
 	-- undo tree
-	use("mbbill/undotree")
+	"mbbill/undotree",
 
 	-- edit folders
-	use("stevearc/oil.nvim")
+	"stevearc/oil.nvim",
 
 	-- easy motion
-	use({
+	{
 		"phaazon/hop.nvim",
 		branch = "v2", -- optional but strongly recommended
-	})
+	},
 
 	-- go to last place in file when reopening
-	use("ethanholz/nvim-lastplace")
+	"ethanholz/nvim-lastplace",
 
 	-- automatically set paste mode when pasting
-	use("ConradIrwin/vim-bracketed-paste")
+	"ConradIrwin/vim-bracketed-paste",
 
 	-- multi cursor support
-	use({ "mg979/vim-visual-multi", branch = "master" })
+	{ "mg979/vim-visual-multi", branch = "master" },
 
 	-- split and join
-	use({
+	{
 		"Wansmer/treesj",
-		requires = { "nvim-treesitter" },
-	})
+		dependencies = { "nvim-treesitter" },
+	},
 
 	-- true to false
-	use("nat-418/boole.nvim")
+	"nat-418/boole.nvim",
 
 	-- terminal
-	use({ "akinsho/toggleterm.nvim", tag = "*" })
+	{ "akinsho/toggleterm.nvim", version = "*" },
 
 	-- marks
-	use("chentoast/marks.nvim")
+	"chentoast/marks.nvim",
 
 	-- latex
-	use("lervag/vimtex")
-
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	"lervag/vimtex",
+})

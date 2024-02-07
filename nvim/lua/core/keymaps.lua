@@ -1,6 +1,5 @@
 local opts = { noremap = true, silent = true }
 
-vim.g.mapleader = " "
 
 -- quick quit and esc
 vim.keymap.set("n", "<leader>q", ":x<CR>", opts)
