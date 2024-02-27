@@ -1,5 +1,7 @@
 local opts = { noremap = true, silent = true }
 
+-- map the leader key before plugins to make all the mappings in plugins work
+vim.g.mapleader = " "
 
 -- quick quit and esc
 vim.keymap.set("n", "<leader>q", ":x<CR>", opts)

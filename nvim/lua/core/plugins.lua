@@ -12,9 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- map the leader key before plugins to make all the mappings in plugins work
-vim.g.mapleader = " "
-
 require("lazy").setup({
 	-- My plugins here
 
@@ -40,9 +37,9 @@ require("lazy").setup({
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-        }
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 	},
 
 	-- html auto close tag
