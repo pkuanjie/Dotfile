@@ -125,10 +125,10 @@ alt-tab = 'workspace-back-and-forth'
 alt-w = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-r = 'mode service'
+alt-q = 'mode service'
 
-alt-t = 'fullscreen'
-alt-q = 'layout floating tiling'
+alt-r = 'fullscreen'
+alt-t = 'layout floating tiling'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
