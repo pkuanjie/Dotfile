@@ -41,8 +41,7 @@ alias ..='cd ..'
 # mac specific alias
 alias lg='lazygit'
 alias ra='ranger'
-eval $(thefuck --alias)
-alias f='fuck'
+eval $(thefuck --alias fk)
 
 # =============================================
 # plugin setting
