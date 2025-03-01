@@ -99,7 +99,7 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 
 	-- bufferline
-	{ "akinsho/bufferline.nvim", version = "v3.*", dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "akinsho/bufferline.nvim", branch = "main", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 
 	-- illuminate current word
 	"yamatsum/nvim-cursorline",
