@@ -26,7 +26,7 @@ require("lazy").setup({
 	"nvim-lualine/lualine.nvim",
 
 	-- formatting & linting
-	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+	"nvimtools/none-ls.nvim", -- configure formatters & linters
 	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
 	"ThePrimeagen/refactoring.nvim",
 

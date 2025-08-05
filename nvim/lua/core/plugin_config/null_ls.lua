@@ -1,12 +1,12 @@
--- import null-ls plugin safely
-local setup, null_ls = pcall(require, "null-ls")
-if not setup then
-	return
-end
-
 -- import mason-null-ls plugin safely
 local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
 if not mason_null_ls_status then
+	return
+end
+
+-- import null-ls plugin safely
+local setup, null_ls = pcall(require, "null-ls")
+if not setup then
 	return
 end
 
@@ -45,10 +45,8 @@ null_ls.setup({
 		formatting.stylua.with({ filetypes = { "lua" } }),
 		formatting.black.with({ filetypes = { "python" } }),
 		-- diagnostics
-		diagnostics.cspell.with({ filetypes = { "markdown", "tex" } }),
 		diagnostics.markdownlint.with({ filetypes = { "markdown" } }),
 		-- code actions
-		code_actions.cspell.with({ filetypes = { "markdown", "tex" } }),
 		code_actions.refactoring,
 	},
 	-- configure format on save
@@ -59,7 +57,6 @@ mason_null_ls.setup({
 	-- list of formatters & linters for mason to install
 	ensure_installed = {
 		"stylua", -- lua formatter
-		"cspell",
 		"markdownlint",
 		"black",
 	},
