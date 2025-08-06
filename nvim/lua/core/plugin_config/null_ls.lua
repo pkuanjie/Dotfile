@@ -43,7 +43,7 @@ null_ls.setup({
 		--  to disable file types use
 		--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
 		formatting.stylua.with({ filetypes = { "lua" } }),
-		formatting.black.with({ filetypes = { "python" } }),
+		-- formatting.black.with({ filetypes = { "python" } }),
 		-- diagnostics
 		diagnostics.markdownlint.with({ filetypes = { "markdown" } }),
 		-- code actions
