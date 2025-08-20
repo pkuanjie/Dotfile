@@ -1,6 +1,6 @@
 local M = {}
 
-local rsync_pod_suffix = "7ote"
+local rsync_pod_suffix = "4i6f"
 
 function M.RsyncToPod()
 	vim.cmd("write")
@@ -49,6 +49,9 @@ function M.RsyncToPod()
 			if data and #data > 0 then
 				-- vim.notify("Rsync error:\n" .. table.concat(data, "\n"), vim.log.levels.ERROR)
 			end
+		end,
+		on_exit = function()
+			vim.notify("--- Rsync finished! ---")
 		end,
 	})
 end
