@@ -17,9 +17,8 @@ require("core.plugin_config.completions")
 
 -- LSP & tooling
 require("core.plugin_config.lsp_config")
-require("core.plugin_config.lspsaga")
 require("core.plugin_config.lsp_signature")
-require("core.plugin_config.null_ls")
+require("core.plugin_config.conform")
 
 -- Editing helpers
 require("core.plugin_config.comment")
@@ -34,17 +33,17 @@ require("core.plugin_config.marks")
 require("core.plugin_config.treesitter")
 
 -- Motion / multi-cursor
-require("core.plugin_config.hop")
+require("core.plugin_config.flash")
 require("core.plugin_config.vim_visual_multi")
 
 -- Git
 require("core.plugin_config.gitsigns")
 
--- Terminal
-require("core.plugin_config.toggleterm")
-
 -- LaTeX
 require("core.plugin_config.vimtex")
+
+-- Keymap discovery
+require("core.plugin_config.which_key")
 
 -- AI
 require("core.plugin_config.claudecode")

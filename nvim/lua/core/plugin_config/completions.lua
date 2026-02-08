@@ -26,11 +26,31 @@ cmp.setup({
 		-- Scroll completion documentation down by 4 lines.
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		-- Trigger completion menu manually.
-		["<C-i>"] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.complete(),
 		-- Close the completion menu without selecting.
 		["<C-e>"] = cmp.mapping.abort(),
 		-- Confirm the selected item; do not auto-select the first item.
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
+		-- Tab: select next item or jump to next snippet placeholder.
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		-- Shift-Tab: select previous item or jump to previous snippet placeholder.
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 	}),
 	snippet = {
 		-- Use LuaSnip to expand completion snippets.

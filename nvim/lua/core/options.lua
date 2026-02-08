@@ -30,5 +30,8 @@ vim.opt.undofile = true
 -- shorten waiting time when typing
 vim.opt.timeoutlen = 500
 
--- diable mouse
-vim.opt.mouse = nil
+-- disable mouse
+vim.opt.mouse = ""
+
+-- true color support
+vim.opt.termguicolors = true

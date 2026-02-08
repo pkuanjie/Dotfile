@@ -31,8 +31,7 @@ configs.setup({
 	highlight = { enable = true },
 	-- Enable Treesitter-based indentation where supported.
 	indent = { enable = true },
-	-- Auto-close and rename HTML/JSX tags via Treesitter.
-	autotag = { enable = true },
+	-- Note: nvim-ts-autotag is configured via its own setup(), not here.
 	textobjects = {
 		select = {
 			enable = true,
@@ -89,10 +88,10 @@ configs.setup({
 				["[]"] = "@class.outer", -- Previous class end.
 			},
 			goto_next = {
-				["]d"] = "@conditional.outer", -- Next conditional block.
+				["]i"] = "@conditional.outer", -- Next conditional block.
 			},
 			goto_previous = {
-				["[d"] = "@conditional.outer", -- Previous conditional block.
+				["[i"] = "@conditional.outer", -- Previous conditional block.
 			},
 		},
 		lsp_interop = {

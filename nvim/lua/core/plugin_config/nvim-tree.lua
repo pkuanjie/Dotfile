@@ -6,9 +6,6 @@ vim.g.loaded_netrw = 1
 -- Disable netrwPlugin to prevent conflicts with nvim-tree.
 vim.g.loaded_netrwPlugin = 1
 
--- Enable true color support for better highlight rendering.
-vim.opt.termguicolors = true
-
 -- Setup
 local ok, nvim_tree = pcall(require, "nvim-tree")
 if not ok then

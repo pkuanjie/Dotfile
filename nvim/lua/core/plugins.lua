@@ -1,6 +1,6 @@
 -- Automatically download the lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -20,7 +20,6 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 	{
 		"akinsho/bufferline.nvim",
-		branch = "main",
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
@@ -44,7 +43,6 @@ require("lazy").setup({
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
 	"onsails/lspkind-nvim",
-	{ "glepnir/lspsaga.nvim", branch = "main" },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "InsertEnter",
@@ -65,12 +63,6 @@ require("lazy").setup({
 	},
 	"saadparwaiz1/cmp_luasnip",
 	"rafamadriz/friendly-snippets",
-	"github/copilot.vim",
-
-	-- Formatting / linting / refactor
-	"nvimtools/none-ls.nvim", -- configure formatters & linters
-	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
-	"ThePrimeagen/refactoring.nvim",
 
 	-- Treesitter & text objects
 	{
@@ -99,10 +91,7 @@ require("lazy").setup({
 	"chentoast/marks.nvim",
 
 	-- Motion / multi-cursor
-	{
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
-	},
+	{ "folke/flash.nvim", event = "VeryLazy" },
 	{ "mg979/vim-visual-multi", branch = "master" },
 
 	-- Window / split / tmux
@@ -112,13 +101,17 @@ require("lazy").setup({
 	-- Git
 	"lewis6991/gitsigns.nvim",
 
-	-- Terminal
-	{ "akinsho/toggleterm.nvim", version = "*" },
-
 	-- LaTeX
 	"lervag/vimtex",
 
-	-- Claude code
+	-- Formatting
+	"stevearc/conform.nvim",
+
+	-- Keymap discovery
+	{ "folke/which-key.nvim", event = "VeryLazy" },
+
+	-- AI
+	"github/copilot.vim",
 	{
 		"coder/claudecode.nvim",
 		dependencies = { "folke/snacks.nvim" },

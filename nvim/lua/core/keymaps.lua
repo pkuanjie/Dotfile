@@ -20,8 +20,7 @@ vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", opts)
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- move to the head and end of lines with ctrl-a and ctrl-e following linux keybindings
-vim.keymap.set("n", "<C-a>", "^", opts)
+-- move to the head and end of lines following linux keybindings
 vim.keymap.set("n", "<C-e>", "g_", opts)
 vim.keymap.set("v", "<C-a>", "^", opts)
 vim.keymap.set("v", "<C-e>", "g_", opts)
@@ -32,10 +31,6 @@ vim.keymap.set("i", "<C-e>", "<ESC>A", opts)
 -- move lines up and down with ctrl-j and ctrl-k
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
-
--- add or minus numbers with <leader>a and <leader>x
-vim.keymap.set("n", "<leader>a", "<C-a>", opts)
-vim.keymap.set("n", "<leader>x", "<C-x>", opts)
 
 -- split window navigation
 vim.keymap.set("n", "<leader>sv", "<C-w>v", opts) -- vertical split
@@ -59,11 +54,23 @@ vim.keymap.set("v", "<leader>y", '"+y') -- copy to system clipboard
 vim.keymap.set("n", "<leader>y", '"+y') -- copy to system clipboard
 vim.keymap.set("n", "<leader>Y", '"+yg_') -- copy to system clipboard
 
---paste from system clipboard
+-- paste from system clipboard
 vim.keymap.set("n", "<leader>p", '"+p') -- paste from system clipboard
 vim.keymap.set("v", "<leader>p", '"+p') -- paste from system clipboard
 vim.keymap.set("n", "<leader>P", '"+P') -- paste from system clipboard
 vim.keymap.set("v", "<leader>P", '"+P') -- paste from system clipboard
+
+-- terminal mode settings
+vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+-- Open a new terminal in a split
+vim.keymap.set("n", "<leader>tv", ":botright vnew<CR>:term<CR>i", opts) -- Vertical (right)
+vim.keymap.set("n", "<leader>th", ":botright new<CR>:term<CR>i", opts) -- Horizontal (bottom)
+-- disable diagnostics in terminal buffers (prevents dotted underlines)
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function(args)
+		vim.diagnostic.enable(false, { bufnr = args.buf })
+	end,
+})
 
 -- toggle undo tree
 vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", opts)

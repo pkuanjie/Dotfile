@@ -8,9 +8,8 @@ end
 
 boole.setup({
 	mappings = {
-		-- Override the default increment mapping with <leader>a.
-		increment = "<leader>a",
-		-- Override the default decrement mapping with <leader>x.
-		decrement = "<leader>x",
+		-- Use default <C-a>/<C-x> (extends vim's built-in with boolean toggling).
+		increment = "<C-a>",
+		decrement = "<C-x>",
 	},
 })
