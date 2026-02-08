@@ -21,6 +21,9 @@ vim.opt.smartcase = true
 -- show command
 vim.opt.showcmd = true
 
+-- completion menu behavior
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
 -- persistent undo
 vim.opt.undofile = true
 

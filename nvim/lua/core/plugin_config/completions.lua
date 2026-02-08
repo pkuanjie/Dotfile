@@ -16,14 +16,6 @@ if not lspkind_ok then
 	return
 end
 
-local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_lsp_ok then
-	return
-end
-
--- Advertise completion capabilities to LSP servers (shared via vim.g).
-vim.g.lsp_capabilities = cmp_nvim_lsp.default_capabilities()
-
 -- Load VS Code-style snippets from friendly-snippets (non-default behavior).
 require("luasnip/loaders/from_vscode").lazy_load()
 
