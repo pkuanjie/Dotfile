@@ -1,5 +1,8 @@
-local setup, oil = pcall(require, "oil")
-if not setup then
+-- Plugin: oil.nvim
+
+-- Setup
+local ok, oil = pcall(require, "oil")
+if not ok then
 	return
 end
 

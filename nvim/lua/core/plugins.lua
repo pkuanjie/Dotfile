@@ -13,24 +13,64 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- My plugins here
-
-	-- Theme
+	-- Theme & UI
 	"folke/tokyonight.nvim",
-
-	-- File explorer
-	"nvim-tree/nvim-tree.lua",
-
-	-- Status line
 	"nvim-tree/nvim-web-devicons",
 	"nvim-lualine/lualine.nvim",
+	"lukas-reineke/indent-blankline.nvim",
+	{
+		"akinsho/bufferline.nvim",
+		branch = "main",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+	},
+	"yamatsum/nvim-cursorline",
+	"mbbill/undotree",
 
-	-- formatting & linting
+	-- File navigation
+	"nvim-tree/nvim-tree.lua",
+	"stevearc/oil.nvim",
+
+	-- Fuzzy finder / picker
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	"nvim-telescope/telescope-ui-select.nvim", -- for showing lsp code actions
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+
+	-- LSP core & UI
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
+	"onsails/lspkind-nvim",
+	{ "glepnir/lspsaga.nvim", branch = "main" },
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+	},
+
+	-- Completion & snippets
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	{
+		"L3MON4D3/LuaSnip",
+		-- install jsregexp (optional!:).
+		build = "make install_jsregexp",
+	},
+	"saadparwaiz1/cmp_luasnip",
+	"rafamadriz/friendly-snippets",
+	"github/copilot.vim",
+
+	-- Formatting / linting / refactor
 	"nvimtools/none-ls.nvim", -- configure formatters & linters
 	"jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
 	"ThePrimeagen/refactoring.nvim",
 
-	-- treesitter configuration
+	-- Treesitter & text objects
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = function()
@@ -41,105 +81,44 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 	},
-
-	-- html auto close tag
-	"windwp/nvim-ts-autotag",
-
-	-- File finder
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	"nvim-telescope/telescope-ui-select.nvim", -- for showing lsp code actions
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
-	-- LSP
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
-	"neovim/nvim-lspconfig",
-
-	"onsails/lspkind-nvim",
-	{ "glepnir/lspsaga.nvim", branch = "main" },
-	"ray-x/lsp_signature.nvim",
-
-	-- Autocompletion
-	"hrsh7th/nvim-cmp",
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-
-	-- snippets
-	{
-		"L3MON4D3/LuaSnip",
-		-- install jsregexp (optional!:).
-		build = "make install_jsregexp",
-	},
-	"saadparwaiz1/cmp_luasnip",
-	"rafamadriz/friendly-snippets",
-
-	-- copilot
-	"github/copilot.vim",
-
-	-- commenting
-	"numToStr/Comment.nvim",
-
-	-- editing pairs
-	"windwp/nvim-autopairs",
-	{ "kylechui/nvim-surround", version = "*" },
-
-	-- window management
-	"christoomey/vim-tmux-navigator",
-	"szw/vim-maximizer",
-
-	-- git
-	"lewis6991/gitsigns.nvim",
-
-	-- indent guides
-	"lukas-reineke/indent-blankline.nvim",
-
-	-- bufferline
-	{ "akinsho/bufferline.nvim", branch = "main", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
-
-	-- illuminate current word
-	"yamatsum/nvim-cursorline",
-
-	-- undo tree
-	"mbbill/undotree",
-
-	-- edit folders
-	"stevearc/oil.nvim",
-
-	-- easy motion
-	{
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
-	},
-
-	-- go to last place in file when reopening
-	"ethanholz/nvim-lastplace",
-
-	-- automatically set paste mode when pasting
-	"ConradIrwin/vim-bracketed-paste",
-
-	-- multi cursor support
-	{ "mg979/vim-visual-multi", branch = "master" },
-
-	-- split and join
 	{
 		"Wansmer/treesj",
 		dependencies = { "nvim-treesitter" },
 	},
 
-	-- true to false
+	-- Editing helpers
+	"numToStr/Comment.nvim",
+	"windwp/nvim-autopairs",
+	{ "kylechui/nvim-surround", version = "*" },
+	"windwp/nvim-ts-autotag",
+	"ethanholz/nvim-lastplace",
+	"ConradIrwin/vim-bracketed-paste",
 	"nat-418/boole.nvim",
-
-	-- terminal
-	{ "akinsho/toggleterm.nvim", version = "*" },
-
-	-- marks
 	"chentoast/marks.nvim",
 
-	-- latex
+	-- Motion / multi-cursor
+	{
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+	},
+	{ "mg979/vim-visual-multi", branch = "master" },
+
+	-- Window / split / tmux
+	"christoomey/vim-tmux-navigator",
+	"szw/vim-maximizer",
+
+	-- Git
+	"lewis6991/gitsigns.nvim",
+
+	-- Terminal
+	{ "akinsho/toggleterm.nvim", version = "*" },
+
+	-- LaTeX
 	"lervag/vimtex",
+
+	-- Claude code
+	{
+		"coder/claudecode.nvim",
+		dependencies = { "folke/snacks.nvim" },
+	},
 })

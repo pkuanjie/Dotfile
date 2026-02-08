@@ -1,5 +1,9 @@
-local setup, nvim_surrond = pcall(require, 'nvim-surround')
-if not setup then
-    return
+-- Plugin: nvim-surround
+
+-- Setup
+local ok, surround = pcall(require, "nvim-surround")
+if not ok then
+	return
 end
-nvim_surrond.setup()
+
+surround.setup()

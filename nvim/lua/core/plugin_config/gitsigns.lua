@@ -1,6 +1,9 @@
-local setup, gitsigns = pcall(require, 'gitsigns')
-if not setup then
-    return
+-- Plugin: gitsigns.nvim
+
+-- Setup
+local ok, gitsigns = pcall(require, "gitsigns")
+if not ok then
+	return
 end
 
 gitsigns.setup()

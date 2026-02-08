@@ -1,33 +1,48 @@
--- import mason-null-ls plugin safely
-local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
-if not mason_null_ls_status then
+-- Plugin: none-ls.nvim + mason-null-ls.nvim
+
+-- Setup
+local mason_null_ls_ok, mason_null_ls = pcall(require, "mason-null-ls")
+if not mason_null_ls_ok then
 	return
 end
 
--- import null-ls plugin safely
-local setup, null_ls = pcall(require, "null-ls")
-if not setup then
+local null_ls_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_ok then
 	return
 end
 
--- for conciseness
-local formatting = null_ls.builtins.formatting -- to setup formatters
-local diagnostics = null_ls.builtins.diagnostics -- to setup linters
-local code_actions = null_ls.builtins.code_actions -- to setup code actions
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
 
--- to setup format on save
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
+-- Set up format-on-save only when no other LSP formatter exists.
 local on_attach = function(current_client, bufnr)
+	-- Detect whether any non-null-ls client can format this buffer.
+	local function has_other_formatter()
+		for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+			-- Check for any non-null-ls client that can format.
+			if client.name ~= "null-ls" and client.supports_method("textDocument/formatting") then
+				return true
+			end
+		end
+		return false
+	end
+
 	if current_client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
 			buffer = bufnr,
 			callback = function()
+				-- Prefer LSP server formatting when available; fall back to null-ls otherwise.
+				if has_other_formatter() then
+					return
+				end
 				vim.lsp.buf.format({
+					-- Use null-ls only when no other formatter is available.
 					filter = function(client)
-						--  only use null-ls for formatting instead of lsp server
 						return client.name == "null-ls"
 					end,
 					bufnr = bufnr,
@@ -36,33 +51,31 @@ local on_attach = function(current_client, bufnr)
 		})
 	end
 end
--- configure null_ls
+
 null_ls.setup({
-	-- setup formatters & linters
 	sources = {
-		--  to disable file types use
-		--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
+		-- Format Lua files with Stylua.
 		formatting.stylua.with({ filetypes = { "lua" } }),
-		-- formatting.black.with({ filetypes = { "python" } }),
-		-- diagnostics
+		-- Lint Markdown files with markdownlint.
 		diagnostics.markdownlint.with({ filetypes = { "markdown" } }),
-		-- code actions
+		-- Provide refactoring code actions from external tooling.
 		code_actions.refactoring,
 	},
-	-- configure format on save
+	-- Enable format-on-save using null-ls when no LSP formatter exists.
 	on_attach = on_attach,
 })
 
 mason_null_ls.setup({
-	-- list of formatters & linters for mason to install
+	-- Auto-install these external tools for null-ls integration.
 	ensure_installed = {
-		"stylua", -- lua formatter
-		"markdownlint",
-		"black",
+		"stylua", -- Ensure Stylua formatter is installed.
+		"markdownlint", -- Ensure markdownlint is installed.
+		"black", -- Ensure Black formatter is installed.
 	},
-	-- auto-install configured formatters & linters (with null-ls)
+	-- Install configured tools automatically.
 	automatic_installation = true,
 })
 
--- using null_ls for formatting
+-- Keymaps
+-- Manual format keymap using the LSP formatting API.
 vim.keymap.set("n", "<leader>fm", ":lua vim.lsp.buf.format{ async = true }<CR>")

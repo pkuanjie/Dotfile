@@ -1,6 +1,9 @@
-local setup, auto_pairs = pcall(require, 'nvim-autopairs')
-if not setup then
-    return
+-- Plugin: nvim-autopairs
+
+-- Setup
+local ok, autopairs = pcall(require, "nvim-autopairs")
+if not ok then
+	return
 end
 
-auto_pairs.setup()
+autopairs.setup()

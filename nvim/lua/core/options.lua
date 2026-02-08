@@ -6,7 +6,7 @@ vim.opt.expandtab = true
 vim.opt.shiftround = true
 
 -- sign column and command row
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 vim.opt.signcolumn = "yes"
 
 -- line numbers

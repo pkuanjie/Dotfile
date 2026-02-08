@@ -1,11 +1,15 @@
-local setup, treesj = pcall(require, "treesj")
-if not setup then
+-- Plugin: treesj
+
+-- Setup
+local ok, treesj = pcall(require, "treesj")
+if not ok then
 	return
 end
 
 treesj.setup()
 
--- For extending default preset with `recursive = true`, but this doesn't work with dot
+-- Keymaps
+-- Toggle split/join recursively with gj (custom keymap).
 vim.keymap.set("n", "gj", function()
 	treesj.toggle({ split = { recursive = true } })
 end)

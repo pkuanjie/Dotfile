@@ -1,162 +1,120 @@
-local setup, treesitter = pcall(require, "nvim-treesitter.configs")
-if not setup then
+-- Plugin: nvim-treesitter
+
+-- Setup
+local ok, configs = pcall(require, "nvim-treesitter.configs")
+if not ok then
 	return
 end
-treesitter.setup({
-	-- A list of parser names, or "all" (the five listed parsers should always be installed)
+
+configs.setup({
+	-- Install and maintain parsers for these languages.
 	ensure_installed = {
-		"lua",
-		"vim",
-		"python",
-		"yaml",
-		"json",
-		"yaml",
-		"html",
-		"css",
-		"latex",
-		"markdown",
-		"markdown_inline",
-		"bash",
-		"dockerfile",
-		"gitignore",
+		"bash", -- Parser for bash files.
+		"css", -- Parser for CSS files.
+		"dockerfile", -- Parser for Dockerfiles.
+		"gitignore", -- Parser for .gitignore files.
+		"html", -- Parser for HTML files.
+		"json", -- Parser for JSON files.
+		"latex", -- Parser for LaTeX files.
+		"lua", -- Parser for Lua files.
+		"markdown", -- Parser for Markdown files.
+		"markdown_inline", -- Parser for inline Markdown.
+		"python", -- Parser for Python files.
+		"vim", -- Parser for Vimscript files.
+		"yaml", -- Parser for YAML files.
 	},
-
-	-- Install parsers synchronously (only applied to `ensure_installed`)
+	-- Do not block startup while installing parsers.
 	sync_install = false,
-
-	-- Automatically install missing parsers when entering buffer
-	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+	-- Auto-install missing parsers on buffer enter.
 	auto_install = true,
-
-	highlight = {
-		enable = true,
-	},
-
-	autotag = {
-		enable = true,
-	},
-
-	indent = {
-		enable = true,
-	},
-
-	-- rainbow tree-sitter
-	rainbow = {
-		enable = true,
-		disable = { "bash" },
-		extended_mode = true,
-		max_file_lines = nil,
-	},
-
+	-- Enable Treesitter-powered highlighting (non-regex highlighting).
+	highlight = { enable = true },
+	-- Enable Treesitter-based indentation where supported.
+	indent = { enable = true },
+	-- Auto-close and rename HTML/JSX tags via Treesitter.
+	autotag = { enable = true },
 	textobjects = {
 		select = {
 			enable = true,
-
-			-- Automatically jump forward to textobj, similar to targets.vim
+			-- Jump forward automatically to the nearest textobject.
 			lookahead = true,
-
+			-- Define custom textobject selection mappings.
 			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				-- You can optionally set descriptions to the mappings (used in the desc parameter of
-				-- nvim_buf_set_keymap) which plugins like which-key display
-				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-				-- You can also use captures from other query groups like `locals.scm`
-				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+				["af"] = "@function.outer", -- Select around function.
+				["if"] = "@function.inner", -- Select inside function.
+				["ac"] = "@class.outer", -- Select around class.
+				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" }, -- Select inside class.
+				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" }, -- Select around scope.
 			},
-			-- You can choose the select mode (default is charwise 'v')
-			--
-			-- Can also be a function which gets passed a table with the keys
-			-- * query_string: eg '@function.inner'
-			-- * method: eg 'v' or 'o'
-			-- and should return the mode ('v', 'V', or '<c-v>') or a table
-			-- mapping query_strings to modes.
+			-- Choose selection modes per textobject (charwise/linewise/blockwise).
 			selection_modes = {
-				["@parameter.outer"] = "v", -- charwise
-				["@function.outer"] = "V", -- linewise
-				["@class.outer"] = "<c-v>", -- blockwise
+				["@parameter.outer"] = "v", -- Use character-wise selection for parameters.
+				["@function.outer"] = "V", -- Use line-wise selection for functions.
+				["@class.outer"] = "<c-v>", -- Use block-wise selection for classes.
 			},
-			-- If you set this to `true` (default is `false`) then any textobject is
-			-- extended to include preceding or succeeding whitespace. Succeeding
-			-- whitespace has priority in order to act similarly to eg the built-in
-			-- `ap`.
-			--
-			-- Can also be a function which gets passed a table with the keys
-			-- * query_string: eg '@function.inner'
-			-- * selection_mode: eg 'v'
-			-- and should return true of false
+			-- Extend selection to include surrounding whitespace.
 			include_surrounding_whitespace = true,
 		},
-
 		swap = {
 			enable = true,
+			-- Swap function parameters with custom mappings.
 			swap_next = {
-				["<leader>sn"] = "@parameter.inner",
+				["<leader>sn"] = "@parameter.inner", -- Swap with next parameter.
 			},
 			swap_previous = {
-				["<leader>sp"] = "@parameter.inner",
+				["<leader>sp"] = "@parameter.inner", -- Swap with previous parameter.
 			},
 		},
-
 		move = {
 			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
+			-- Add textobject motions and record them in the jumplist.
+			set_jumps = true,
 			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = { query = "@class.outer", desc = "Next class start" },
-				--
-				-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-				["]o"] = "@loop.*",
-				-- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-				--
-				-- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-				-- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-				["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-				["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+				["]m"] = "@function.outer", -- Next function start.
+				["]]"] = { query = "@class.outer", desc = "Next class start" }, -- Next class start.
+				["]o"] = "@loop.*", -- Next loop start.
+				["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" }, -- Next scope start.
+				["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" }, -- Next fold start.
 			},
 			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
+				["]M"] = "@function.outer", -- Next function end.
+				["]["] = "@class.outer", -- Next class end.
 			},
 			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
+				["[m"] = "@function.outer", -- Previous function start.
+				["[["] = "@class.outer", -- Previous class start.
 			},
 			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
+				["[M"] = "@function.outer", -- Previous function end.
+				["[]"] = "@class.outer", -- Previous class end.
 			},
-			-- Below will go to either the start or the end, whichever is closer.
-			-- Use if you want more granular movements
-			-- Make it even more gradual by adding multiple queries and regex.
 			goto_next = {
-				["]d"] = "@conditional.outer",
+				["]d"] = "@conditional.outer", -- Next conditional block.
 			},
 			goto_previous = {
-				["[d"] = "@conditional.outer",
+				["[d"] = "@conditional.outer", -- Previous conditional block.
 			},
 		},
-
 		lsp_interop = {
 			enable = true,
+			-- Provide LSP-like peek definition windows for Treesitter textobjects.
 			border = "none",
 			floating_preview_opts = {},
 			peek_definition_code = {
-				["<leader>df"] = "@function.outer",
-				["<leader>dF"] = "@class.outer",
+				["<leader>df"] = "@function.outer", -- Peek function definition.
+				["<leader>dF"] = "@class.outer", -- Peek class definition.
 			},
 		},
 	},
 })
 
-local repeatable_move_setup, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
-if not repeatable_move_setup then
+local repeatable_ok, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
+if not repeatable_ok then
 	return
 end
 
--- Repeat movement with ; and ,
--- ensure ; goes forward and , goes backward regardless of the last direction
+-- Keymaps
+-- Repeat the last textobject move with ;
 vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+-- Repeat the last textobject move in reverse with ,
 vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)

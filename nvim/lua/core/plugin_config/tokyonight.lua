@@ -1,2 +1,9 @@
+-- Plugin: tokyonight.nvim
+
+-- Settings
+-- Enable true color support for the colorscheme (non-default for some terminals).
 vim.o.termguicolors = true
-vim.cmd [[ colorscheme tokyonight-night ]]
+
+-- Setup
+-- Set Tokyonight as the active colorscheme.
+vim.cmd("colorscheme tokyonight")

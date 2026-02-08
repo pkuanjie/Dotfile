@@ -1,22 +1,16 @@
-local setup, boole = pcall(require, "boole")
-if not setup then
+-- Plugin: boole.nvim
+
+-- Setup
+local ok, boole = pcall(require, "boole")
+if not ok then
 	return
 end
 
 boole.setup({
 	mappings = {
+		-- Override the default increment mapping with <leader>a.
 		increment = "<leader>a",
+		-- Override the default decrement mapping with <leader>x.
 		decrement = "<leader>x",
 	},
-	-- User defined loops
-	-- additions = {
-	--   {'Foo', 'Bar'},
-	--   {'tic', 'tac', 'toe'}
-	-- },
-	-- allow_caps_additions = {
-	--   {'enable', 'disable'}
-	-- enable → disable
-	-- Enable → Disable
-	-- ENABLE → DISABLE
-	-- }
 })
