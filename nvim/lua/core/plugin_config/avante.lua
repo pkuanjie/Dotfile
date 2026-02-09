@@ -49,14 +49,38 @@ avante.setup({
 			-- Dismiss suggestion (Ctrl-[ is the same as Esc in many terminals).
 			dismiss = "<C-[>",
 		},
-
-		-- Submit mappings (the default config uses <C-s> for insert submit already,
-		-- we keep it explicit here).
+		diff = {
+			ours = "co",
+			theirs = "ct",
+			all_theirs = "ca",
+			both = "cb",
+			cursor = "cc",
+			next = "]x",
+			prev = "[x",
+		},
+		jump = {
+			next = "]]",
+			prev = "[[",
+		},
 		submit = {
-			-- Submit in insert mode.
-			insert = "<C-s>",
-			-- Submit in normal mode (keep Enter).
 			normal = "<CR>",
+			insert = "<C-s>",
+		},
+		cancel = {
+			normal = { "<C-c>", "<Esc>", "q" },
+			insert = { "<C-c>" },
+		},
+		sidebar = {
+			apply_all = "A",
+			apply_cursor = "a",
+			retry_user_request = "r",
+			edit_user_request = "e",
+			switch_windows = "<Tab>",
+			reverse_switch_windows = "<S-Tab>",
+			remove_file = "d",
+			add_file = "@",
+			close = { "<Esc>", "q" },
+			close_from_input = nil, -- e.g., { normal = "<Esc>", insert = "<C-d>" }
 		},
 	},
 })
