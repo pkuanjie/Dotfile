@@ -47,3 +47,4 @@ require("core.plugin_config.which_key")
 
 -- AI
 require("core.plugin_config.claudecode")
+require("core.plugin_config.avante")
